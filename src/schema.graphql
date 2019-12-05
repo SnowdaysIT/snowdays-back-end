@@ -3,6 +3,7 @@ type Query {
   drafts: [Post!]!
   post(id: ID!): Post
   me: User
+  person: Person
 }
 
 type Mutation {
@@ -35,4 +36,10 @@ type Post {
   title: String!
   content: String!
   author: User!
+}
+
+type Person {
+  id: ID!,
+  name: String!,
+  email: String!
 }

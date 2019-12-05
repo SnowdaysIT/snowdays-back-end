@@ -1,24 +1,47 @@
-# Specifies the HTTP endpoint of your Prisma API (deployed to a Prisma Demo server).
-endpoint: https://localhost:4466
+# This service is based on the type definitions in the two files
+# databasetypes.prisma` and `database/enums.prisma`
+datamodel:
+  - types.prisma
+# - database/enums.prisma
 
-# Defines your models, each model is mapped to the database as a table.
-datamodel: datamodel.prisma
+# The endpoint represents the HTTP endpoint for your Prisma API.
+# It encodes several pieces of information:
+# * Prisma server (`localhost:4466` in this example)
+# * Service name (`myservice` in this example)
+# * Stage (`dev` in this example)
+# NOTE: When service name and stage are set to `default`, they
+# can be omitted.
+# Meaning http://myserver.com/default/default can be written
+# as http://myserver.com.
+endpoint: http://localhost:4466/
 
-# Specifies the language and directory for the generated Prisma client.
+## The secret is used to create JSON web tokens (JWTs). These
+# tokens need to be attached in the `Authorization` header
+# of HTTP requests made against the Prisma endpoint.
+# WARNING: If the secret is not provided, the Prisma API can
+# be accessed without authentication!
+# Info: https://www.prisma.io/docs/reference/prisma-api/concepts-utee3eiquo#authentication
+secret: ${env:PRISMA_SECRET}
+
+# Generate a Prisma client in JavaScript and store in
+# a folder called `generated/prisma-client`.
+# It also downloads the Prisma GraphQL schema and stores it
+# in `generated/prisma.graphql`.
 generate:
   - generator: typescript-client
     output: ../src/generated/prisma-client
+  - generator: graphql-schema
+    output: ../src/generated/schema.graphql
 
-# Seed your service with initial data based on `seed.graphql`.
-seed:
-  import: seed.graphql
-
-# Ensures Prisma client is re-generated after a datamodel change.
+# A "post-deployment" hook that regenerates
+# the Prisma client.
 hooks:
   post-deploy:
     - prisma generate
 
-# If specified, the `secret` must be used to generate a JWT which is attached
-# to the `Authorization` header of HTTP requests made against the Prisma API.
-# Info: https://www.prisma.io/docs/reference/prisma-api/concepts-utee3eiquo#authentication
-# secret: ${env:PRISMA_SECRET}
+seed:
+  # Executes a Node.js script to seed the database with
+  # initial data.
+  # run: node data/seed.js
+  # imports data from seed file
+  import: seed.graphql
