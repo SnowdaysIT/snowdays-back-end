@@ -1,45 +1,55 @@
-type Query {
-  feed: [Post!]!
-  drafts: [Post!]!
-  post(id: ID!): Post
-  me: User
-  person: Person
-}
-
-type Mutation {
-  signup(email: String!, password: String!, name: String!): AuthPayload!
-  login(email: String!, password: String!): AuthPayload!
-  createDraft(title: String!, content: String!): Post!
-  publish(id: ID!): Post!
-  deletePost(id: ID!): Post!
-}
-
-type Subscription {
-  feedSubscription: Post
-}
-
-type AuthPayload {
-  token: String!
-  user: User!
+type Profile{
+  id: ID!
+  first_name: String!
+  last_name: String!
+  univeristy: String!
+  phone_number: Int!
+  badge_number: String!
+  gender: String!
+  food_allergies: String!
+  height: Float
+  weight: Float
+  shoe_size: String
+  activity: String
+  order:
 }
 
 type User {
   id: ID!
+  profile: 
   email: String!
-  name: String!
-  posts: [Post!]!
+  password: String!
 }
 
-type Post {
+type Role{
   id: ID!
-  published: Boolean!
-  title: String!
-  content: String!
-  author: User!
+  name: String
+  permission: String
 }
 
-type Person {
-  id: ID!,
-  name: String!,
-  email: String!
+type Permission{
+  id: ID!
+  action: 
+  resources:
+  domain: 
+}
+
+type Univeristy{
+  id:ID!
+  contact_person: String!
+  adress: String
+  name: String!
+}
+
+type Activity{
+  id: ID!
+  name: String
+  date_of_activity: String
+}
+
+type Accomodation{
+  id: ID!
+  address: String!
+  host: String!
+  phone_number: Int!
 }
