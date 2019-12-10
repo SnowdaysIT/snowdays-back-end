@@ -1,17 +1,60 @@
-type Post {
+type Profile{
   id: ID! @id
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-  published: Boolean! @default(value: false)
-  title: String!
-  content: String!
-  author: User!
+  first_name: String!
+  last_name: String!
+  univeristy: String!
+  phone_number: String! @unique
+  badge_number: String!
+  gender: GenderType!
+  food_allergies: String!
+  height: Float
+  weight: Float
+  shoe_size: String
+  activity: [Activity]
+  accomodation: Accomodation
+}
+
+enum GenderType {
+  MALE
+  FEMALE
 }
 
 type User {
-  id: ID! @id
+  id: ID! @id 
+  profile: String! @relation(link: INLINE)
   email: String! @unique
   password: String!
+}
+
+type Role{
+  id: ID! @id
+  name: String
+  permission: [Permission]
+}
+
+type Permission{
+  id: ID! @id @relation(link: INLINE)
+  action: String
+  resources: String
+  domain: String
+}
+
+type Univeristy{
+  id:ID! @id @relation(link: INLINE)
+  contact_person: String
+  address: String
   name: String!
-  posts: [Post!]!
+}
+
+type Activity{
+  id: ID! @id @relation(link: INLINE)
+  name: String 
+  date_of_activity: DateTime
+}
+
+type Accomodation{
+  id: ID! @id @relation(link: INLINE)
+  address: String!
+  host: String! @relation(link: INLINE)
+  phone_number: String! @unique
 }
