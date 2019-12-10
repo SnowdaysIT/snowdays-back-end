@@ -3,20 +3,24 @@ type Profile{
   first_name: String!
   last_name: String!
   univeristy: String!
-  phone_number: Int!
+  phone_number: String!
   badge_number: String!
-  gender: String!
+  gender: GenderType!
   food_allergies: String!
   height: Float
   weight: Float
   shoe_size: String
-  activity: String
-  order:
+  activity: [Activity]
+}
+
+enum GenderType {
+  MALE
+  FEMALE
 }
 
 type User {
   id: ID!
-  profile: 
+  profile: String!
   email: String!
   password: String!
 }
@@ -24,20 +28,20 @@ type User {
 type Role{
   id: ID!
   name: String
-  permission: String
+  permission: [Permission]
 }
 
 type Permission{
   id: ID!
-  action: 
-  resources:
-  domain: 
+  action: String
+  resources: String
+  domain: String
 }
 
 type Univeristy{
   id:ID!
-  contact_person: String!
-  adress: String
+  contact_person: String
+  address: String
   name: String!
 }
 
@@ -51,5 +55,5 @@ type Accomodation{
   id: ID!
   address: String!
   host: String!
-  phone_number: Int!
+  phone_number: String!
 }
