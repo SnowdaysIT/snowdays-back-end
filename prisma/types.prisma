@@ -2,7 +2,7 @@ type Profile{
   id: ID! @id
   first_name: String!
   last_name: String!
-  univeristy: String!
+  university: University! @relation(link: INLINE, name: "ContactPersonProfile" )
   phone_number: String! @unique
   badge_number: String!
   gender: GenderType!
@@ -10,8 +10,8 @@ type Profile{
   height: Float
   weight: Float
   shoe_size: String
-  activity: [Activity]
-  accomodation: Accomodation
+  activity: [Activity] 
+  accomodation: Accomodation @relation(link: INLINE, name: "ProfileHost")
 }
 
 enum GenderType {
@@ -21,7 +21,7 @@ enum GenderType {
 
 type User {
   id: ID! @id 
-  profile: String! @relation(link: INLINE)
+  profile: Profile @relation(link: INLINE)
   email: String! @unique
   password: String!
 }
@@ -33,28 +33,29 @@ type Role{
 }
 
 type Permission{
-  id: ID! @id @relation(link: INLINE)
+  id: ID! @id
+  role: User 
   action: String
   resources: String
   domain: String
 }
 
-type Univeristy{
-  id:ID! @id @relation(link: INLINE)
-  contact_person: String
+type University{
+  id: ID! @id 
+  contact_person: Profile @relation(name: "ContactPersonProfile" )
   address: String
-  name: String!
+  name: String! 
 }
 
 type Activity{
-  id: ID! @id @relation(link: INLINE)
+  id: ID! @id
   name: String 
   date_of_activity: DateTime
 }
 
 type Accomodation{
-  id: ID! @id @relation(link: INLINE)
+  id: ID! @id 
   address: String!
-  host: String! @relation(link: INLINE)
+  host: Profile @relation(name: "ProfileHost")
   phone_number: String! @unique
 }

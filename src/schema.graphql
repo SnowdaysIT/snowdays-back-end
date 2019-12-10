@@ -2,7 +2,7 @@ type Profile{
   id: ID!
   first_name: String!
   last_name: String!
-  univeristy: String!
+  university: String!
   phone_number: String!
   badge_number: String!
   gender: GenderType!
@@ -39,7 +39,7 @@ type Permission{
   domain: String
 }
 
-type Univeristy{
+type University{
   id:ID!
   contact_person: String
   address: String

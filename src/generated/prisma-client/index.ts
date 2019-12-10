@@ -16,7 +16,12 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
-  post: (where?: PostWhereInput) => Promise<boolean>;
+  accomodation: (where?: AccomodationWhereInput) => Promise<boolean>;
+  activity: (where?: ActivityWhereInput) => Promise<boolean>;
+  permission: (where?: PermissionWhereInput) => Promise<boolean>;
+  profile: (where?: ProfileWhereInput) => Promise<boolean>;
+  role: (where?: RoleWhereInput) => Promise<boolean>;
+  university: (where?: UniversityWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -39,25 +44,122 @@ export interface Prisma {
    * Queries
    */
 
-  post: (where: PostWhereUniqueInput) => PostNullablePromise;
-  posts: (args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  accomodation: (
+    where: AccomodationWhereUniqueInput
+  ) => AccomodationNullablePromise;
+  accomodations: (args?: {
+    where?: AccomodationWhereInput;
+    orderBy?: AccomodationOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => FragmentableArray<Post>;
-  postsConnection: (args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  }) => FragmentableArray<Accomodation>;
+  accomodationsConnection: (args?: {
+    where?: AccomodationWhereInput;
+    orderBy?: AccomodationOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => PostConnectionPromise;
+  }) => AccomodationConnectionPromise;
+  activity: (where: ActivityWhereUniqueInput) => ActivityNullablePromise;
+  activities: (args?: {
+    where?: ActivityWhereInput;
+    orderBy?: ActivityOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Activity>;
+  activitiesConnection: (args?: {
+    where?: ActivityWhereInput;
+    orderBy?: ActivityOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => ActivityConnectionPromise;
+  permission: (where: PermissionWhereUniqueInput) => PermissionNullablePromise;
+  permissions: (args?: {
+    where?: PermissionWhereInput;
+    orderBy?: PermissionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Permission>;
+  permissionsConnection: (args?: {
+    where?: PermissionWhereInput;
+    orderBy?: PermissionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => PermissionConnectionPromise;
+  profile: (where: ProfileWhereUniqueInput) => ProfileNullablePromise;
+  profiles: (args?: {
+    where?: ProfileWhereInput;
+    orderBy?: ProfileOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Profile>;
+  profilesConnection: (args?: {
+    where?: ProfileWhereInput;
+    orderBy?: ProfileOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => ProfileConnectionPromise;
+  role: (where: RoleWhereUniqueInput) => RoleNullablePromise;
+  roles: (args?: {
+    where?: RoleWhereInput;
+    orderBy?: RoleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Role>;
+  rolesConnection: (args?: {
+    where?: RoleWhereInput;
+    orderBy?: RoleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => RoleConnectionPromise;
+  university: (where: UniversityWhereUniqueInput) => UniversityNullablePromise;
+  universities: (args?: {
+    where?: UniversityWhereInput;
+    orderBy?: UniversityOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<University>;
+  universitiesConnection: (args?: {
+    where?: UniversityWhereInput;
+    orderBy?: UniversityOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => UniversityConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -83,22 +185,106 @@ export interface Prisma {
    * Mutations
    */
 
-  createPost: (data: PostCreateInput) => PostPromise;
-  updatePost: (args: {
-    data: PostUpdateInput;
-    where: PostWhereUniqueInput;
-  }) => PostPromise;
-  updateManyPosts: (args: {
-    data: PostUpdateManyMutationInput;
-    where?: PostWhereInput;
+  createAccomodation: (data: AccomodationCreateInput) => AccomodationPromise;
+  updateAccomodation: (args: {
+    data: AccomodationUpdateInput;
+    where: AccomodationWhereUniqueInput;
+  }) => AccomodationPromise;
+  updateManyAccomodations: (args: {
+    data: AccomodationUpdateManyMutationInput;
+    where?: AccomodationWhereInput;
   }) => BatchPayloadPromise;
-  upsertPost: (args: {
-    where: PostWhereUniqueInput;
-    create: PostCreateInput;
-    update: PostUpdateInput;
-  }) => PostPromise;
-  deletePost: (where: PostWhereUniqueInput) => PostPromise;
-  deleteManyPosts: (where?: PostWhereInput) => BatchPayloadPromise;
+  upsertAccomodation: (args: {
+    where: AccomodationWhereUniqueInput;
+    create: AccomodationCreateInput;
+    update: AccomodationUpdateInput;
+  }) => AccomodationPromise;
+  deleteAccomodation: (
+    where: AccomodationWhereUniqueInput
+  ) => AccomodationPromise;
+  deleteManyAccomodations: (
+    where?: AccomodationWhereInput
+  ) => BatchPayloadPromise;
+  createActivity: (data: ActivityCreateInput) => ActivityPromise;
+  updateActivity: (args: {
+    data: ActivityUpdateInput;
+    where: ActivityWhereUniqueInput;
+  }) => ActivityPromise;
+  updateManyActivities: (args: {
+    data: ActivityUpdateManyMutationInput;
+    where?: ActivityWhereInput;
+  }) => BatchPayloadPromise;
+  upsertActivity: (args: {
+    where: ActivityWhereUniqueInput;
+    create: ActivityCreateInput;
+    update: ActivityUpdateInput;
+  }) => ActivityPromise;
+  deleteActivity: (where: ActivityWhereUniqueInput) => ActivityPromise;
+  deleteManyActivities: (where?: ActivityWhereInput) => BatchPayloadPromise;
+  createPermission: (data: PermissionCreateInput) => PermissionPromise;
+  updatePermission: (args: {
+    data: PermissionUpdateInput;
+    where: PermissionWhereUniqueInput;
+  }) => PermissionPromise;
+  updateManyPermissions: (args: {
+    data: PermissionUpdateManyMutationInput;
+    where?: PermissionWhereInput;
+  }) => BatchPayloadPromise;
+  upsertPermission: (args: {
+    where: PermissionWhereUniqueInput;
+    create: PermissionCreateInput;
+    update: PermissionUpdateInput;
+  }) => PermissionPromise;
+  deletePermission: (where: PermissionWhereUniqueInput) => PermissionPromise;
+  deleteManyPermissions: (where?: PermissionWhereInput) => BatchPayloadPromise;
+  createProfile: (data: ProfileCreateInput) => ProfilePromise;
+  updateProfile: (args: {
+    data: ProfileUpdateInput;
+    where: ProfileWhereUniqueInput;
+  }) => ProfilePromise;
+  updateManyProfiles: (args: {
+    data: ProfileUpdateManyMutationInput;
+    where?: ProfileWhereInput;
+  }) => BatchPayloadPromise;
+  upsertProfile: (args: {
+    where: ProfileWhereUniqueInput;
+    create: ProfileCreateInput;
+    update: ProfileUpdateInput;
+  }) => ProfilePromise;
+  deleteProfile: (where: ProfileWhereUniqueInput) => ProfilePromise;
+  deleteManyProfiles: (where?: ProfileWhereInput) => BatchPayloadPromise;
+  createRole: (data: RoleCreateInput) => RolePromise;
+  updateRole: (args: {
+    data: RoleUpdateInput;
+    where: RoleWhereUniqueInput;
+  }) => RolePromise;
+  updateManyRoles: (args: {
+    data: RoleUpdateManyMutationInput;
+    where?: RoleWhereInput;
+  }) => BatchPayloadPromise;
+  upsertRole: (args: {
+    where: RoleWhereUniqueInput;
+    create: RoleCreateInput;
+    update: RoleUpdateInput;
+  }) => RolePromise;
+  deleteRole: (where: RoleWhereUniqueInput) => RolePromise;
+  deleteManyRoles: (where?: RoleWhereInput) => BatchPayloadPromise;
+  createUniversity: (data: UniversityCreateInput) => UniversityPromise;
+  updateUniversity: (args: {
+    data: UniversityUpdateInput;
+    where: UniversityWhereUniqueInput;
+  }) => UniversityPromise;
+  updateManyUniversities: (args: {
+    data: UniversityUpdateManyMutationInput;
+    where?: UniversityWhereInput;
+  }) => BatchPayloadPromise;
+  upsertUniversity: (args: {
+    where: UniversityWhereUniqueInput;
+    create: UniversityCreateInput;
+    update: UniversityUpdateInput;
+  }) => UniversityPromise;
+  deleteUniversity: (where: UniversityWhereUniqueInput) => UniversityPromise;
+  deleteManyUniversities: (where?: UniversityWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -124,9 +310,24 @@ export interface Prisma {
 }
 
 export interface Subscription {
-  post: (
-    where?: PostSubscriptionWhereInput
-  ) => PostSubscriptionPayloadSubscription;
+  accomodation: (
+    where?: AccomodationSubscriptionWhereInput
+  ) => AccomodationSubscriptionPayloadSubscription;
+  activity: (
+    where?: ActivitySubscriptionWhereInput
+  ) => ActivitySubscriptionPayloadSubscription;
+  permission: (
+    where?: PermissionSubscriptionWhereInput
+  ) => PermissionSubscriptionPayloadSubscription;
+  profile: (
+    where?: ProfileSubscriptionWhereInput
+  ) => ProfileSubscriptionPayloadSubscription;
+  role: (
+    where?: RoleSubscriptionWhereInput
+  ) => RoleSubscriptionPayloadSubscription;
+  university: (
+    where?: UniversitySubscriptionWhereInput
+  ) => UniversitySubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -140,19 +341,65 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type PostOrderByInput =
+export type GenderType = "MALE" | "FEMALE";
+
+export type ActivityOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC"
-  | "published_ASC"
-  | "published_DESC"
-  | "title_ASC"
-  | "title_DESC"
-  | "content_ASC"
-  | "content_DESC";
+  | "name_ASC"
+  | "name_DESC"
+  | "date_of_activity_ASC"
+  | "date_of_activity_DESC";
+
+export type AccomodationOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "address_ASC"
+  | "address_DESC"
+  | "phone_number_ASC"
+  | "phone_number_DESC";
+
+export type PermissionOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "action_ASC"
+  | "action_DESC"
+  | "resources_ASC"
+  | "resources_DESC"
+  | "domain_ASC"
+  | "domain_DESC";
+
+export type ProfileOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "first_name_ASC"
+  | "first_name_DESC"
+  | "last_name_ASC"
+  | "last_name_DESC"
+  | "phone_number_ASC"
+  | "phone_number_DESC"
+  | "badge_number_ASC"
+  | "badge_number_DESC"
+  | "gender_ASC"
+  | "gender_DESC"
+  | "food_allergies_ASC"
+  | "food_allergies_DESC"
+  | "height_ASC"
+  | "height_DESC"
+  | "weight_ASC"
+  | "weight_DESC"
+  | "shoe_size_ASC"
+  | "shoe_size_DESC";
+
+export type RoleOrderByInput = "id_ASC" | "id_DESC" | "name_ASC" | "name_DESC";
+
+export type UniversityOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "address_ASC"
+  | "address_DESC"
+  | "name_ASC"
+  | "name_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -160,17 +407,16 @@ export type UserOrderByInput =
   | "email_ASC"
   | "email_DESC"
   | "password_ASC"
-  | "password_DESC"
-  | "name_ASC"
-  | "name_DESC";
+  | "password_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export type PostWhereUniqueInput = AtLeastOne<{
+export type AccomodationWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  phone_number?: Maybe<String>;
 }>;
 
-export interface PostWhereInput {
+export interface ActivityWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -185,56 +431,329 @@ export interface PostWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  published?: Maybe<Boolean>;
-  published_not?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  content?: Maybe<String>;
-  content_not?: Maybe<String>;
-  content_in?: Maybe<String[] | String>;
-  content_not_in?: Maybe<String[] | String>;
-  content_lt?: Maybe<String>;
-  content_lte?: Maybe<String>;
-  content_gt?: Maybe<String>;
-  content_gte?: Maybe<String>;
-  content_contains?: Maybe<String>;
-  content_not_contains?: Maybe<String>;
-  content_starts_with?: Maybe<String>;
-  content_not_starts_with?: Maybe<String>;
-  content_ends_with?: Maybe<String>;
-  content_not_ends_with?: Maybe<String>;
-  author?: Maybe<UserWhereInput>;
-  AND?: Maybe<PostWhereInput[] | PostWhereInput>;
-  OR?: Maybe<PostWhereInput[] | PostWhereInput>;
-  NOT?: Maybe<PostWhereInput[] | PostWhereInput>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  date_of_activity?: Maybe<DateTimeInput>;
+  date_of_activity_not?: Maybe<DateTimeInput>;
+  date_of_activity_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  date_of_activity_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  date_of_activity_lt?: Maybe<DateTimeInput>;
+  date_of_activity_lte?: Maybe<DateTimeInput>;
+  date_of_activity_gt?: Maybe<DateTimeInput>;
+  date_of_activity_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ActivityWhereInput[] | ActivityWhereInput>;
+  OR?: Maybe<ActivityWhereInput[] | ActivityWhereInput>;
+  NOT?: Maybe<ActivityWhereInput[] | ActivityWhereInput>;
+}
+
+export interface AccomodationWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  address?: Maybe<String>;
+  address_not?: Maybe<String>;
+  address_in?: Maybe<String[] | String>;
+  address_not_in?: Maybe<String[] | String>;
+  address_lt?: Maybe<String>;
+  address_lte?: Maybe<String>;
+  address_gt?: Maybe<String>;
+  address_gte?: Maybe<String>;
+  address_contains?: Maybe<String>;
+  address_not_contains?: Maybe<String>;
+  address_starts_with?: Maybe<String>;
+  address_not_starts_with?: Maybe<String>;
+  address_ends_with?: Maybe<String>;
+  address_not_ends_with?: Maybe<String>;
+  host?: Maybe<ProfileWhereInput>;
+  phone_number?: Maybe<String>;
+  phone_number_not?: Maybe<String>;
+  phone_number_in?: Maybe<String[] | String>;
+  phone_number_not_in?: Maybe<String[] | String>;
+  phone_number_lt?: Maybe<String>;
+  phone_number_lte?: Maybe<String>;
+  phone_number_gt?: Maybe<String>;
+  phone_number_gte?: Maybe<String>;
+  phone_number_contains?: Maybe<String>;
+  phone_number_not_contains?: Maybe<String>;
+  phone_number_starts_with?: Maybe<String>;
+  phone_number_not_starts_with?: Maybe<String>;
+  phone_number_ends_with?: Maybe<String>;
+  phone_number_not_ends_with?: Maybe<String>;
+  AND?: Maybe<AccomodationWhereInput[] | AccomodationWhereInput>;
+  OR?: Maybe<AccomodationWhereInput[] | AccomodationWhereInput>;
+  NOT?: Maybe<AccomodationWhereInput[] | AccomodationWhereInput>;
+}
+
+export interface ProfileWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  first_name?: Maybe<String>;
+  first_name_not?: Maybe<String>;
+  first_name_in?: Maybe<String[] | String>;
+  first_name_not_in?: Maybe<String[] | String>;
+  first_name_lt?: Maybe<String>;
+  first_name_lte?: Maybe<String>;
+  first_name_gt?: Maybe<String>;
+  first_name_gte?: Maybe<String>;
+  first_name_contains?: Maybe<String>;
+  first_name_not_contains?: Maybe<String>;
+  first_name_starts_with?: Maybe<String>;
+  first_name_not_starts_with?: Maybe<String>;
+  first_name_ends_with?: Maybe<String>;
+  first_name_not_ends_with?: Maybe<String>;
+  last_name?: Maybe<String>;
+  last_name_not?: Maybe<String>;
+  last_name_in?: Maybe<String[] | String>;
+  last_name_not_in?: Maybe<String[] | String>;
+  last_name_lt?: Maybe<String>;
+  last_name_lte?: Maybe<String>;
+  last_name_gt?: Maybe<String>;
+  last_name_gte?: Maybe<String>;
+  last_name_contains?: Maybe<String>;
+  last_name_not_contains?: Maybe<String>;
+  last_name_starts_with?: Maybe<String>;
+  last_name_not_starts_with?: Maybe<String>;
+  last_name_ends_with?: Maybe<String>;
+  last_name_not_ends_with?: Maybe<String>;
+  university?: Maybe<UniversityWhereInput>;
+  phone_number?: Maybe<String>;
+  phone_number_not?: Maybe<String>;
+  phone_number_in?: Maybe<String[] | String>;
+  phone_number_not_in?: Maybe<String[] | String>;
+  phone_number_lt?: Maybe<String>;
+  phone_number_lte?: Maybe<String>;
+  phone_number_gt?: Maybe<String>;
+  phone_number_gte?: Maybe<String>;
+  phone_number_contains?: Maybe<String>;
+  phone_number_not_contains?: Maybe<String>;
+  phone_number_starts_with?: Maybe<String>;
+  phone_number_not_starts_with?: Maybe<String>;
+  phone_number_ends_with?: Maybe<String>;
+  phone_number_not_ends_with?: Maybe<String>;
+  badge_number?: Maybe<String>;
+  badge_number_not?: Maybe<String>;
+  badge_number_in?: Maybe<String[] | String>;
+  badge_number_not_in?: Maybe<String[] | String>;
+  badge_number_lt?: Maybe<String>;
+  badge_number_lte?: Maybe<String>;
+  badge_number_gt?: Maybe<String>;
+  badge_number_gte?: Maybe<String>;
+  badge_number_contains?: Maybe<String>;
+  badge_number_not_contains?: Maybe<String>;
+  badge_number_starts_with?: Maybe<String>;
+  badge_number_not_starts_with?: Maybe<String>;
+  badge_number_ends_with?: Maybe<String>;
+  badge_number_not_ends_with?: Maybe<String>;
+  gender?: Maybe<GenderType>;
+  gender_not?: Maybe<GenderType>;
+  gender_in?: Maybe<GenderType[] | GenderType>;
+  gender_not_in?: Maybe<GenderType[] | GenderType>;
+  food_allergies?: Maybe<String>;
+  food_allergies_not?: Maybe<String>;
+  food_allergies_in?: Maybe<String[] | String>;
+  food_allergies_not_in?: Maybe<String[] | String>;
+  food_allergies_lt?: Maybe<String>;
+  food_allergies_lte?: Maybe<String>;
+  food_allergies_gt?: Maybe<String>;
+  food_allergies_gte?: Maybe<String>;
+  food_allergies_contains?: Maybe<String>;
+  food_allergies_not_contains?: Maybe<String>;
+  food_allergies_starts_with?: Maybe<String>;
+  food_allergies_not_starts_with?: Maybe<String>;
+  food_allergies_ends_with?: Maybe<String>;
+  food_allergies_not_ends_with?: Maybe<String>;
+  height?: Maybe<Float>;
+  height_not?: Maybe<Float>;
+  height_in?: Maybe<Float[] | Float>;
+  height_not_in?: Maybe<Float[] | Float>;
+  height_lt?: Maybe<Float>;
+  height_lte?: Maybe<Float>;
+  height_gt?: Maybe<Float>;
+  height_gte?: Maybe<Float>;
+  weight?: Maybe<Float>;
+  weight_not?: Maybe<Float>;
+  weight_in?: Maybe<Float[] | Float>;
+  weight_not_in?: Maybe<Float[] | Float>;
+  weight_lt?: Maybe<Float>;
+  weight_lte?: Maybe<Float>;
+  weight_gt?: Maybe<Float>;
+  weight_gte?: Maybe<Float>;
+  shoe_size?: Maybe<String>;
+  shoe_size_not?: Maybe<String>;
+  shoe_size_in?: Maybe<String[] | String>;
+  shoe_size_not_in?: Maybe<String[] | String>;
+  shoe_size_lt?: Maybe<String>;
+  shoe_size_lte?: Maybe<String>;
+  shoe_size_gt?: Maybe<String>;
+  shoe_size_gte?: Maybe<String>;
+  shoe_size_contains?: Maybe<String>;
+  shoe_size_not_contains?: Maybe<String>;
+  shoe_size_starts_with?: Maybe<String>;
+  shoe_size_not_starts_with?: Maybe<String>;
+  shoe_size_ends_with?: Maybe<String>;
+  shoe_size_not_ends_with?: Maybe<String>;
+  activity_every?: Maybe<ActivityWhereInput>;
+  activity_some?: Maybe<ActivityWhereInput>;
+  activity_none?: Maybe<ActivityWhereInput>;
+  accomodation?: Maybe<AccomodationWhereInput>;
+  AND?: Maybe<ProfileWhereInput[] | ProfileWhereInput>;
+  OR?: Maybe<ProfileWhereInput[] | ProfileWhereInput>;
+  NOT?: Maybe<ProfileWhereInput[] | ProfileWhereInput>;
+}
+
+export interface UniversityWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  contact_person?: Maybe<ProfileWhereInput>;
+  address?: Maybe<String>;
+  address_not?: Maybe<String>;
+  address_in?: Maybe<String[] | String>;
+  address_not_in?: Maybe<String[] | String>;
+  address_lt?: Maybe<String>;
+  address_lte?: Maybe<String>;
+  address_gt?: Maybe<String>;
+  address_gte?: Maybe<String>;
+  address_contains?: Maybe<String>;
+  address_not_contains?: Maybe<String>;
+  address_starts_with?: Maybe<String>;
+  address_not_starts_with?: Maybe<String>;
+  address_ends_with?: Maybe<String>;
+  address_not_ends_with?: Maybe<String>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  AND?: Maybe<UniversityWhereInput[] | UniversityWhereInput>;
+  OR?: Maybe<UniversityWhereInput[] | UniversityWhereInput>;
+  NOT?: Maybe<UniversityWhereInput[] | UniversityWhereInput>;
+}
+
+export type ActivityWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type PermissionWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface PermissionWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  role?: Maybe<UserWhereInput>;
+  action?: Maybe<String>;
+  action_not?: Maybe<String>;
+  action_in?: Maybe<String[] | String>;
+  action_not_in?: Maybe<String[] | String>;
+  action_lt?: Maybe<String>;
+  action_lte?: Maybe<String>;
+  action_gt?: Maybe<String>;
+  action_gte?: Maybe<String>;
+  action_contains?: Maybe<String>;
+  action_not_contains?: Maybe<String>;
+  action_starts_with?: Maybe<String>;
+  action_not_starts_with?: Maybe<String>;
+  action_ends_with?: Maybe<String>;
+  action_not_ends_with?: Maybe<String>;
+  resources?: Maybe<String>;
+  resources_not?: Maybe<String>;
+  resources_in?: Maybe<String[] | String>;
+  resources_not_in?: Maybe<String[] | String>;
+  resources_lt?: Maybe<String>;
+  resources_lte?: Maybe<String>;
+  resources_gt?: Maybe<String>;
+  resources_gte?: Maybe<String>;
+  resources_contains?: Maybe<String>;
+  resources_not_contains?: Maybe<String>;
+  resources_starts_with?: Maybe<String>;
+  resources_not_starts_with?: Maybe<String>;
+  resources_ends_with?: Maybe<String>;
+  resources_not_ends_with?: Maybe<String>;
+  domain?: Maybe<String>;
+  domain_not?: Maybe<String>;
+  domain_in?: Maybe<String[] | String>;
+  domain_not_in?: Maybe<String[] | String>;
+  domain_lt?: Maybe<String>;
+  domain_lte?: Maybe<String>;
+  domain_gt?: Maybe<String>;
+  domain_gte?: Maybe<String>;
+  domain_contains?: Maybe<String>;
+  domain_not_contains?: Maybe<String>;
+  domain_starts_with?: Maybe<String>;
+  domain_not_starts_with?: Maybe<String>;
+  domain_ends_with?: Maybe<String>;
+  domain_not_ends_with?: Maybe<String>;
+  AND?: Maybe<PermissionWhereInput[] | PermissionWhereInput>;
+  OR?: Maybe<PermissionWhereInput[] | PermissionWhereInput>;
+  NOT?: Maybe<PermissionWhereInput[] | PermissionWhereInput>;
 }
 
 export interface UserWhereInput {
@@ -252,6 +771,7 @@ export interface UserWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  profile?: Maybe<ProfileWhereInput>;
   email?: Maybe<String>;
   email_not?: Maybe<String>;
   email_in?: Maybe<String[] | String>;
@@ -280,149 +800,21 @@ export interface UserWhereInput {
   password_not_starts_with?: Maybe<String>;
   password_ends_with?: Maybe<String>;
   password_not_ends_with?: Maybe<String>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  posts_every?: Maybe<PostWhereInput>;
-  posts_some?: Maybe<PostWhereInput>;
-  posts_none?: Maybe<PostWhereInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
 
-export type UserWhereUniqueInput = AtLeastOne<{
+export type ProfileWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
-  email?: Maybe<String>;
+  phone_number?: Maybe<String>;
 }>;
 
-export interface PostCreateInput {
-  id?: Maybe<ID_Input>;
-  published?: Maybe<Boolean>;
-  title: String;
-  content: String;
-  author: UserCreateOneWithoutPostsInput;
-}
+export type RoleWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
 
-export interface UserCreateOneWithoutPostsInput {
-  create?: Maybe<UserCreateWithoutPostsInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
-}
-
-export interface UserCreateWithoutPostsInput {
-  id?: Maybe<ID_Input>;
-  email: String;
-  password: String;
-  name: String;
-}
-
-export interface PostUpdateInput {
-  published?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  content?: Maybe<String>;
-  author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
-}
-
-export interface UserUpdateOneRequiredWithoutPostsInput {
-  create?: Maybe<UserCreateWithoutPostsInput>;
-  update?: Maybe<UserUpdateWithoutPostsDataInput>;
-  upsert?: Maybe<UserUpsertWithoutPostsInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
-}
-
-export interface UserUpdateWithoutPostsDataInput {
-  email?: Maybe<String>;
-  password?: Maybe<String>;
-  name?: Maybe<String>;
-}
-
-export interface UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput;
-  create: UserCreateWithoutPostsInput;
-}
-
-export interface PostUpdateManyMutationInput {
-  published?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  content?: Maybe<String>;
-}
-
-export interface UserCreateInput {
-  id?: Maybe<ID_Input>;
-  email: String;
-  password: String;
-  name: String;
-  posts?: Maybe<PostCreateManyWithoutAuthorInput>;
-}
-
-export interface PostCreateManyWithoutAuthorInput {
-  create?: Maybe<PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput>;
-  connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-}
-
-export interface PostCreateWithoutAuthorInput {
-  id?: Maybe<ID_Input>;
-  published?: Maybe<Boolean>;
-  title: String;
-  content: String;
-}
-
-export interface UserUpdateInput {
-  email?: Maybe<String>;
-  password?: Maybe<String>;
-  name?: Maybe<String>;
-  posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
-}
-
-export interface PostUpdateManyWithoutAuthorInput {
-  create?: Maybe<PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput>;
-  delete?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  set?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  disconnect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  update?: Maybe<
-    | PostUpdateWithWhereUniqueWithoutAuthorInput[]
-    | PostUpdateWithWhereUniqueWithoutAuthorInput
-  >;
-  upsert?: Maybe<
-    | PostUpsertWithWhereUniqueWithoutAuthorInput[]
-    | PostUpsertWithWhereUniqueWithoutAuthorInput
-  >;
-  deleteMany?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
-  updateMany?: Maybe<
-    PostUpdateManyWithWhereNestedInput[] | PostUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput;
-  data: PostUpdateWithoutAuthorDataInput;
-}
-
-export interface PostUpdateWithoutAuthorDataInput {
-  published?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  content?: Maybe<String>;
-}
-
-export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput;
-  update: PostUpdateWithoutAuthorDataInput;
-  create: PostCreateWithoutAuthorInput;
-}
-
-export interface PostScalarWhereInput {
+export interface RoleWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -437,83 +829,696 @@ export interface PostScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  published?: Maybe<Boolean>;
-  published_not?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  content?: Maybe<String>;
-  content_not?: Maybe<String>;
-  content_in?: Maybe<String[] | String>;
-  content_not_in?: Maybe<String[] | String>;
-  content_lt?: Maybe<String>;
-  content_lte?: Maybe<String>;
-  content_gt?: Maybe<String>;
-  content_gte?: Maybe<String>;
-  content_contains?: Maybe<String>;
-  content_not_contains?: Maybe<String>;
-  content_starts_with?: Maybe<String>;
-  content_not_starts_with?: Maybe<String>;
-  content_ends_with?: Maybe<String>;
-  content_not_ends_with?: Maybe<String>;
-  AND?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
-  OR?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
-  NOT?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  permission_every?: Maybe<PermissionWhereInput>;
+  permission_some?: Maybe<PermissionWhereInput>;
+  permission_none?: Maybe<PermissionWhereInput>;
+  AND?: Maybe<RoleWhereInput[] | RoleWhereInput>;
+  OR?: Maybe<RoleWhereInput[] | RoleWhereInput>;
+  NOT?: Maybe<RoleWhereInput[] | RoleWhereInput>;
 }
 
-export interface PostUpdateManyWithWhereNestedInput {
-  where: PostScalarWhereInput;
-  data: PostUpdateManyDataInput;
+export type UniversityWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  email?: Maybe<String>;
+}>;
+
+export interface AccomodationCreateInput {
+  id?: Maybe<ID_Input>;
+  address: String;
+  host?: Maybe<ProfileCreateOneWithoutAccomodationInput>;
+  phone_number: String;
 }
 
-export interface PostUpdateManyDataInput {
-  published?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  content?: Maybe<String>;
+export interface ProfileCreateOneWithoutAccomodationInput {
+  create?: Maybe<ProfileCreateWithoutAccomodationInput>;
+  connect?: Maybe<ProfileWhereUniqueInput>;
+}
+
+export interface ProfileCreateWithoutAccomodationInput {
+  id?: Maybe<ID_Input>;
+  first_name: String;
+  last_name: String;
+  university: UniversityCreateOneWithoutContact_personInput;
+  phone_number: String;
+  badge_number: String;
+  gender: GenderType;
+  food_allergies: String;
+  height?: Maybe<Float>;
+  weight?: Maybe<Float>;
+  shoe_size?: Maybe<String>;
+  activity?: Maybe<ActivityCreateManyInput>;
+}
+
+export interface UniversityCreateOneWithoutContact_personInput {
+  create?: Maybe<UniversityCreateWithoutContact_personInput>;
+  connect?: Maybe<UniversityWhereUniqueInput>;
+}
+
+export interface UniversityCreateWithoutContact_personInput {
+  id?: Maybe<ID_Input>;
+  address?: Maybe<String>;
+  name: String;
+}
+
+export interface ActivityCreateManyInput {
+  create?: Maybe<ActivityCreateInput[] | ActivityCreateInput>;
+  connect?: Maybe<ActivityWhereUniqueInput[] | ActivityWhereUniqueInput>;
+}
+
+export interface ActivityCreateInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  date_of_activity?: Maybe<DateTimeInput>;
+}
+
+export interface AccomodationUpdateInput {
+  address?: Maybe<String>;
+  host?: Maybe<ProfileUpdateOneWithoutAccomodationInput>;
+  phone_number?: Maybe<String>;
+}
+
+export interface ProfileUpdateOneWithoutAccomodationInput {
+  create?: Maybe<ProfileCreateWithoutAccomodationInput>;
+  update?: Maybe<ProfileUpdateWithoutAccomodationDataInput>;
+  upsert?: Maybe<ProfileUpsertWithoutAccomodationInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<ProfileWhereUniqueInput>;
+}
+
+export interface ProfileUpdateWithoutAccomodationDataInput {
+  first_name?: Maybe<String>;
+  last_name?: Maybe<String>;
+  university?: Maybe<UniversityUpdateOneRequiredWithoutContact_personInput>;
+  phone_number?: Maybe<String>;
+  badge_number?: Maybe<String>;
+  gender?: Maybe<GenderType>;
+  food_allergies?: Maybe<String>;
+  height?: Maybe<Float>;
+  weight?: Maybe<Float>;
+  shoe_size?: Maybe<String>;
+  activity?: Maybe<ActivityUpdateManyInput>;
+}
+
+export interface UniversityUpdateOneRequiredWithoutContact_personInput {
+  create?: Maybe<UniversityCreateWithoutContact_personInput>;
+  update?: Maybe<UniversityUpdateWithoutContact_personDataInput>;
+  upsert?: Maybe<UniversityUpsertWithoutContact_personInput>;
+  connect?: Maybe<UniversityWhereUniqueInput>;
+}
+
+export interface UniversityUpdateWithoutContact_personDataInput {
+  address?: Maybe<String>;
+  name?: Maybe<String>;
+}
+
+export interface UniversityUpsertWithoutContact_personInput {
+  update: UniversityUpdateWithoutContact_personDataInput;
+  create: UniversityCreateWithoutContact_personInput;
+}
+
+export interface ActivityUpdateManyInput {
+  create?: Maybe<ActivityCreateInput[] | ActivityCreateInput>;
+  update?: Maybe<
+    | ActivityUpdateWithWhereUniqueNestedInput[]
+    | ActivityUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | ActivityUpsertWithWhereUniqueNestedInput[]
+    | ActivityUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<ActivityWhereUniqueInput[] | ActivityWhereUniqueInput>;
+  connect?: Maybe<ActivityWhereUniqueInput[] | ActivityWhereUniqueInput>;
+  set?: Maybe<ActivityWhereUniqueInput[] | ActivityWhereUniqueInput>;
+  disconnect?: Maybe<ActivityWhereUniqueInput[] | ActivityWhereUniqueInput>;
+  deleteMany?: Maybe<ActivityScalarWhereInput[] | ActivityScalarWhereInput>;
+  updateMany?: Maybe<
+    | ActivityUpdateManyWithWhereNestedInput[]
+    | ActivityUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface ActivityUpdateWithWhereUniqueNestedInput {
+  where: ActivityWhereUniqueInput;
+  data: ActivityUpdateDataInput;
+}
+
+export interface ActivityUpdateDataInput {
+  name?: Maybe<String>;
+  date_of_activity?: Maybe<DateTimeInput>;
+}
+
+export interface ActivityUpsertWithWhereUniqueNestedInput {
+  where: ActivityWhereUniqueInput;
+  update: ActivityUpdateDataInput;
+  create: ActivityCreateInput;
+}
+
+export interface ActivityScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  date_of_activity?: Maybe<DateTimeInput>;
+  date_of_activity_not?: Maybe<DateTimeInput>;
+  date_of_activity_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  date_of_activity_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  date_of_activity_lt?: Maybe<DateTimeInput>;
+  date_of_activity_lte?: Maybe<DateTimeInput>;
+  date_of_activity_gt?: Maybe<DateTimeInput>;
+  date_of_activity_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ActivityScalarWhereInput[] | ActivityScalarWhereInput>;
+  OR?: Maybe<ActivityScalarWhereInput[] | ActivityScalarWhereInput>;
+  NOT?: Maybe<ActivityScalarWhereInput[] | ActivityScalarWhereInput>;
+}
+
+export interface ActivityUpdateManyWithWhereNestedInput {
+  where: ActivityScalarWhereInput;
+  data: ActivityUpdateManyDataInput;
+}
+
+export interface ActivityUpdateManyDataInput {
+  name?: Maybe<String>;
+  date_of_activity?: Maybe<DateTimeInput>;
+}
+
+export interface ProfileUpsertWithoutAccomodationInput {
+  update: ProfileUpdateWithoutAccomodationDataInput;
+  create: ProfileCreateWithoutAccomodationInput;
+}
+
+export interface AccomodationUpdateManyMutationInput {
+  address?: Maybe<String>;
+  phone_number?: Maybe<String>;
+}
+
+export interface ActivityUpdateInput {
+  name?: Maybe<String>;
+  date_of_activity?: Maybe<DateTimeInput>;
+}
+
+export interface ActivityUpdateManyMutationInput {
+  name?: Maybe<String>;
+  date_of_activity?: Maybe<DateTimeInput>;
+}
+
+export interface PermissionCreateInput {
+  id?: Maybe<ID_Input>;
+  role?: Maybe<UserCreateOneInput>;
+  action?: Maybe<String>;
+  resources?: Maybe<String>;
+  domain?: Maybe<String>;
+}
+
+export interface UserCreateOneInput {
+  create?: Maybe<UserCreateInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateInput {
+  id?: Maybe<ID_Input>;
+  profile?: Maybe<ProfileCreateOneInput>;
+  email: String;
+  password: String;
+}
+
+export interface ProfileCreateOneInput {
+  create?: Maybe<ProfileCreateInput>;
+  connect?: Maybe<ProfileWhereUniqueInput>;
+}
+
+export interface ProfileCreateInput {
+  id?: Maybe<ID_Input>;
+  first_name: String;
+  last_name: String;
+  university: UniversityCreateOneWithoutContact_personInput;
+  phone_number: String;
+  badge_number: String;
+  gender: GenderType;
+  food_allergies: String;
+  height?: Maybe<Float>;
+  weight?: Maybe<Float>;
+  shoe_size?: Maybe<String>;
+  activity?: Maybe<ActivityCreateManyInput>;
+  accomodation?: Maybe<AccomodationCreateOneWithoutHostInput>;
+}
+
+export interface AccomodationCreateOneWithoutHostInput {
+  create?: Maybe<AccomodationCreateWithoutHostInput>;
+  connect?: Maybe<AccomodationWhereUniqueInput>;
+}
+
+export interface AccomodationCreateWithoutHostInput {
+  id?: Maybe<ID_Input>;
+  address: String;
+  phone_number: String;
+}
+
+export interface PermissionUpdateInput {
+  role?: Maybe<UserUpdateOneInput>;
+  action?: Maybe<String>;
+  resources?: Maybe<String>;
+  domain?: Maybe<String>;
+}
+
+export interface UserUpdateOneInput {
+  create?: Maybe<UserCreateInput>;
+  update?: Maybe<UserUpdateDataInput>;
+  upsert?: Maybe<UserUpsertNestedInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateDataInput {
+  profile?: Maybe<ProfileUpdateOneInput>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+}
+
+export interface ProfileUpdateOneInput {
+  create?: Maybe<ProfileCreateInput>;
+  update?: Maybe<ProfileUpdateDataInput>;
+  upsert?: Maybe<ProfileUpsertNestedInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<ProfileWhereUniqueInput>;
+}
+
+export interface ProfileUpdateDataInput {
+  first_name?: Maybe<String>;
+  last_name?: Maybe<String>;
+  university?: Maybe<UniversityUpdateOneRequiredWithoutContact_personInput>;
+  phone_number?: Maybe<String>;
+  badge_number?: Maybe<String>;
+  gender?: Maybe<GenderType>;
+  food_allergies?: Maybe<String>;
+  height?: Maybe<Float>;
+  weight?: Maybe<Float>;
+  shoe_size?: Maybe<String>;
+  activity?: Maybe<ActivityUpdateManyInput>;
+  accomodation?: Maybe<AccomodationUpdateOneWithoutHostInput>;
+}
+
+export interface AccomodationUpdateOneWithoutHostInput {
+  create?: Maybe<AccomodationCreateWithoutHostInput>;
+  update?: Maybe<AccomodationUpdateWithoutHostDataInput>;
+  upsert?: Maybe<AccomodationUpsertWithoutHostInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<AccomodationWhereUniqueInput>;
+}
+
+export interface AccomodationUpdateWithoutHostDataInput {
+  address?: Maybe<String>;
+  phone_number?: Maybe<String>;
+}
+
+export interface AccomodationUpsertWithoutHostInput {
+  update: AccomodationUpdateWithoutHostDataInput;
+  create: AccomodationCreateWithoutHostInput;
+}
+
+export interface ProfileUpsertNestedInput {
+  update: ProfileUpdateDataInput;
+  create: ProfileCreateInput;
+}
+
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput;
+  create: UserCreateInput;
+}
+
+export interface PermissionUpdateManyMutationInput {
+  action?: Maybe<String>;
+  resources?: Maybe<String>;
+  domain?: Maybe<String>;
+}
+
+export interface ProfileUpdateInput {
+  first_name?: Maybe<String>;
+  last_name?: Maybe<String>;
+  university?: Maybe<UniversityUpdateOneRequiredWithoutContact_personInput>;
+  phone_number?: Maybe<String>;
+  badge_number?: Maybe<String>;
+  gender?: Maybe<GenderType>;
+  food_allergies?: Maybe<String>;
+  height?: Maybe<Float>;
+  weight?: Maybe<Float>;
+  shoe_size?: Maybe<String>;
+  activity?: Maybe<ActivityUpdateManyInput>;
+  accomodation?: Maybe<AccomodationUpdateOneWithoutHostInput>;
+}
+
+export interface ProfileUpdateManyMutationInput {
+  first_name?: Maybe<String>;
+  last_name?: Maybe<String>;
+  phone_number?: Maybe<String>;
+  badge_number?: Maybe<String>;
+  gender?: Maybe<GenderType>;
+  food_allergies?: Maybe<String>;
+  height?: Maybe<Float>;
+  weight?: Maybe<Float>;
+  shoe_size?: Maybe<String>;
+}
+
+export interface RoleCreateInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  permission?: Maybe<PermissionCreateManyInput>;
+}
+
+export interface PermissionCreateManyInput {
+  create?: Maybe<PermissionCreateInput[] | PermissionCreateInput>;
+  connect?: Maybe<PermissionWhereUniqueInput[] | PermissionWhereUniqueInput>;
+}
+
+export interface RoleUpdateInput {
+  name?: Maybe<String>;
+  permission?: Maybe<PermissionUpdateManyInput>;
+}
+
+export interface PermissionUpdateManyInput {
+  create?: Maybe<PermissionCreateInput[] | PermissionCreateInput>;
+  update?: Maybe<
+    | PermissionUpdateWithWhereUniqueNestedInput[]
+    | PermissionUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | PermissionUpsertWithWhereUniqueNestedInput[]
+    | PermissionUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<PermissionWhereUniqueInput[] | PermissionWhereUniqueInput>;
+  connect?: Maybe<PermissionWhereUniqueInput[] | PermissionWhereUniqueInput>;
+  set?: Maybe<PermissionWhereUniqueInput[] | PermissionWhereUniqueInput>;
+  disconnect?: Maybe<PermissionWhereUniqueInput[] | PermissionWhereUniqueInput>;
+  deleteMany?: Maybe<PermissionScalarWhereInput[] | PermissionScalarWhereInput>;
+  updateMany?: Maybe<
+    | PermissionUpdateManyWithWhereNestedInput[]
+    | PermissionUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface PermissionUpdateWithWhereUniqueNestedInput {
+  where: PermissionWhereUniqueInput;
+  data: PermissionUpdateDataInput;
+}
+
+export interface PermissionUpdateDataInput {
+  role?: Maybe<UserUpdateOneInput>;
+  action?: Maybe<String>;
+  resources?: Maybe<String>;
+  domain?: Maybe<String>;
+}
+
+export interface PermissionUpsertWithWhereUniqueNestedInput {
+  where: PermissionWhereUniqueInput;
+  update: PermissionUpdateDataInput;
+  create: PermissionCreateInput;
+}
+
+export interface PermissionScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  action?: Maybe<String>;
+  action_not?: Maybe<String>;
+  action_in?: Maybe<String[] | String>;
+  action_not_in?: Maybe<String[] | String>;
+  action_lt?: Maybe<String>;
+  action_lte?: Maybe<String>;
+  action_gt?: Maybe<String>;
+  action_gte?: Maybe<String>;
+  action_contains?: Maybe<String>;
+  action_not_contains?: Maybe<String>;
+  action_starts_with?: Maybe<String>;
+  action_not_starts_with?: Maybe<String>;
+  action_ends_with?: Maybe<String>;
+  action_not_ends_with?: Maybe<String>;
+  resources?: Maybe<String>;
+  resources_not?: Maybe<String>;
+  resources_in?: Maybe<String[] | String>;
+  resources_not_in?: Maybe<String[] | String>;
+  resources_lt?: Maybe<String>;
+  resources_lte?: Maybe<String>;
+  resources_gt?: Maybe<String>;
+  resources_gte?: Maybe<String>;
+  resources_contains?: Maybe<String>;
+  resources_not_contains?: Maybe<String>;
+  resources_starts_with?: Maybe<String>;
+  resources_not_starts_with?: Maybe<String>;
+  resources_ends_with?: Maybe<String>;
+  resources_not_ends_with?: Maybe<String>;
+  domain?: Maybe<String>;
+  domain_not?: Maybe<String>;
+  domain_in?: Maybe<String[] | String>;
+  domain_not_in?: Maybe<String[] | String>;
+  domain_lt?: Maybe<String>;
+  domain_lte?: Maybe<String>;
+  domain_gt?: Maybe<String>;
+  domain_gte?: Maybe<String>;
+  domain_contains?: Maybe<String>;
+  domain_not_contains?: Maybe<String>;
+  domain_starts_with?: Maybe<String>;
+  domain_not_starts_with?: Maybe<String>;
+  domain_ends_with?: Maybe<String>;
+  domain_not_ends_with?: Maybe<String>;
+  AND?: Maybe<PermissionScalarWhereInput[] | PermissionScalarWhereInput>;
+  OR?: Maybe<PermissionScalarWhereInput[] | PermissionScalarWhereInput>;
+  NOT?: Maybe<PermissionScalarWhereInput[] | PermissionScalarWhereInput>;
+}
+
+export interface PermissionUpdateManyWithWhereNestedInput {
+  where: PermissionScalarWhereInput;
+  data: PermissionUpdateManyDataInput;
+}
+
+export interface PermissionUpdateManyDataInput {
+  action?: Maybe<String>;
+  resources?: Maybe<String>;
+  domain?: Maybe<String>;
+}
+
+export interface RoleUpdateManyMutationInput {
+  name?: Maybe<String>;
+}
+
+export interface UniversityCreateInput {
+  id?: Maybe<ID_Input>;
+  contact_person?: Maybe<ProfileCreateOneWithoutUniversityInput>;
+  address?: Maybe<String>;
+  name: String;
+}
+
+export interface ProfileCreateOneWithoutUniversityInput {
+  create?: Maybe<ProfileCreateWithoutUniversityInput>;
+  connect?: Maybe<ProfileWhereUniqueInput>;
+}
+
+export interface ProfileCreateWithoutUniversityInput {
+  id?: Maybe<ID_Input>;
+  first_name: String;
+  last_name: String;
+  phone_number: String;
+  badge_number: String;
+  gender: GenderType;
+  food_allergies: String;
+  height?: Maybe<Float>;
+  weight?: Maybe<Float>;
+  shoe_size?: Maybe<String>;
+  activity?: Maybe<ActivityCreateManyInput>;
+  accomodation?: Maybe<AccomodationCreateOneWithoutHostInput>;
+}
+
+export interface UniversityUpdateInput {
+  contact_person?: Maybe<ProfileUpdateOneWithoutUniversityInput>;
+  address?: Maybe<String>;
+  name?: Maybe<String>;
+}
+
+export interface ProfileUpdateOneWithoutUniversityInput {
+  create?: Maybe<ProfileCreateWithoutUniversityInput>;
+  update?: Maybe<ProfileUpdateWithoutUniversityDataInput>;
+  upsert?: Maybe<ProfileUpsertWithoutUniversityInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<ProfileWhereUniqueInput>;
+}
+
+export interface ProfileUpdateWithoutUniversityDataInput {
+  first_name?: Maybe<String>;
+  last_name?: Maybe<String>;
+  phone_number?: Maybe<String>;
+  badge_number?: Maybe<String>;
+  gender?: Maybe<GenderType>;
+  food_allergies?: Maybe<String>;
+  height?: Maybe<Float>;
+  weight?: Maybe<Float>;
+  shoe_size?: Maybe<String>;
+  activity?: Maybe<ActivityUpdateManyInput>;
+  accomodation?: Maybe<AccomodationUpdateOneWithoutHostInput>;
+}
+
+export interface ProfileUpsertWithoutUniversityInput {
+  update: ProfileUpdateWithoutUniversityDataInput;
+  create: ProfileCreateWithoutUniversityInput;
+}
+
+export interface UniversityUpdateManyMutationInput {
+  address?: Maybe<String>;
+  name?: Maybe<String>;
+}
+
+export interface UserUpdateInput {
+  profile?: Maybe<ProfileUpdateOneInput>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
 }
 
 export interface UserUpdateManyMutationInput {
   email?: Maybe<String>;
   password?: Maybe<String>;
-  name?: Maybe<String>;
 }
 
-export interface PostSubscriptionWhereInput {
+export interface AccomodationSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<PostWhereInput>;
-  AND?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
-  OR?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
-  NOT?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
+  node?: Maybe<AccomodationWhereInput>;
+  AND?: Maybe<
+    AccomodationSubscriptionWhereInput[] | AccomodationSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    AccomodationSubscriptionWhereInput[] | AccomodationSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    AccomodationSubscriptionWhereInput[] | AccomodationSubscriptionWhereInput
+  >;
+}
+
+export interface ActivitySubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ActivityWhereInput>;
+  AND?: Maybe<
+    ActivitySubscriptionWhereInput[] | ActivitySubscriptionWhereInput
+  >;
+  OR?: Maybe<ActivitySubscriptionWhereInput[] | ActivitySubscriptionWhereInput>;
+  NOT?: Maybe<
+    ActivitySubscriptionWhereInput[] | ActivitySubscriptionWhereInput
+  >;
+}
+
+export interface PermissionSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<PermissionWhereInput>;
+  AND?: Maybe<
+    PermissionSubscriptionWhereInput[] | PermissionSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    PermissionSubscriptionWhereInput[] | PermissionSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    PermissionSubscriptionWhereInput[] | PermissionSubscriptionWhereInput
+  >;
+}
+
+export interface ProfileSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ProfileWhereInput>;
+  AND?: Maybe<ProfileSubscriptionWhereInput[] | ProfileSubscriptionWhereInput>;
+  OR?: Maybe<ProfileSubscriptionWhereInput[] | ProfileSubscriptionWhereInput>;
+  NOT?: Maybe<ProfileSubscriptionWhereInput[] | ProfileSubscriptionWhereInput>;
+}
+
+export interface RoleSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<RoleWhereInput>;
+  AND?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
+  OR?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
+  NOT?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
+}
+
+export interface UniversitySubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<UniversityWhereInput>;
+  AND?: Maybe<
+    UniversitySubscriptionWhereInput[] | UniversitySubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    UniversitySubscriptionWhereInput[] | UniversitySubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    UniversitySubscriptionWhereInput[] | UniversitySubscriptionWhereInput
+  >;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -531,127 +1536,206 @@ export interface NodeNode {
   id: ID_Output;
 }
 
-export interface Post {
+export interface Accomodation {
   id: ID_Output;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-  published: Boolean;
-  title: String;
-  content: String;
+  address: String;
+  phone_number: String;
 }
 
-export interface PostPromise extends Promise<Post>, Fragmentable {
+export interface AccomodationPromise
+  extends Promise<Accomodation>,
+    Fragmentable {
   id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  published: () => Promise<Boolean>;
-  title: () => Promise<String>;
-  content: () => Promise<String>;
-  author: <T = UserPromise>() => T;
+  address: () => Promise<String>;
+  host: <T = ProfilePromise>() => T;
+  phone_number: () => Promise<String>;
 }
 
-export interface PostSubscription
-  extends Promise<AsyncIterator<Post>>,
+export interface AccomodationSubscription
+  extends Promise<AsyncIterator<Accomodation>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  published: () => Promise<AsyncIterator<Boolean>>;
-  title: () => Promise<AsyncIterator<String>>;
-  content: () => Promise<AsyncIterator<String>>;
-  author: <T = UserSubscription>() => T;
+  address: () => Promise<AsyncIterator<String>>;
+  host: <T = ProfileSubscription>() => T;
+  phone_number: () => Promise<AsyncIterator<String>>;
 }
 
-export interface PostNullablePromise
-  extends Promise<Post | null>,
+export interface AccomodationNullablePromise
+  extends Promise<Accomodation | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  published: () => Promise<Boolean>;
-  title: () => Promise<String>;
-  content: () => Promise<String>;
-  author: <T = UserPromise>() => T;
+  address: () => Promise<String>;
+  host: <T = ProfilePromise>() => T;
+  phone_number: () => Promise<String>;
 }
 
-export interface User {
+export interface Profile {
   id: ID_Output;
-  email: String;
-  password: String;
+  first_name: String;
+  last_name: String;
+  phone_number: String;
+  badge_number: String;
+  gender: GenderType;
+  food_allergies: String;
+  height?: Float;
+  weight?: Float;
+  shoe_size?: String;
+}
+
+export interface ProfilePromise extends Promise<Profile>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  first_name: () => Promise<String>;
+  last_name: () => Promise<String>;
+  university: <T = UniversityPromise>() => T;
+  phone_number: () => Promise<String>;
+  badge_number: () => Promise<String>;
+  gender: () => Promise<GenderType>;
+  food_allergies: () => Promise<String>;
+  height: () => Promise<Float>;
+  weight: () => Promise<Float>;
+  shoe_size: () => Promise<String>;
+  activity: <T = FragmentableArray<Activity>>(args?: {
+    where?: ActivityWhereInput;
+    orderBy?: ActivityOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  accomodation: <T = AccomodationPromise>() => T;
+}
+
+export interface ProfileSubscription
+  extends Promise<AsyncIterator<Profile>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  first_name: () => Promise<AsyncIterator<String>>;
+  last_name: () => Promise<AsyncIterator<String>>;
+  university: <T = UniversitySubscription>() => T;
+  phone_number: () => Promise<AsyncIterator<String>>;
+  badge_number: () => Promise<AsyncIterator<String>>;
+  gender: () => Promise<AsyncIterator<GenderType>>;
+  food_allergies: () => Promise<AsyncIterator<String>>;
+  height: () => Promise<AsyncIterator<Float>>;
+  weight: () => Promise<AsyncIterator<Float>>;
+  shoe_size: () => Promise<AsyncIterator<String>>;
+  activity: <T = Promise<AsyncIterator<ActivitySubscription>>>(args?: {
+    where?: ActivityWhereInput;
+    orderBy?: ActivityOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  accomodation: <T = AccomodationSubscription>() => T;
+}
+
+export interface ProfileNullablePromise
+  extends Promise<Profile | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  first_name: () => Promise<String>;
+  last_name: () => Promise<String>;
+  university: <T = UniversityPromise>() => T;
+  phone_number: () => Promise<String>;
+  badge_number: () => Promise<String>;
+  gender: () => Promise<GenderType>;
+  food_allergies: () => Promise<String>;
+  height: () => Promise<Float>;
+  weight: () => Promise<Float>;
+  shoe_size: () => Promise<String>;
+  activity: <T = FragmentableArray<Activity>>(args?: {
+    where?: ActivityWhereInput;
+    orderBy?: ActivityOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  accomodation: <T = AccomodationPromise>() => T;
+}
+
+export interface University {
+  id: ID_Output;
+  address?: String;
   name: String;
 }
 
-export interface UserPromise extends Promise<User>, Fragmentable {
+export interface UniversityPromise extends Promise<University>, Fragmentable {
   id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
-  password: () => Promise<String>;
+  contact_person: <T = ProfilePromise>() => T;
+  address: () => Promise<String>;
   name: () => Promise<String>;
-  posts: <T = FragmentableArray<Post>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
 }
 
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
+export interface UniversitySubscription
+  extends Promise<AsyncIterator<University>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  email: () => Promise<AsyncIterator<String>>;
-  password: () => Promise<AsyncIterator<String>>;
+  contact_person: <T = ProfileSubscription>() => T;
+  address: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
-  posts: <T = Promise<AsyncIterator<PostSubscription>>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
 }
 
-export interface UserNullablePromise
-  extends Promise<User | null>,
+export interface UniversityNullablePromise
+  extends Promise<University | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
-  password: () => Promise<String>;
+  contact_person: <T = ProfilePromise>() => T;
+  address: () => Promise<String>;
   name: () => Promise<String>;
-  posts: <T = FragmentableArray<Post>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
 }
 
-export interface PostConnection {
+export interface Activity {
+  id: ID_Output;
+  name?: String;
+  date_of_activity?: DateTimeOutput;
+}
+
+export interface ActivityPromise extends Promise<Activity>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  date_of_activity: () => Promise<DateTimeOutput>;
+}
+
+export interface ActivitySubscription
+  extends Promise<AsyncIterator<Activity>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  date_of_activity: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface ActivityNullablePromise
+  extends Promise<Activity | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  date_of_activity: () => Promise<DateTimeOutput>;
+}
+
+export interface AccomodationConnection {
   pageInfo: PageInfo;
-  edges: PostEdge[];
+  edges: AccomodationEdge[];
 }
 
-export interface PostConnectionPromise
-  extends Promise<PostConnection>,
+export interface AccomodationConnectionPromise
+  extends Promise<AccomodationConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<PostEdge>>() => T;
-  aggregate: <T = AggregatePostPromise>() => T;
+  edges: <T = FragmentableArray<AccomodationEdge>>() => T;
+  aggregate: <T = AggregateAccomodationPromise>() => T;
 }
 
-export interface PostConnectionSubscription
-  extends Promise<AsyncIterator<PostConnection>>,
+export interface AccomodationConnectionSubscription
+  extends Promise<AsyncIterator<AccomodationConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<PostEdgeSubscription>>>() => T;
-  aggregate: <T = AggregatePostSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<AccomodationEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateAccomodationSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -677,35 +1761,430 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface PostEdge {
-  node: Post;
+export interface AccomodationEdge {
+  node: Accomodation;
   cursor: String;
 }
 
-export interface PostEdgePromise extends Promise<PostEdge>, Fragmentable {
-  node: <T = PostPromise>() => T;
+export interface AccomodationEdgePromise
+  extends Promise<AccomodationEdge>,
+    Fragmentable {
+  node: <T = AccomodationPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface PostEdgeSubscription
-  extends Promise<AsyncIterator<PostEdge>>,
+export interface AccomodationEdgeSubscription
+  extends Promise<AsyncIterator<AccomodationEdge>>,
     Fragmentable {
-  node: <T = PostSubscription>() => T;
+  node: <T = AccomodationSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregatePost {
+export interface AggregateAccomodation {
   count: Int;
 }
 
-export interface AggregatePostPromise
-  extends Promise<AggregatePost>,
+export interface AggregateAccomodationPromise
+  extends Promise<AggregateAccomodation>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregatePostSubscription
-  extends Promise<AsyncIterator<AggregatePost>>,
+export interface AggregateAccomodationSubscription
+  extends Promise<AsyncIterator<AggregateAccomodation>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ActivityConnection {
+  pageInfo: PageInfo;
+  edges: ActivityEdge[];
+}
+
+export interface ActivityConnectionPromise
+  extends Promise<ActivityConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ActivityEdge>>() => T;
+  aggregate: <T = AggregateActivityPromise>() => T;
+}
+
+export interface ActivityConnectionSubscription
+  extends Promise<AsyncIterator<ActivityConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ActivityEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateActivitySubscription>() => T;
+}
+
+export interface ActivityEdge {
+  node: Activity;
+  cursor: String;
+}
+
+export interface ActivityEdgePromise
+  extends Promise<ActivityEdge>,
+    Fragmentable {
+  node: <T = ActivityPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ActivityEdgeSubscription
+  extends Promise<AsyncIterator<ActivityEdge>>,
+    Fragmentable {
+  node: <T = ActivitySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateActivity {
+  count: Int;
+}
+
+export interface AggregateActivityPromise
+  extends Promise<AggregateActivity>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateActivitySubscription
+  extends Promise<AsyncIterator<AggregateActivity>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Permission {
+  id: ID_Output;
+  action?: String;
+  resources?: String;
+  domain?: String;
+}
+
+export interface PermissionPromise extends Promise<Permission>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  role: <T = UserPromise>() => T;
+  action: () => Promise<String>;
+  resources: () => Promise<String>;
+  domain: () => Promise<String>;
+}
+
+export interface PermissionSubscription
+  extends Promise<AsyncIterator<Permission>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  role: <T = UserSubscription>() => T;
+  action: () => Promise<AsyncIterator<String>>;
+  resources: () => Promise<AsyncIterator<String>>;
+  domain: () => Promise<AsyncIterator<String>>;
+}
+
+export interface PermissionNullablePromise
+  extends Promise<Permission | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  role: <T = UserPromise>() => T;
+  action: () => Promise<String>;
+  resources: () => Promise<String>;
+  domain: () => Promise<String>;
+}
+
+export interface User {
+  id: ID_Output;
+  email: String;
+  password: String;
+}
+
+export interface UserPromise extends Promise<User>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  profile: <T = ProfilePromise>() => T;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+}
+
+export interface UserSubscription
+  extends Promise<AsyncIterator<User>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  profile: <T = ProfileSubscription>() => T;
+  email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+}
+
+export interface UserNullablePromise
+  extends Promise<User | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  profile: <T = ProfilePromise>() => T;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+}
+
+export interface PermissionConnection {
+  pageInfo: PageInfo;
+  edges: PermissionEdge[];
+}
+
+export interface PermissionConnectionPromise
+  extends Promise<PermissionConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<PermissionEdge>>() => T;
+  aggregate: <T = AggregatePermissionPromise>() => T;
+}
+
+export interface PermissionConnectionSubscription
+  extends Promise<AsyncIterator<PermissionConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<PermissionEdgeSubscription>>>() => T;
+  aggregate: <T = AggregatePermissionSubscription>() => T;
+}
+
+export interface PermissionEdge {
+  node: Permission;
+  cursor: String;
+}
+
+export interface PermissionEdgePromise
+  extends Promise<PermissionEdge>,
+    Fragmentable {
+  node: <T = PermissionPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface PermissionEdgeSubscription
+  extends Promise<AsyncIterator<PermissionEdge>>,
+    Fragmentable {
+  node: <T = PermissionSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregatePermission {
+  count: Int;
+}
+
+export interface AggregatePermissionPromise
+  extends Promise<AggregatePermission>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregatePermissionSubscription
+  extends Promise<AsyncIterator<AggregatePermission>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ProfileConnection {
+  pageInfo: PageInfo;
+  edges: ProfileEdge[];
+}
+
+export interface ProfileConnectionPromise
+  extends Promise<ProfileConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ProfileEdge>>() => T;
+  aggregate: <T = AggregateProfilePromise>() => T;
+}
+
+export interface ProfileConnectionSubscription
+  extends Promise<AsyncIterator<ProfileConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ProfileEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateProfileSubscription>() => T;
+}
+
+export interface ProfileEdge {
+  node: Profile;
+  cursor: String;
+}
+
+export interface ProfileEdgePromise extends Promise<ProfileEdge>, Fragmentable {
+  node: <T = ProfilePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ProfileEdgeSubscription
+  extends Promise<AsyncIterator<ProfileEdge>>,
+    Fragmentable {
+  node: <T = ProfileSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateProfile {
+  count: Int;
+}
+
+export interface AggregateProfilePromise
+  extends Promise<AggregateProfile>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateProfileSubscription
+  extends Promise<AsyncIterator<AggregateProfile>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Role {
+  id: ID_Output;
+  name?: String;
+}
+
+export interface RolePromise extends Promise<Role>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  permission: <T = FragmentableArray<Permission>>(args?: {
+    where?: PermissionWhereInput;
+    orderBy?: PermissionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface RoleSubscription
+  extends Promise<AsyncIterator<Role>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  permission: <T = Promise<AsyncIterator<PermissionSubscription>>>(args?: {
+    where?: PermissionWhereInput;
+    orderBy?: PermissionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface RoleNullablePromise
+  extends Promise<Role | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  permission: <T = FragmentableArray<Permission>>(args?: {
+    where?: PermissionWhereInput;
+    orderBy?: PermissionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface RoleConnection {
+  pageInfo: PageInfo;
+  edges: RoleEdge[];
+}
+
+export interface RoleConnectionPromise
+  extends Promise<RoleConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<RoleEdge>>() => T;
+  aggregate: <T = AggregateRolePromise>() => T;
+}
+
+export interface RoleConnectionSubscription
+  extends Promise<AsyncIterator<RoleConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<RoleEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateRoleSubscription>() => T;
+}
+
+export interface RoleEdge {
+  node: Role;
+  cursor: String;
+}
+
+export interface RoleEdgePromise extends Promise<RoleEdge>, Fragmentable {
+  node: <T = RolePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface RoleEdgeSubscription
+  extends Promise<AsyncIterator<RoleEdge>>,
+    Fragmentable {
+  node: <T = RoleSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateRole {
+  count: Int;
+}
+
+export interface AggregateRolePromise
+  extends Promise<AggregateRole>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateRoleSubscription
+  extends Promise<AsyncIterator<AggregateRole>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface UniversityConnection {
+  pageInfo: PageInfo;
+  edges: UniversityEdge[];
+}
+
+export interface UniversityConnectionPromise
+  extends Promise<UniversityConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UniversityEdge>>() => T;
+  aggregate: <T = AggregateUniversityPromise>() => T;
+}
+
+export interface UniversityConnectionSubscription
+  extends Promise<AsyncIterator<UniversityConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UniversityEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUniversitySubscription>() => T;
+}
+
+export interface UniversityEdge {
+  node: University;
+  cursor: String;
+}
+
+export interface UniversityEdgePromise
+  extends Promise<UniversityEdge>,
+    Fragmentable {
+  node: <T = UniversityPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UniversityEdgeSubscription
+  extends Promise<AsyncIterator<UniversityEdge>>,
+    Fragmentable {
+  node: <T = UniversitySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateUniversity {
+  count: Int;
+}
+
+export interface AggregateUniversityPromise
+  extends Promise<AggregateUniversity>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUniversitySubscription
+  extends Promise<AsyncIterator<AggregateUniversity>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -780,60 +2259,307 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface PostSubscriptionPayload {
+export interface AccomodationSubscriptionPayload {
   mutation: MutationType;
-  node: Post;
+  node: Accomodation;
   updatedFields: String[];
-  previousValues: PostPreviousValues;
+  previousValues: AccomodationPreviousValues;
 }
 
-export interface PostSubscriptionPayloadPromise
-  extends Promise<PostSubscriptionPayload>,
+export interface AccomodationSubscriptionPayloadPromise
+  extends Promise<AccomodationSubscriptionPayload>,
     Fragmentable {
   mutation: () => Promise<MutationType>;
-  node: <T = PostPromise>() => T;
+  node: <T = AccomodationPromise>() => T;
   updatedFields: () => Promise<String[]>;
-  previousValues: <T = PostPreviousValuesPromise>() => T;
+  previousValues: <T = AccomodationPreviousValuesPromise>() => T;
 }
 
-export interface PostSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<PostSubscriptionPayload>>,
+export interface AccomodationSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<AccomodationSubscriptionPayload>>,
     Fragmentable {
   mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = PostSubscription>() => T;
+  node: <T = AccomodationSubscription>() => T;
   updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = PostPreviousValuesSubscription>() => T;
+  previousValues: <T = AccomodationPreviousValuesSubscription>() => T;
 }
 
-export interface PostPreviousValues {
+export interface AccomodationPreviousValues {
   id: ID_Output;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-  published: Boolean;
-  title: String;
-  content: String;
+  address: String;
+  phone_number: String;
 }
 
-export interface PostPreviousValuesPromise
-  extends Promise<PostPreviousValues>,
+export interface AccomodationPreviousValuesPromise
+  extends Promise<AccomodationPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  published: () => Promise<Boolean>;
-  title: () => Promise<String>;
-  content: () => Promise<String>;
+  address: () => Promise<String>;
+  phone_number: () => Promise<String>;
 }
 
-export interface PostPreviousValuesSubscription
-  extends Promise<AsyncIterator<PostPreviousValues>>,
+export interface AccomodationPreviousValuesSubscription
+  extends Promise<AsyncIterator<AccomodationPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  published: () => Promise<AsyncIterator<Boolean>>;
-  title: () => Promise<AsyncIterator<String>>;
-  content: () => Promise<AsyncIterator<String>>;
+  address: () => Promise<AsyncIterator<String>>;
+  phone_number: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ActivitySubscriptionPayload {
+  mutation: MutationType;
+  node: Activity;
+  updatedFields: String[];
+  previousValues: ActivityPreviousValues;
+}
+
+export interface ActivitySubscriptionPayloadPromise
+  extends Promise<ActivitySubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ActivityPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ActivityPreviousValuesPromise>() => T;
+}
+
+export interface ActivitySubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ActivitySubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ActivitySubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ActivityPreviousValuesSubscription>() => T;
+}
+
+export interface ActivityPreviousValues {
+  id: ID_Output;
+  name?: String;
+  date_of_activity?: DateTimeOutput;
+}
+
+export interface ActivityPreviousValuesPromise
+  extends Promise<ActivityPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  date_of_activity: () => Promise<DateTimeOutput>;
+}
+
+export interface ActivityPreviousValuesSubscription
+  extends Promise<AsyncIterator<ActivityPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  date_of_activity: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface PermissionSubscriptionPayload {
+  mutation: MutationType;
+  node: Permission;
+  updatedFields: String[];
+  previousValues: PermissionPreviousValues;
+}
+
+export interface PermissionSubscriptionPayloadPromise
+  extends Promise<PermissionSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = PermissionPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = PermissionPreviousValuesPromise>() => T;
+}
+
+export interface PermissionSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<PermissionSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = PermissionSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = PermissionPreviousValuesSubscription>() => T;
+}
+
+export interface PermissionPreviousValues {
+  id: ID_Output;
+  action?: String;
+  resources?: String;
+  domain?: String;
+}
+
+export interface PermissionPreviousValuesPromise
+  extends Promise<PermissionPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  action: () => Promise<String>;
+  resources: () => Promise<String>;
+  domain: () => Promise<String>;
+}
+
+export interface PermissionPreviousValuesSubscription
+  extends Promise<AsyncIterator<PermissionPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  action: () => Promise<AsyncIterator<String>>;
+  resources: () => Promise<AsyncIterator<String>>;
+  domain: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ProfileSubscriptionPayload {
+  mutation: MutationType;
+  node: Profile;
+  updatedFields: String[];
+  previousValues: ProfilePreviousValues;
+}
+
+export interface ProfileSubscriptionPayloadPromise
+  extends Promise<ProfileSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ProfilePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ProfilePreviousValuesPromise>() => T;
+}
+
+export interface ProfileSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ProfileSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ProfileSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ProfilePreviousValuesSubscription>() => T;
+}
+
+export interface ProfilePreviousValues {
+  id: ID_Output;
+  first_name: String;
+  last_name: String;
+  phone_number: String;
+  badge_number: String;
+  gender: GenderType;
+  food_allergies: String;
+  height?: Float;
+  weight?: Float;
+  shoe_size?: String;
+}
+
+export interface ProfilePreviousValuesPromise
+  extends Promise<ProfilePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  first_name: () => Promise<String>;
+  last_name: () => Promise<String>;
+  phone_number: () => Promise<String>;
+  badge_number: () => Promise<String>;
+  gender: () => Promise<GenderType>;
+  food_allergies: () => Promise<String>;
+  height: () => Promise<Float>;
+  weight: () => Promise<Float>;
+  shoe_size: () => Promise<String>;
+}
+
+export interface ProfilePreviousValuesSubscription
+  extends Promise<AsyncIterator<ProfilePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  first_name: () => Promise<AsyncIterator<String>>;
+  last_name: () => Promise<AsyncIterator<String>>;
+  phone_number: () => Promise<AsyncIterator<String>>;
+  badge_number: () => Promise<AsyncIterator<String>>;
+  gender: () => Promise<AsyncIterator<GenderType>>;
+  food_allergies: () => Promise<AsyncIterator<String>>;
+  height: () => Promise<AsyncIterator<Float>>;
+  weight: () => Promise<AsyncIterator<Float>>;
+  shoe_size: () => Promise<AsyncIterator<String>>;
+}
+
+export interface RoleSubscriptionPayload {
+  mutation: MutationType;
+  node: Role;
+  updatedFields: String[];
+  previousValues: RolePreviousValues;
+}
+
+export interface RoleSubscriptionPayloadPromise
+  extends Promise<RoleSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = RolePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = RolePreviousValuesPromise>() => T;
+}
+
+export interface RoleSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<RoleSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = RoleSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = RolePreviousValuesSubscription>() => T;
+}
+
+export interface RolePreviousValues {
+  id: ID_Output;
+  name?: String;
+}
+
+export interface RolePreviousValuesPromise
+  extends Promise<RolePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface RolePreviousValuesSubscription
+  extends Promise<AsyncIterator<RolePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+}
+
+export interface UniversitySubscriptionPayload {
+  mutation: MutationType;
+  node: University;
+  updatedFields: String[];
+  previousValues: UniversityPreviousValues;
+}
+
+export interface UniversitySubscriptionPayloadPromise
+  extends Promise<UniversitySubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = UniversityPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UniversityPreviousValuesPromise>() => T;
+}
+
+export interface UniversitySubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UniversitySubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UniversitySubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UniversityPreviousValuesSubscription>() => T;
+}
+
+export interface UniversityPreviousValues {
+  id: ID_Output;
+  address?: String;
+  name: String;
+}
+
+export interface UniversityPreviousValuesPromise
+  extends Promise<UniversityPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  address: () => Promise<String>;
+  name: () => Promise<String>;
+}
+
+export interface UniversityPreviousValuesSubscription
+  extends Promise<AsyncIterator<UniversityPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  address: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -865,7 +2591,6 @@ export interface UserPreviousValues {
   id: ID_Output;
   email: String;
   password: String;
-  name: String;
 }
 
 export interface UserPreviousValuesPromise
@@ -874,7 +2599,6 @@ export interface UserPreviousValuesPromise
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
   password: () => Promise<String>;
-  name: () => Promise<String>;
 }
 
 export interface UserPreviousValuesSubscription
@@ -883,7 +2607,6 @@ export interface UserPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
 }
 
 /*
@@ -891,6 +2614,16 @@ The `ID` scalar type represents a unique identifier, often used to refetch an ob
 */
 export type ID_Input = string | number;
 export type ID_Output = string;
+
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
+
+/*
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
+*/
+export type Float = number;
 
 /*
 DateTime scalar input type, allowing Date
@@ -903,19 +2636,14 @@ DateTime scalar output type, which is always a string
 export type DateTimeOutput = string;
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
-
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string;
-
-/*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 */
 export type Int = number;
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
 
 export type Long = string;
 
@@ -925,11 +2653,35 @@ export type Long = string;
 
 export const models: Model[] = [
   {
-    name: "Post",
+    name: "Profile",
+    embedded: false
+  },
+  {
+    name: "GenderType",
     embedded: false
   },
   {
     name: "User",
+    embedded: false
+  },
+  {
+    name: "Role",
+    embedded: false
+  },
+  {
+    name: "Permission",
+    embedded: false
+  },
+  {
+    name: "University",
+    embedded: false
+  },
+  {
+    name: "Activity",
+    embedded: false
+  },
+  {
+    name: "Accomodation",
     embedded: false
   }
 ];
