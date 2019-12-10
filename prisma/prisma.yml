@@ -35,10 +35,7 @@ generate:
 
 # A "post-deployment" hook that regenerates
 # the Prisma client.
-hooks:
-  post-deploy:
-    - prisma generate
-
+# hooks:
 seed:
   # Executes a Node.js script to seed the database with
   # initial data.
