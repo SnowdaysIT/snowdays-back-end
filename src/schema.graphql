@@ -2,7 +2,7 @@ type Profile{
   id: ID!
   first_name: String!
   last_name: String!
-  university: String!
+  university: University!
   phone_number: String!
   badge_number: String!
   gender: GenderType!
@@ -21,19 +21,20 @@ enum GenderType {
 
 type User {
   id: ID!
-  profile: String!
+  profile: Profile
   email: String!
   password: String!
 }
 
 type Role{
   id: ID!
-  name: String
-  permission: [Permission]
+  name: String!
+  permission: [Permission!]!
 }
 
 type Permission{
   id: ID!
+  role: User!
   action: String
   resources: String
   domain: String
@@ -41,20 +42,20 @@ type Permission{
 
 type University{
   id:ID!
-  contact_person: String
+  contact_person: Profile
   address: String
   name: String!
 }
 
 type Activity{
   id: ID!
-  name: String
-  date_of_activity: DateTime
+  name: String!
+  date_of_activity: DateTime!
 }
 
 type Accomodation{
   id: ID!
   address: String!
-  host: String!
+  host: Profile
   phone_number: String!
 }

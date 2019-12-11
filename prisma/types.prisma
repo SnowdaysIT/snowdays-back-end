@@ -28,13 +28,13 @@ type User {
 
 type Role{
   id: ID! @id
-  name: String
-  permission: [Permission]
+  name: String!
+  permission: [Permission!]!
 }
 
 type Permission{
   id: ID! @id
-  role: User 
+  role: User!
   action: String
   resources: String
   domain: String
@@ -49,8 +49,8 @@ type University{
 
 type Activity{
   id: ID! @id
-  name: String 
-  date_of_activity: DateTime
+  name: String! 
+  date_of_activity: DateTime!
 }
 
 type Accomodation{

@@ -157,8 +157,8 @@ input AccomodationWhereUniqueInput {
 
 type Activity {
   id: ID!
-  name: String
-  date_of_activity: DateTime
+  name: String!
+  date_of_activity: DateTime!
 }
 
 type ActivityConnection {
@@ -169,8 +169,8 @@ type ActivityConnection {
 
 input ActivityCreateInput {
   id: ID
-  name: String
-  date_of_activity: DateTime
+  name: String!
+  date_of_activity: DateTime!
 }
 
 input ActivityCreateManyInput {
@@ -194,8 +194,8 @@ enum ActivityOrderByInput {
 
 type ActivityPreviousValues {
   id: ID!
-  name: String
-  date_of_activity: DateTime
+  name: String!
+  date_of_activity: DateTime!
 }
 
 input ActivityScalarWhereInput {
@@ -457,7 +457,7 @@ type PageInfo {
 
 type Permission {
   id: ID!
-  role: User
+  role: User!
   action: String
   resources: String
   domain: String
@@ -471,7 +471,7 @@ type PermissionConnection {
 
 input PermissionCreateInput {
   id: ID
-  role: UserCreateOneInput
+  role: UserCreateOneInput!
   action: String
   resources: String
   domain: String
@@ -586,14 +586,14 @@ input PermissionSubscriptionWhereInput {
 }
 
 input PermissionUpdateDataInput {
-  role: UserUpdateOneInput
+  role: UserUpdateOneRequiredInput
   action: String
   resources: String
   domain: String
 }
 
 input PermissionUpdateInput {
-  role: UserUpdateOneInput
+  role: UserUpdateOneRequiredInput
   action: String
   resources: String
   domain: String
@@ -1121,7 +1121,7 @@ type Query {
 
 type Role {
   id: ID!
-  name: String
+  name: String!
   permission(where: PermissionWhereInput, orderBy: PermissionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Permission!]
 }
 
@@ -1133,7 +1133,7 @@ type RoleConnection {
 
 input RoleCreateInput {
   id: ID
-  name: String
+  name: String!
   permission: PermissionCreateManyInput
 }
 
@@ -1151,7 +1151,7 @@ enum RoleOrderByInput {
 
 type RolePreviousValues {
   id: ID!
-  name: String
+  name: String!
 }
 
 type RoleSubscriptionPayload {
@@ -1462,12 +1462,10 @@ input UserUpdateManyMutationInput {
   password: String
 }
 
-input UserUpdateOneInput {
+input UserUpdateOneRequiredInput {
   create: UserCreateInput
   update: UserUpdateDataInput
   upsert: UserUpsertNestedInput
-  delete: Boolean
-  disconnect: Boolean
   connect: UserWhereUniqueInput
 }
 

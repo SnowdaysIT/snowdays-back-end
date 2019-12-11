@@ -905,8 +905,8 @@ export interface ActivityCreateManyInput {
 
 export interface ActivityCreateInput {
   id?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  date_of_activity?: Maybe<DateTimeInput>;
+  name: String;
+  date_of_activity: DateTimeInput;
 }
 
 export interface AccomodationUpdateInput {
@@ -1066,7 +1066,7 @@ export interface ActivityUpdateManyMutationInput {
 
 export interface PermissionCreateInput {
   id?: Maybe<ID_Input>;
-  role?: Maybe<UserCreateOneInput>;
+  role: UserCreateOneInput;
   action?: Maybe<String>;
   resources?: Maybe<String>;
   domain?: Maybe<String>;
@@ -1117,18 +1117,16 @@ export interface AccomodationCreateWithoutHostInput {
 }
 
 export interface PermissionUpdateInput {
-  role?: Maybe<UserUpdateOneInput>;
+  role?: Maybe<UserUpdateOneRequiredInput>;
   action?: Maybe<String>;
   resources?: Maybe<String>;
   domain?: Maybe<String>;
 }
 
-export interface UserUpdateOneInput {
+export interface UserUpdateOneRequiredInput {
   create?: Maybe<UserCreateInput>;
   update?: Maybe<UserUpdateDataInput>;
   upsert?: Maybe<UserUpsertNestedInput>;
-  delete?: Maybe<Boolean>;
-  disconnect?: Maybe<Boolean>;
   connect?: Maybe<UserWhereUniqueInput>;
 }
 
@@ -1226,7 +1224,7 @@ export interface ProfileUpdateManyMutationInput {
 
 export interface RoleCreateInput {
   id?: Maybe<ID_Input>;
-  name?: Maybe<String>;
+  name: String;
   permission?: Maybe<PermissionCreateManyInput>;
 }
 
@@ -1267,7 +1265,7 @@ export interface PermissionUpdateWithWhereUniqueNestedInput {
 }
 
 export interface PermissionUpdateDataInput {
-  role?: Maybe<UserUpdateOneInput>;
+  role?: Maybe<UserUpdateOneRequiredInput>;
   action?: Maybe<String>;
   resources?: Maybe<String>;
   domain?: Maybe<String>;
@@ -1691,8 +1689,8 @@ export interface UniversityNullablePromise
 
 export interface Activity {
   id: ID_Output;
-  name?: String;
-  date_of_activity?: DateTimeOutput;
+  name: String;
+  date_of_activity: DateTimeOutput;
 }
 
 export interface ActivityPromise extends Promise<Activity>, Fragmentable {
@@ -2030,7 +2028,7 @@ export interface AggregateProfileSubscription
 
 export interface Role {
   id: ID_Output;
-  name?: String;
+  name: String;
 }
 
 export interface RolePromise extends Promise<Role>, Fragmentable {
@@ -2333,8 +2331,8 @@ export interface ActivitySubscriptionPayloadSubscription
 
 export interface ActivityPreviousValues {
   id: ID_Output;
-  name?: String;
-  date_of_activity?: DateTimeOutput;
+  name: String;
+  date_of_activity: DateTimeOutput;
 }
 
 export interface ActivityPreviousValuesPromise
@@ -2498,7 +2496,7 @@ export interface RoleSubscriptionPayloadSubscription
 
 export interface RolePreviousValues {
   id: ID_Output;
-  name?: String;
+  name: String;
 }
 
 export interface RolePreviousValuesPromise
