@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
+psql -f drop.sql $@
+psql -f schema.sql $@
+psql -f data.sql $@
