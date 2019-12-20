@@ -4,6 +4,35 @@
   --light-color: #d5ecf3;
 }
 
+@font-face {
+  font-family: 'Jaapokki';
+  src: url("/assets/fonts/jaapokki-regular-webfont.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Circular-bold';
+  src: url("/assets/fonts/Circular-Bold.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-size: 100%;
+  line-height: 1.5;
+  color: var(--theme-color);
+}
+
+.anchor span {
+  color: var(--theme-color)
+}
+
+/* -- Sidebar -- */
+.sidebar .app-name-link img {
+  height: 100px;
+}
+
 /* -- Cover --  */
 section.cover .cover-main {
   display: flex;
@@ -14,13 +43,25 @@ section.cover .cover-main {
   padding: 32px 16px 0;
 }
 
+section.cover #header {
+  font-family: 'Jaapokki';
+  font-size: 10em;
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+section.cover #subtitle {
+  font-family: 'Circular-bold';
+  color: var(--theme-color);
+}
 /* -- Buttons -- */
 .cover-main .buttons {
   width: 100%;
+  margin-top: 2em;
 }
 
 .cover-main .buttons a {
   font-weight: 700;
+  font-family: 'Circular-bold';
   position: relative;
   display: inline-block;
   padding: 12px 25px;

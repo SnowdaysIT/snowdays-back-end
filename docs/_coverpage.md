@@ -1,6 +1,11 @@
-![logo](assets/images/logo.svg)
+![logo](/assets/images/snowflake.svg)
 
-> Official documentation of the new Snowdays CRM back-end.
+# SNOWDAYS :id=header
+
+<div id="subtitle">
+
+> Official documentation for the 2020 Snowdays API
+</div>
 
 <div class="buttons">
   <a href="https://github.com/SnowdaysIT/snowdays-back-end" target="_blank"><span>GitHub</span></a>
@@ -8,3 +13,5 @@
 </div>
 
 ![](assets/images/panorama.jpg)
+
+![](#fffff)
