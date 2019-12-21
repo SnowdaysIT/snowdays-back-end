@@ -20,7 +20,10 @@ CREATE TABLE public_api.profile (
   vegetarian BOOLEAN NOT NULL,
   height INTEGER,
   weight INTEGER,
-  shoe_size INTEGER
+  shoe_size INTEGER,
+  university_id UUID,
+  accommodation_id UUID,
+  purchase_id UUID
 );
 CREATE TABLE public_api.profile_activity (
   profile_id UUID REFERENCES public_api.profile(id),
@@ -54,7 +57,7 @@ CREATE TABLE public_api.item (
   name TEXT NOT NULL CHECK (CHAR_LENGTH(name) < 20),
   description TEXT NOT NULL CHECK (CHAR_LENGTH(description) < 100),
   available INTEGER NOT NULL,
-  price NUMERIC(6,2) NOT NULL
+  price NUMERIC(6, 2) NOT NULL
 );
 CREATE TABLE public_api.purchase_item (
   purchase_id UUID REFERENCES public_api.purchase(id),
@@ -69,9 +72,9 @@ CREATE TABLE private_api.account (
 );
 ALTER TABLE public_api.profile
 ADD
-  CONSTRAINT university_id FOREIGN KEY (id) REFERENCES public_api.university(id),
+  FOREIGN KEY (university_id) REFERENCES public_api.university(id),
 ADD
-  CONSTRAINT accommodation_id FOREIGN KEY (id) REFERENCES public_api.accommodation(id),
+  FOREIGN KEY (accommodation_id) REFERENCES public_api.accommodation(id),
 ADD
-  CONSTRAINT purchase_id FOREIGN KEY (id) REFERENCES public_api.purchase(id);
+  FOREIGN KEY (purchase_id) REFERENCES public_api.purchase(id);
 COMMIT;
