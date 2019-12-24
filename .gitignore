@@ -61,3 +61,6 @@ seed.sql
 
 # next.js build output
 .next
+
+.vscode/*
+package-lock.json

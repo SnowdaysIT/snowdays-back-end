@@ -101,4 +101,17 @@ ADD
   FOREIGN KEY (purchase_id) REFERENCES public_api.purchase(id),
 ADD 
   FOREIGN KEY (rental_id) REFERENCES public_api.rental(id);
+
+CREATE FUNCTION private_api.current_account() RETURNS private_api.account as $$
+  SELECT *
+  FROM private_api.account
+  WHERE id = nullif(current_setting('jwt.claims.account_id', true), '')::UUID
+$$ LANGUAGE SQL STABLE;
+
+CREATE FUNCTION private_api.current_profile_id() RETURNS UUID as $$
+  SELECT profile_id
+  FROM private_api.account
+  WHERE id = nullif(current_setting('jwt.claims.account_id', true), '')::UUID
+$$ LANGUAGE SQL STABLE;
+
 COMMIT;

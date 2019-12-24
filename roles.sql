@@ -33,15 +33,22 @@ GRANT INSERT, UPDATE ON public_api.university TO contact_person;
 GRANT INSERT, UPDATE, DELETE ON public_api.material, public_api.activity TO sport_staff;
 
 GRANT INSERT, UPDATE, DELETE ON public_api.activity, public_api.item TO ca_staff;
-GRANT DELETE ON public_api.accommodation, public_api.address, public_api.university, public_api.profile, public_api.profile_activity, TO ca_staff;
+GRANT DELETE ON public_api.accommodation, public_api.address, public_api.university, public_api.profile, public_api.profile_activity TO ca_staff;
 
-GRANT INSERT, UPDATE, DELETE ON public_api.activity. public_api.item TO mainco_staff;
+GRANT INSERT, UPDATE, DELETE ON public_api.activity, public_api.item TO mainco_staff;
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA private_api, public_api TO it_staff
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA private_api, public_api TO postgraphile_api
+GRANT ALL ON ALL TABLES IN SCHEMA private_api, public_api TO it_staff;
+GRANT ALL ON ALL TABLES IN SCHEMA private_api, public_api TO postgraphile_api;
 
---policy 
+GRANT USAGE ON SCHEMA private_api, public_api TO postgraphile_api;
+GRANT USAGE ON SCHEMA private_api, public_api TO it_staff;
+GRANT USAGE ON SCHEMA public_api TO participant_user;
 
+GRANT EXECUTE on function private_api.current_account, private_api.current_account_id to postgraphile_api;
+
+ALTER TABLE public_api.profile ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY participant_policy ON public_api.profile TO participant_user USING ( id = private_api.current_profile_id())
 
 
 COMMIT;
