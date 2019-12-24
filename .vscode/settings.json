@@ -1,0 +1,13 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "snowdays_test",
+            "dialect": "PostgreSQL",
+            "name": "Snwdy_test",
+            "password": "apiConnector",
+            "port": 5432,
+            "server": "localhost",
+            "username": "api_connector"
+        }
+    ]
+}
