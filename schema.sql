@@ -1,16 +1,21 @@
 BEGIN;
+
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
 CREATE SCHEMA public_api;
 CREATE SCHEMA private_api;
+
 CREATE TYPE gender AS ENUM ('Female', 'Male');
 CREATE TYPE order_status AS ENUM ('Submitted', 'Confirmed', 'Delivered');
 CREATE TYPE experience_level AS ENUM('Beginner', 'Intermediate');
+
 CREATE TABLE public_api.activity (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL CHECK (CHAR_LENGTH(name) < 50),
   start_date TIMESTAMP NOT NULL,
   end_date TIMESTAMP NOT NULL
 );
+
 CREATE TABLE public_api.profile (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   first_name TEXT NOT NULL CHECK (CHAR_LENGTH(first_name) < 80),
@@ -101,4 +106,43 @@ ADD
   FOREIGN KEY (purchase_id) REFERENCES public_api.purchase(id),
 ADD 
   FOREIGN KEY (rental_id) REFERENCES public_api.rental(id);
+
+create function public_api.signup_account( 
+  email text,
+  password text
+) returns private_api.account as $$ 
+declare
+  person private_api.account;
+begin
+  insert into private_api.account (profile_id, email, password) values
+    (person.id, email, crypt(password, gen_salt('bf')));
+  return person;
+end;
+$$ language plpgsql strict security definer;
+
+create type public_api.jwt_token as (
+  role text,
+  profile_id UUID
+);
+
+create function public_api.authenticate(
+  email text,
+  password text
+) returns public_api.jwt_token as $$
+  select (rolename, profile_id)::public_api.jwt_token
+    from private_api.account
+    where 
+      private_api.account.email = $1 
+      and private_api.account.password = crypt($2, private_api.account.password);
+$$ language sql strict security definer;
+
+create function private_api.current_account() returns private_api.account as $$
+  select *
+  from private_api.account
+  where id = current_setting('jwt.claims.person_id', true)::uuid
+$$ language sql stable;
+
+create function public_api.current_profileID() returns UUID as $$
+  select  nullif(current_setting('jwt.claims.profile_id', true), '')::UUID
+$$ LANGUAGE SQL STABLE;
 COMMIT;
