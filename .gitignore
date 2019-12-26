@@ -56,8 +56,11 @@ typings/
 
 # dotenv environment variables file
 .env
-seed.sql
+seed.sql 
 .DS_Store
 
 # next.js build output
 .next
+
+.vscode/*
+package-lock.json
