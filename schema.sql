@@ -91,10 +91,8 @@ ADD
   FOREIGN KEY (accommodation_id) REFERENCES public_api.accommodation(id),
 ADD
   FOREIGN KEY (purchase_id) REFERENCES public_api.purchase(id);
-
---- SIGN UP
-
-create function public_api.signup_account( --forse si può mettere private_api.
+--
+create function public_api.signup_account( 
   email text,
   password text
 ) returns private_api.account as $$ 
@@ -107,33 +105,30 @@ begin
 end;
 $$ language plpgsql strict security definer;
 
---- AUTHENTICATION
-
 create type public_api.jwt_token as (
   role text,
   profile_id UUID
 );
 
-create role snowdays_test login password 'xyz';
-
-create role snowdays_person;
-grant snowdays_person to snowdays_test;
-
 create function public_api.authenticate(
   email text,
   password text
 ) returns public_api.jwt_token as $$
-  select ('snowdays_person', profile_id)::public_api.jwt_token
+  select (rolename, profile_id)::public_api.jwt_token
     from private_api.account
     where 
       private_api.account.email = $1 
       and private_api.account.password = crypt($2, private_api.account.password);
 $$ language sql strict security definer;
 
-create function public_api.current_person() returns private_api.account as $$
+create function private_api.current_account() returns private_api.account as $$
   select *
   from private_api.account
   where id = current_setting('jwt.claims.person_id', true)::uuid
 $$ language sql stable;
+
+create function public_api.current_profileID() returns UUID as $$
+  select  nullif(current_setting('jwt.claims.profile_id', true), '')::UUID
+$$ LANGUAGE SQL STABLE;
 
 COMMIT;
