@@ -6,4 +6,6 @@ DROP TYPE gender;
 DROP TYPE order_status;
 DROP TYPE experience_level;
 
+DROP ROLE postgraphile_api, anonymous_user, participant_user, contact_person, sport_staff, ca_staff, mainco_staff, it_staff;
+
 COMMIT;

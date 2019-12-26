@@ -93,7 +93,8 @@ CREATE TABLE private_api.account (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   profile_id UUID REFERENCES public_api.profile(id),
   email TEXT NOT NULL UNIQUE CHECK (email ~* '^.+@.+\..+$'),
-  password TEXT NOT NULL
+  password TEXT NOT NULL,
+  role_name TEXT NOT NULL
 );
 ALTER TABLE public_api.profile
 ADD
