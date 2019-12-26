@@ -7,6 +7,7 @@ CREATE SCHEMA private_api;
 
 CREATE TYPE gender AS ENUM ('Female', 'Male');
 CREATE TYPE order_status AS ENUM ('Submitted', 'Confirmed', 'Delivered');
+CREATE TYPE experience_level AS ENUM('Beginner', 'Intermediate');
 
 CREATE TABLE public_api.activity (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
