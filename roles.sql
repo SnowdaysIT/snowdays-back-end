@@ -57,16 +57,16 @@ ALTER TABLE public_api.university ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY host_accommodation ON public_api.accommodation TO participant_user USING ( host_id = public_api.current_profile_id());
 
-CREATE POLICY host_address ON public_api.address TO participant_user USING ( id <= (SELECT address FROM public_api.accommodation WHERE host_id = public_api.current_profile_id());
+CREATE POLICY host_address ON public_api.address TO participant_user USING ( id <= (SELECT address FROM public_api.accommodation WHERE host_id = public_api.current_profile_id()));
 
 
 CREATE POLICY participant_profile ON public_api.profile TO participant_user USING ( id = public_api.current_profile_id());
 CREATE POLICY participant_profile_activity ON public_api.profile_activity TO participant_user USING ( profile_id = public_api.current_profile_id());
 
-CREATE POLICY  participant_purchase ON public_api.purchase TO participant_user USING ( id <= (SELECT purchase_id FROM public_api.profile WHERE id = public_api.current_profile_id());
-CREATE POLICY participant_purchase_item ON public_api.purchase_item TO participant_user USING ( purchase_id <= (SELECT purchase_id FROM public_api.profile WHERE id = public_api.current_profile_id());
+CREATE POLICY  participant_purchase ON public_api.purchase TO participant_user USING ( id <= (SELECT purchase_id FROM public_api.profile WHERE id = public_api.current_profile_id()));
+CREATE POLICY participant_purchase_item ON public_api.purchase_item TO participant_user USING ( purchase_id <= (SELECT purchase_id FROM public_api.profile WHERE id = public_api.current_profile_id()));
 
-CREATE POLICY  participant_rental ON public_api.rental TO participant_user USING (id <= (SELECT rental_id FROM public_api.profile WHERE id = public_api.current_profile_id());
-CREATE POLICY  participant_rental_material ON public_api.rental_material TO participant_user USING (rental_id <= (SELECT rental_id FROM public_api.profile WHERE id = public_api.current_profile_id()); 
+CREATE POLICY  participant_rental ON public_api.rental TO participant_user USING (id <= (SELECT rental_id FROM public_api.profile WHERE id = public_api.current_profile_id()));
+CREATE POLICY  participant_rental_material ON public_api.rental_material TO participant_user USING (rental_id <= (SELECT rental_id FROM public_api.profile WHERE id = public_api.current_profile_id())); 
 
 COMMIT;
