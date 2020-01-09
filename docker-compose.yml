@@ -1,0 +1,45 @@
+version: '2'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - DB_USER=$DB_USER
+      - DB_PASS=$DB_PASS
+      - DB_NAME=$DB_NAME
+    env_file:
+     - .env
+    volumes:
+    - /srv/docker/postgresql:/var/lib/postgresql
+    - /docker_resources/postgres_init:/docker-entrypoint-initdb.d
+
+  ci_db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - DB_USER=$DB_USER
+      - DB_PASS=$DB_PASS
+      - DB_NAME=$DB_NAME
+    volumes:
+    - /docker_resources/postgres_init:/docker-entrypoint-initdb.d
+
+  node_base:
+    image: node:10.16.3-alpine
+    volumes:
+      - ${PWD}:/snowdays-back-end
+    working_dir: /snowdays-back-end
+
+  node_install:
+    extends:
+      service: node_base
+    command: /bin/sh docker_resources/docker_dev_node_install.sh
+
+  backend:
+    extends:
+      service: node_base
+    command: npm start
+    ports:
+      - 8088:3000
