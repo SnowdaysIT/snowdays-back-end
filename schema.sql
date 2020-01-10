@@ -129,7 +129,7 @@ create function public_api.authenticate(
   email text,
   password text
 ) returns public_api.jwt_token as $$
-  select (rolename, profile_id)::public_api.jwt_token
+  select (role_name, profile_id)::public_api.jwt_token
     from private_api.account
     where 
       private_api.account.email = $1 
@@ -142,7 +142,7 @@ create function private_api.current_account() returns private_api.account as $$
   where id = current_setting('jwt.claims.person_id', true)::uuid
 $$ language sql stable;
 
-create function public_api.current_profileID() returns UUID as $$
+create function public_api.current_profile_id() returns UUID as $$
   select  nullif(current_setting('jwt.claims.profile_id', true), '')::UUID
 $$ LANGUAGE SQL STABLE;
 COMMIT;
