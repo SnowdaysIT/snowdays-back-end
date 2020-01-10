@@ -1,8 +1,8 @@
-import * as AWS from "aws-sdk"
 import express from "express"
 import { graphqlUploadExpress } from "graphql-upload"
 import { postgraphile } from "postgraphile"
-import PostGraphileUploadFieldPlugin from "postgraphile-plugin-upload-field"
+import { PostGraphileUploadFieldPlugin } from "postgraphile-plugin-upload-field"
+import Upload from "./upload"
 
 // Create a new express application instance
 const app: express.Application = express()
@@ -29,7 +29,7 @@ const postgraphileOptions: object = {
             {
                 match: ({ schema, table, column, tags }) =>
                     column === "header_image_file",
-                resolve: () => { console.log("resolve upload") },
+                resolve: Upload.resolve,
             },
         ],
     },
@@ -44,10 +44,6 @@ app.use(
         postgraphileOptions,
     ),
 )
-
-// app.get("/", (req, res) => {
-//     res.send("Hello World!")
-// })
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Postgraphile running on: ${process.env.PORT || 3000}`)
