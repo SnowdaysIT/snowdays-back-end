@@ -1,12 +1,53 @@
-import express = require('express');
-
+import PgSimplifyInflector from '@graphile-contrib/pg-simplify-inflector'
+import express from 'express'
+import { graphqlUploadExpress } from 'graphql-upload'
+import path from 'path'
+import { postgraphile } from 'postgraphile'
+import PostGraphileUploadFieldPlugin from 'postgraphile-plugin-upload-field'
+import Upload from './upload'
 // Create a new express application instance
-const app: express.Application = express();
+const app: express.Application = express()
 
-app.get('/', function (req, res) {
-    res.send('Hello World!');
-});
+app.use(`/${process.env.UPLOAD_DIR_NAME || 'upload'}`, express.static(path.resolve(process.env.UPLOAD_DIR_NAME || 'upload')))
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
-});
+const postgraphileOptions: object = {
+    appendPlugins: [PgSimplifyInflector, PostGraphileUploadFieldPlugin],
+    dynamicJson: true,
+    enableQueryBatching: true,
+    enhanceGraphiql: true,
+    exportGqlSchemaPath: 'schema.graphql',
+    extendedErrors: ['hint', 'detail', 'errcode'],
+    graphileBuildOptions: {
+        uploadFieldDefinitions: [
+            {
+                match: ({ schema, table, column, tags }: any) =>
+                    column === 'id_card',
+                resolve: Upload.resolve,
+            },
+        ],
+    },
+    graphiql: true,
+    ignoreIndexes: false,
+    ignoreRBAC: false,
+    jwtPgTypeIdentifier: 'public_api.jwt_token',
+    jwtSecret: 'aa',
+    legacyRelations: 'omit',
+    pgDefaultRole: 'anonymous_user',
+    setofFunctionsContainNulls: false,
+    showErrorStack: 'json',
+    watchPg: false,
+}
+
+app.use(graphqlUploadExpress())
+
+app.use(
+    postgraphile(
+        process.env.DATABASE_URL || 'postgres://postgraphile_api:apiConnector@localhost/snowdays_test',
+        ['public_api', 'private_api'],
+        postgraphileOptions,
+    ),
+)
+
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`Postgraphile running on: ${process.env.PORT || 3000}`)
+})

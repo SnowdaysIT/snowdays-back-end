@@ -125,6 +125,19 @@ create type public_api.jwt_token as (
   profile_id UUID
 );
 
+CREATE INDEX ON public_api.accommodation(address);
+CREATE INDEX ON public_api.accommodation(host_id);
+CREATE INDEX ON public_api.profile(accommodation_id);
+CREATE INDEX ON public_api.profile_activity(activity_id);
+CREATE INDEX ON public_api.university(address);
+CREATE INDEX ON public_api.purchase_item(item_id);
+CREATE INDEX ON public_api.rental_material(material_id);
+CREATE INDEX ON public_api.profile(rental_id);
+CREATE INDEX ON public_api.profile(university_id);
+CREATE INDEX ON public_api.profile(purchase_id);
+CREATE INDEX ON public_api.university(contact_person);
+CREATE INDEX ON private_api.account(profile_id);
+
 create function public_api.authenticate(
   email text,
   password text
