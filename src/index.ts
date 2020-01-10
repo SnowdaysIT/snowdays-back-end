@@ -1,46 +1,49 @@
-import express from "express"
-import { graphqlUploadExpress } from "graphql-upload"
-import { postgraphile } from "postgraphile"
-import { PostGraphileUploadFieldPlugin } from "postgraphile-plugin-upload-field"
-import Upload from "./upload"
-
+import PgSimplifyInflector from '@graphile-contrib/pg-simplify-inflector'
+import express from 'express'
+import { graphqlUploadExpress } from 'graphql-upload'
+import path from 'path'
+import { postgraphile } from 'postgraphile'
+import PostGraphileUploadFieldPlugin from 'postgraphile-plugin-upload-field'
+import Upload from './upload'
 // Create a new express application instance
 const app: express.Application = express()
 
+app.use(`/${process.env.UPLOAD_DIR_NAME || 'upload'}`, express.static(path.resolve(process.env.UPLOAD_DIR_NAME || 'upload')))
+
 const postgraphileOptions: object = {
-    watchPg: false,
+    appendPlugins: [PgSimplifyInflector, PostGraphileUploadFieldPlugin],
     dynamicJson: true,
-    setofFunctionsContainNulls: false,
-    ignoreRBAC: false,
-    ignoreIndexes: false,
-    showErrorStack: "json",
-    extendedErrors: ["hint", "detail", "errcode"],
-    appendPlugins: [require("@graphile-contrib/pg-simplify-inflector"), PostGraphileUploadFieldPlugin],
-    exportGqlSchemaPath: "schema.graphql",
-    graphiql: true,
-    enhanceGraphiql: true,
     enableQueryBatching: true,
-    legacyRelations: "omit",
-    jwtSecret: "aa",
-    jwtPgTypeIdentifier: "public_api.jwt_token",
-    pgDefaultRole: "anonymous_user",
+    enhanceGraphiql: true,
+    exportGqlSchemaPath: 'schema.graphql',
+    extendedErrors: ['hint', 'detail', 'errcode'],
     graphileBuildOptions: {
         uploadFieldDefinitions: [
             {
-                match: ({ schema, table, column, tags }) =>
-                    column === "header_image_file",
+                match: ({ schema, table, column, tags }: any) =>
+                    column === 'id_card',
                 resolve: Upload.resolve,
             },
         ],
     },
+    graphiql: true,
+    ignoreIndexes: false,
+    ignoreRBAC: false,
+    jwtPgTypeIdentifier: 'public_api.jwt_token',
+    jwtSecret: 'aa',
+    legacyRelations: 'omit',
+    pgDefaultRole: 'anonymous_user',
+    setofFunctionsContainNulls: false,
+    showErrorStack: 'json',
+    watchPg: false,
 }
 
 app.use(graphqlUploadExpress())
 
 app.use(
     postgraphile(
-        process.env.DATABASE_URL || "postgres://postgraphile_api:apiConnector@localhost/snowdays_test",
-        ["public_api", "private_api"],
+        process.env.DATABASE_URL || 'postgres://postgraphile_api:apiConnector@localhost/snowdays_test',
+        ['public_api', 'private_api'],
         postgraphileOptions,
     ),
 )

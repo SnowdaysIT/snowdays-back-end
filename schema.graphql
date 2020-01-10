@@ -2731,7 +2731,7 @@ input ProfileInput {
   gender: Gender!
   isVegetarian: Boolean!
   isHelper: Boolean!
-  idCard: String!
+  idCard: Upload
   rentalId: UUID
   universityId: UUID
   accommodationId: UUID
@@ -2750,7 +2750,7 @@ input ProfilePatch {
   gender: Gender
   isVegetarian: Boolean
   isHelper: Boolean
-  idCard: String
+  idCard: Upload
   rentalId: UUID
   universityId: UUID
   accommodationId: UUID
@@ -4674,6 +4674,9 @@ type UpdateUniversityPayload {
     orderBy: [UniversitiesOrderBy!] = [PRIMARY_KEY_ASC]
   ): UniversitiesEdge
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 """
 A universally unique identifier as defined by [RFC 4122](https://tools.ietf.org/html/rfc4122).
