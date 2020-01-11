@@ -8,12 +8,20 @@ CREATE SCHEMA private_api;
 CREATE TYPE gender AS ENUM ('Female', 'Male');
 CREATE TYPE order_status AS ENUM ('Submitted', 'Confirmed', 'Delivered');
 CREATE TYPE experience_level AS ENUM('Beginner', 'Intermediate');
+CREATE TYPE activity_type AS ENUM('Lunch', 'Dinner', 'Sport', 'Party', 'Other');
 
 CREATE TABLE public_api.activity (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL CHECK (CHAR_LENGTH(name) < 50),
+  type activity_type NOT NULL,
   start_date TIMESTAMP NOT NULL,
   end_date TIMESTAMP NOT NULL
+);
+
+CREATE TABLE public_api.helper (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  type TEXT NOT NULL UNIQUE,
+  available_no NUMERIC(4, 0) NOT NULL
 );
 
 CREATE TABLE public_api.profile (
@@ -24,7 +32,7 @@ CREATE TABLE public_api.profile (
   badge_number TEXT NOT NULL CHECK (CHAR_LENGTH(badge_number) < 20),
   gender gender NOT NULL,
   is_vegetarian BOOLEAN NOT NULL,
-  is_helper BOOLEAN NOT NULL,
+  helper UUID REFERENCES public_api.helper(id),
   id_card TEXT NOT NULL,
   rental_id UUID,
   university_id UUID,
@@ -82,6 +90,7 @@ CREATE TABLE public_api.item (
   description TEXT NOT NULL CHECK (CHAR_LENGTH(description) < 100),
   available NUMERIC(4, 0) NOT NULL,
   price NUMERIC(6, 2) NOT NULL,
+  size TEXT,
   item_image TEXT
 );
 CREATE TABLE public_api.purchase_item (
