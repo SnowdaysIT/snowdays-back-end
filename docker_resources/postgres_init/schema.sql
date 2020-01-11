@@ -8,12 +8,20 @@ CREATE SCHEMA private_api;
 CREATE TYPE gender AS ENUM ('Female', 'Male');
 CREATE TYPE order_status AS ENUM ('Submitted', 'Confirmed', 'Delivered');
 CREATE TYPE experience_level AS ENUM('Beginner', 'Intermediate');
+CREATE TYPE activity_type AS ENUM('Lunch', 'Dinner', 'Sport', 'Party', 'Other');
 
 CREATE TABLE public_api.activity (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL CHECK (CHAR_LENGTH(name) < 50),
+  type activity_type NOT NULL,
   start_date TIMESTAMP NOT NULL,
   end_date TIMESTAMP NOT NULL
+);
+
+CREATE TABLE public_api.helper (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  type TEXT NOT NULL UNIQUE,
+  available_no NUMERIC(4, 0) NOT NULL
 );
 
 CREATE TABLE public_api.profile (
@@ -24,7 +32,7 @@ CREATE TABLE public_api.profile (
   badge_number TEXT NOT NULL CHECK (CHAR_LENGTH(badge_number) < 20),
   gender gender NOT NULL,
   is_vegetarian BOOLEAN NOT NULL,
-  is_helper BOOLEAN NOT NULL,
+  helper UUID REFERENCES public_api.helper(id),
   id_card TEXT NOT NULL,
   rental_id UUID,
   university_id UUID,
@@ -82,6 +90,7 @@ CREATE TABLE public_api.item (
   description TEXT NOT NULL CHECK (CHAR_LENGTH(description) < 100),
   available NUMERIC(4, 0) NOT NULL,
   price NUMERIC(6, 2) NOT NULL,
+  size TEXT,
   item_image TEXT
 );
 CREATE TABLE public_api.purchase_item (
@@ -125,11 +134,24 @@ create type public_api.jwt_token as (
   profile_id UUID
 );
 
+CREATE INDEX ON public_api.accommodation(address);
+CREATE INDEX ON public_api.accommodation(host_id);
+CREATE INDEX ON public_api.profile(accommodation_id);
+CREATE INDEX ON public_api.profile_activity(activity_id);
+CREATE INDEX ON public_api.university(address);
+CREATE INDEX ON public_api.purchase_item(item_id);
+CREATE INDEX ON public_api.rental_material(material_id);
+CREATE INDEX ON public_api.profile(rental_id);
+CREATE INDEX ON public_api.profile(university_id);
+CREATE INDEX ON public_api.profile(purchase_id);
+CREATE INDEX ON public_api.university(contact_person);
+CREATE INDEX ON private_api.account(profile_id);
+
 create function public_api.authenticate(
   email text,
   password text
 ) returns public_api.jwt_token as $$
-  select (rolename, profile_id)::public_api.jwt_token
+  select (role_name, profile_id)::public_api.jwt_token
     from private_api.account
     where 
       private_api.account.email = $1 
@@ -142,7 +164,7 @@ create function private_api.current_account() returns private_api.account as $$
   where id = current_setting('jwt.claims.person_id', true)::uuid
 $$ language sql stable;
 
-create function public_api.current_profileID() returns UUID as $$
+create function public_api.current_profile_id() returns UUID as $$
   select  nullif(current_setting('jwt.claims.profile_id', true), '')::UUID
 $$ LANGUAGE SQL STABLE;
 COMMIT;
