@@ -45,6 +45,7 @@ GRANT USAGE ON SCHEMA private_api, public_api TO it_staff;
 GRANT USAGE ON SCHEMA public_api TO participant_user;
 
 GRANT EXECUTE on function private_api.current_account, public_api.current_profile_id to postgraphile_api;
+GRANT EXECUTE on function public_api.timeslots_by_activity_type, public_api.available_item_sizes to participant_user;
 
 GRANT EXECUTE on function public_api.authenticate, public_api.signup_account to anonymous_user;
 

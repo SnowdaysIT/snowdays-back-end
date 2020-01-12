@@ -22,7 +22,7 @@ const postgraphileOptions: object = {
         uploadFieldDefinitions: [
             {
                 match: ({ schema, table, column, tags }: any) =>
-                    column === 'item_image',
+                    (column === 'badge_front_id' || column === 'badge_back_id'),
                 resolve: Upload.resolve,
             },
         ],
