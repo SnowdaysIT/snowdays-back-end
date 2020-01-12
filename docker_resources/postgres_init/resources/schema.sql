@@ -123,8 +123,8 @@ create function public_api.signup_account(
 declare
   person private_api.account;
 begin
-  insert into private_api.account (profile_id, email, password) values
-    (person.id, email, crypt(password, gen_salt('bf')));
+  insert into private_api.account (profile_id, email, password, role_name) values
+    (person.id, email, crypt(password, gen_salt('bf')), 'participant_user');
   return person;
 end;
 $$ language plpgsql strict security definer;
@@ -146,6 +146,7 @@ CREATE INDEX ON public_api.profile(university_id);
 CREATE INDEX ON public_api.profile(purchase_id);
 CREATE INDEX ON public_api.university(contact_person);
 CREATE INDEX ON private_api.account(profile_id);
+CREATE INDEX ON public_api.profile(helper);
 
 create function public_api.authenticate(
   email text,

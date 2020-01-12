@@ -13,6 +13,7 @@ app.use(`/${process.env.UPLOAD_DIR_NAME || 'upload'}`, express.static(path.resol
 const postgraphileOptions: object = {
     appendPlugins: [PgSimplifyInflector, PostGraphileUploadFieldPlugin],
     dynamicJson: true,
+    enableCors: true,
     enableQueryBatching: true,
     enhanceGraphiql: true,
     exportGqlSchemaPath: 'schema.graphql',
@@ -21,7 +22,7 @@ const postgraphileOptions: object = {
         uploadFieldDefinitions: [
             {
                 match: ({ schema, table, column, tags }: any) =>
-                    column === 'id_card',
+                    column === 'item_image',
                 resolve: Upload.resolve,
             },
         ],

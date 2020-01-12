@@ -1911,7 +1911,7 @@ input ItemInput {
   available: BigFloat!
   price: BigFloat!
   size: String
-  itemImage: String
+  itemImage: Upload
 }
 
 """Represents an update to a `Item`. Fields that are set will be updated."""
@@ -1922,7 +1922,7 @@ input ItemPatch {
   available: BigFloat
   price: BigFloat
   size: String
-  itemImage: String
+  itemImage: Upload
 }
 
 """A connection to a list of `Item` values."""
@@ -2968,7 +2968,7 @@ input ProfileInput {
   gender: Gender!
   isVegetarian: Boolean!
   helper: UUID
-  idCard: Upload
+  idCard: String!
   rentalId: UUID
   universityId: UUID
   accommodationId: UUID
@@ -2987,7 +2987,7 @@ input ProfilePatch {
   gender: Gender
   isVegetarian: Boolean
   helper: UUID
-  idCard: Upload
+  idCard: String
   rentalId: UUID
   universityId: UUID
   accommodationId: UUID
