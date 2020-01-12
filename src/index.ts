@@ -21,7 +21,7 @@ const postgraphileOptions: object = {
         uploadFieldDefinitions: [
             {
                 match: ({ schema, table, column, tags }: any) =>
-                    column === 'id_card',
+                    column === 'item_image',
                 resolve: Upload.resolve,
             },
         ],
@@ -32,7 +32,7 @@ const postgraphileOptions: object = {
     jwtPgTypeIdentifier: 'public_api.jwt_token',
     jwtSecret: 'aa',
     legacyRelations: 'omit',
-    pgDefaultRole: 'anonymous_user',
+    // pgDefaultRole: 'anonymous_user',
     setofFunctionsContainNulls: false,
     showErrorStack: 'json',
     watchPg: false,
