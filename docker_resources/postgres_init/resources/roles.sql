@@ -1,6 +1,6 @@
 BEGIN;
 
-CREATE ROLE postgraphile_api BYPASSRLS LOGIN PASSWORD ':postgraphile_api_pass';
+CREATE ROLE :postgraphile_api_user BYPASSRLS LOGIN PASSWORD :postgraphile_api_pass;
 CREATE ROLE anonymous_user;
 CREATE ROLE participant_user;
 CREATE ROLE contact_person;
@@ -9,7 +9,7 @@ CREATE ROLE ca_staff;
 CREATE ROLE mainco_staff;
 CREATE ROLE it_staff BYPASSRLS;
 
-GRANT it_staff TO postgraphile_api;
+GRANT it_staff TO :postgraphile_api_user;
 
 GRANT anonymous_user TO participant_user;
 
@@ -36,13 +36,13 @@ GRANT DELETE ON public_api.accommodation, public_api.address, public_api.univers
 GRANT INSERT, UPDATE, DELETE ON public_api.activity, public_api.item TO mainco_staff;
 
 GRANT ALL ON ALL TABLES IN SCHEMA private_api, public_api TO it_staff;
-GRANT ALL ON ALL TABLES IN SCHEMA private_api, public_api TO postgraphile_api;
+GRANT ALL ON ALL TABLES IN SCHEMA private_api, public_api TO :postgraphile_api_user;
 
-GRANT USAGE ON SCHEMA private_api, public_api TO postgraphile_api;
+GRANT USAGE ON SCHEMA private_api, public_api TO :postgraphile_api_user;
 GRANT USAGE ON SCHEMA private_api, public_api TO it_staff;
 GRANT USAGE ON SCHEMA public_api TO participant_user;
 
-GRANT EXECUTE on function private_api.current_account, public_api.current_profile_id to postgraphile_api;
+GRANT EXECUTE on function private_api.current_account, public_api.current_profile_id to :postgraphile_api_user;
 
 ALTER TABLE public_api.accommodation ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public_api.address ENABLE ROW LEVEL SECURITY;

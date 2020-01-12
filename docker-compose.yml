@@ -1,35 +1,38 @@
 version: '2'
 
 services:
-
   db:
     image: postgres
     restart: always
     environment:
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-      - DB_USER=$DB_USER
-      - DB_PASS=$DB_PASS
-      - DB_NAME=$DB_NAME
-    env_file:
-     - .env
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_DB=$POSTGRES_DB
+      - POSTGRAPHILE_API_USER=$POSTGRAPHILE_API_USER
+      - POSTGRAPHILE_API_PASS=$POSTGRAPHILE_API_PASS
+    command: postgres -c 'listen_addresses="*"'
     volumes:
-    - /srv/docker/postgresql:/var/lib/postgresql
-    - /docker_resources/postgres_init:/docker-entrypoint-initdb.d
+      - /srv/docker/postgresql:/var/lib/postgresql
+      - /docker_resources/postgres_init:/docker-entrypoint-initdb.d
+    container_name: db
 
   ci_db:
     image: postgres
     environment:
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-      - DB_USER=$DB_USER
-      - DB_PASS=$DB_PASS
-      - DB_NAME=$DB_NAME
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_DB=$POSTGRES_DB
+      - POSTGRAPHILE_API_USER=$POSTGRAPHILE_API_USER
+      - POSTGRAPHILE_API_PASS=$POSTGRAPHILE_API_PASS
+    command: postgres -c 'listen_addresses="*"'
     volumes:
-    - /docker_resources/postgres_init:/docker-entrypoint-initdb.d
+      - ./docker_resources/postgres_init:/docker-entrypoint-initdb.d
+    container_name: ci_db
 
   node_base:
     image: node:10.16.3-alpine
     volumes:
-      - ${PWD}:/snowdays-back-end
+      - ./:/snowdays-back-end
     working_dir: /snowdays-back-end
 
   node_install:
@@ -40,6 +43,15 @@ services:
   backend:
     extends:
       service: node_base
-    command: npm start
+    environment:
+      - JWT_SECRET=$JWT_SECRET
+      - TARGET_DB_ADDR=$TARGET_DB_ADDR
+      - POSTGRES_DB=$POSTGRES_DB
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRAPHILE_API_USER=$POSTGRAPHILE_API_USER
+      - POSTGRAPHILE_API_PASS=$POSTGRAPHILE_API_PASS
+    command: npm run dev
     ports:
-      - 8088:3000
+      - 3000:3000
+    container_name: backend

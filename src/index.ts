@@ -30,7 +30,7 @@ const postgraphileOptions: object = {
     ignoreIndexes: false,
     ignoreRBAC: false,
     jwtPgTypeIdentifier: 'public_api.jwt_token',
-    jwtSecret: 'aa',
+    jwtSecret: process.env.JWT_SECRET,
     legacyRelations: 'omit',
     pgDefaultRole: 'anonymous_user',
     setofFunctionsContainNulls: false,
@@ -40,9 +40,11 @@ const postgraphileOptions: object = {
 
 app.use(graphqlUploadExpress())
 
+const DATABASE_URL='postgres://'+process.env.POSTGRAPHILE_API_USER+':'+process.env.POSTGRAPHILE_API_PASS+'@'+process.env.TARGET_DB_ADDR+'/'+process.env.POSTGRES_DB
+
 app.use(
     postgraphile(
-        process.env.DATABASE_URL || 'postgres://postgraphile_api:apiConnector@localhost/snowdays_test',
+        DATABASE_URL,
         ['public_api', 'private_api'],
         postgraphileOptions,
     ),

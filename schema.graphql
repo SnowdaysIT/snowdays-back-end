@@ -249,6 +249,7 @@ type Activity implements Node {
   nodeId: ID!
   id: UUID!
   name: String!
+  type: ActivityType!
   startDate: Datetime!
   endDate: Datetime!
 
@@ -295,6 +296,7 @@ input ActivityCondition {
 input ActivityInput {
   id: UUID
   name: String!
+  type: ActivityType!
   startDate: Datetime!
   endDate: Datetime!
 }
@@ -305,8 +307,17 @@ Represents an update to a `Activity`. Fields that are set will be updated.
 input ActivityPatch {
   id: UUID
   name: String
+  type: ActivityType
   startDate: Datetime
   endDate: Datetime
+}
+
+enum ActivityType {
+  LUNCH
+  DINNER
+  SPORT
+  PARTY
+  OTHER
 }
 
 type Address implements Node {
@@ -620,6 +631,41 @@ type CreateAddressPayload {
     """The method to use when ordering `Address`."""
     orderBy: [AddressesOrderBy!] = [PRIMARY_KEY_ASC]
   ): AddressesEdge
+}
+
+"""All input for the create `Helper` mutation."""
+input CreateHelperInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Helper` to be created by this mutation."""
+  helper: HelperInput!
+}
+
+"""The output of our create `Helper` mutation."""
+type CreateHelperPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Helper` that was created by this mutation."""
+  helper: Helper
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Helper`. May be used by Relay 1."""
+  helperEdge(
+    """The method to use when ordering `Helper`."""
+    orderBy: [HelpersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): HelpersEdge
 }
 
 """All input for the create `Item` mutation."""
@@ -1193,6 +1239,64 @@ type DeleteAddressPayload {
   ): AddressesEdge
 }
 
+"""All input for the `deleteHelperByNodeId` mutation."""
+input DeleteHelperByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Helper` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""All input for the `deleteHelperByType` mutation."""
+input DeleteHelperByTypeInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  type: String!
+}
+
+"""All input for the `deleteHelper` mutation."""
+input DeleteHelperInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""The output of our delete `Helper` mutation."""
+type DeleteHelperPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Helper` that was deleted by this mutation."""
+  helper: Helper
+  deletedHelperNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Helper`. May be used by Relay 1."""
+  helperEdge(
+    """The method to use when ordering `Helper`."""
+    orderBy: [HelpersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): HelpersEdge
+}
+
 """All input for the `deleteItemByNodeId` mutation."""
 input DeleteItemByNodeIdInput {
   """
@@ -1674,6 +1778,80 @@ enum Gender {
   MALE
 }
 
+type Helper implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: UUID!
+  type: String!
+  availableNo: BigFloat!
+}
+
+"""
+A condition to be used against `Helper` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input HelperCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `type` field."""
+  type: String
+}
+
+"""An input for mutations affecting `Helper`"""
+input HelperInput {
+  id: UUID
+  type: String!
+  availableNo: BigFloat!
+}
+
+"""
+Represents an update to a `Helper`. Fields that are set will be updated.
+"""
+input HelperPatch {
+  id: UUID
+  type: String
+  availableNo: BigFloat
+}
+
+"""A connection to a list of `Helper` values."""
+type HelpersConnection {
+  """A list of `Helper` objects."""
+  nodes: [Helper!]!
+
+  """
+  A list of edges which contains the `Helper` and cursor to aid in pagination.
+  """
+  edges: [HelpersEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Helper` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Helper` edge in the connection."""
+type HelpersEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Helper` at the end of the edge."""
+  node: Helper!
+}
+
+"""Methods to use when ordering `Helper`."""
+enum HelpersOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  TYPE_ASC
+  TYPE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 type Item implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
@@ -1684,6 +1862,7 @@ type Item implements Node {
   description: String!
   available: BigFloat!
   price: BigFloat!
+  size: String
   itemImage: String
 
   """Reads and enables pagination through a set of `PurchaseItem`."""
@@ -1731,6 +1910,7 @@ input ItemInput {
   description: String!
   available: BigFloat!
   price: BigFloat!
+  size: String
   itemImage: String
 }
 
@@ -1741,6 +1921,7 @@ input ItemPatch {
   description: String
   available: BigFloat
   price: BigFloat
+  size: String
   itemImage: String
 }
 
@@ -1909,6 +2090,14 @@ type Mutation {
     input: CreateAddressInput!
   ): CreateAddressPayload
 
+  """Creates a single `Helper`."""
+  createHelper(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateHelperInput!
+  ): CreateHelperPayload
+
   """Creates a single `Item`."""
   createItem(
     """
@@ -2038,6 +2227,30 @@ type Mutation {
     """
     input: UpdateAddressInput!
   ): UpdateAddressPayload
+
+  """Updates a single `Helper` using its globally unique id and a patch."""
+  updateHelperByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateHelperByNodeIdInput!
+  ): UpdateHelperPayload
+
+  """Updates a single `Helper` using a unique key and a patch."""
+  updateHelper(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateHelperInput!
+  ): UpdateHelperPayload
+
+  """Updates a single `Helper` using a unique key and a patch."""
+  updateHelperByType(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateHelperByTypeInput!
+  ): UpdateHelperPayload
 
   """Updates a single `Item` using its globally unique id and a patch."""
   updateItemByNodeId(
@@ -2263,6 +2476,30 @@ type Mutation {
     input: DeleteAddressInput!
   ): DeleteAddressPayload
 
+  """Deletes a single `Helper` using its globally unique id."""
+  deleteHelperByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteHelperByNodeIdInput!
+  ): DeleteHelperPayload
+
+  """Deletes a single `Helper` using a unique key."""
+  deleteHelper(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteHelperInput!
+  ): DeleteHelperPayload
+
+  """Deletes a single `Helper` using a unique key."""
+  deleteHelperByType(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteHelperByTypeInput!
+  ): DeleteHelperPayload
+
   """Deletes a single `Item` using its globally unique id."""
   deleteItemByNodeId(
     """
@@ -2485,7 +2722,7 @@ type Profile implements Node {
   badgeNumber: String!
   gender: Gender!
   isVegetarian: Boolean!
-  isHelper: Boolean!
+  helper: UUID
   idCard: String!
   rentalId: UUID
   universityId: UUID
@@ -2730,7 +2967,7 @@ input ProfileInput {
   badgeNumber: String!
   gender: Gender!
   isVegetarian: Boolean!
-  isHelper: Boolean!
+  helper: UUID
   idCard: Upload
   rentalId: UUID
   universityId: UUID
@@ -2749,7 +2986,7 @@ input ProfilePatch {
   badgeNumber: String
   gender: Gender
   isVegetarian: Boolean
-  isHelper: Boolean
+  helper: UUID
   idCard: Upload
   rentalId: UUID
   universityId: UUID
@@ -3112,6 +3349,35 @@ type Query implements Node {
     condition: AddressCondition
   ): AddressesConnection
 
+  """Reads and enables pagination through a set of `Helper`."""
+  helpers(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Helper`."""
+    orderBy: [HelpersOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: HelperCondition
+  ): HelpersConnection
+
   """Reads and enables pagination through a set of `Item`."""
   items(
     """Only read the first `n` values of the set."""
@@ -3404,6 +3670,8 @@ type Query implements Node {
   accommodation(id: UUID!): Accommodation
   activity(id: UUID!): Activity
   address(id: UUID!): Address
+  helper(id: UUID!): Helper
+  helperByType(type: String!): Helper
   item(id: UUID!): Item
   material(id: UUID!): Material
   profile(id: UUID!): Profile
@@ -3437,6 +3705,12 @@ type Query implements Node {
     """The globally unique `ID` to be used in selecting a single `Address`."""
     nodeId: ID!
   ): Address
+
+  """Reads a single `Helper` using its globally unique `ID`."""
+  helperByNodeId(
+    """The globally unique `ID` to be used in selecting a single `Helper`."""
+    nodeId: ID!
+  ): Helper
 
   """Reads a single `Item` using its globally unique `ID`."""
   itemByNodeId(
@@ -4121,6 +4395,78 @@ type UpdateAddressPayload {
     """The method to use when ordering `Address`."""
     orderBy: [AddressesOrderBy!] = [PRIMARY_KEY_ASC]
   ): AddressesEdge
+}
+
+"""All input for the `updateHelperByNodeId` mutation."""
+input UpdateHelperByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Helper` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Helper` being updated.
+  """
+  patch: HelperPatch!
+}
+
+"""All input for the `updateHelperByType` mutation."""
+input UpdateHelperByTypeInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Helper` being updated.
+  """
+  patch: HelperPatch!
+  type: String!
+}
+
+"""All input for the `updateHelper` mutation."""
+input UpdateHelperInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Helper` being updated.
+  """
+  patch: HelperPatch!
+  id: UUID!
+}
+
+"""The output of our update `Helper` mutation."""
+type UpdateHelperPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Helper` that was updated by this mutation."""
+  helper: Helper
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Helper`. May be used by Relay 1."""
+  helperEdge(
+    """The method to use when ordering `Helper`."""
+    orderBy: [HelpersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): HelpersEdge
 }
 
 """All input for the `updateItemByNodeId` mutation."""
