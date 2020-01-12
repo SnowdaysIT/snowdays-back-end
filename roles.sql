@@ -23,6 +23,8 @@ GRANT sport_staff TO it_staff;
 GRANT ca_staff TO it_staff;
 GRANT mainco_staff TO it_staff;
 
+GRANT USAGE ON SCHEMA public_api to anonymous_user;
+
 GRANT SELECT ON ALL TABLES IN SCHEMA public_api TO participant_user;
 GRANT INSERT ON public_api.accommodation, public_api.address, public_api.profile, public_api.profile_activity, public_api.purchase, public_api.purchase_item, public_api.rental, public_api.rental_material TO participant_user;
 GRANT UPDATE ON public_api.accommodation, public_api.address, public_api.profile, public_api.profile_activity, public_api.purchase, public_api.purchase_item, public_api.rental TO participant_user; 
@@ -43,6 +45,8 @@ GRANT USAGE ON SCHEMA private_api, public_api TO it_staff;
 GRANT USAGE ON SCHEMA public_api TO participant_user;
 
 GRANT EXECUTE on function private_api.current_account, public_api.current_profile_id to postgraphile_api;
+
+GRANT EXECUTE on function public_api.authenticate, public_api.signup_account to anonymous_user;
 
 ALTER TABLE public_api.accommodation ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public_api.address ENABLE ROW LEVEL SECURITY;
