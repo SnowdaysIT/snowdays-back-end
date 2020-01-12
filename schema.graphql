@@ -4,6 +4,7 @@ type Accommodation implements Node {
   """
   nodeId: ID!
   id: UUID!
+  description: String
   address: UUID!
   isDormroom: Boolean!
   places: BigFloat!
@@ -63,6 +64,7 @@ input AccommodationCondition {
 """An input for mutations affecting `Accommodation`"""
 input AccommodationInput {
   id: UUID
+  description: String
   address: UUID!
   isDormroom: Boolean!
   places: BigFloat!
@@ -74,6 +76,7 @@ Represents an update to a `Accommodation`. Fields that are set will be updated.
 """
 input AccommodationPatch {
   id: UUID
+  description: String
   address: UUID
   isDormroom: Boolean
   places: BigFloat
@@ -250,8 +253,6 @@ type Activity implements Node {
   id: UUID!
   name: String!
   type: ActivityType!
-  startDate: Datetime!
-  endDate: Datetime!
 
   """Reads and enables pagination through a set of `ProfileActivity`."""
   profileActivities(
@@ -297,8 +298,6 @@ input ActivityInput {
   id: UUID
   name: String!
   type: ActivityType!
-  startDate: Datetime!
-  endDate: Datetime!
 }
 
 """
@@ -308,8 +307,6 @@ input ActivityPatch {
   id: UUID
   name: String
   type: ActivityType
-  startDate: Datetime
-  endDate: Datetime
 }
 
 enum ActivityType {
@@ -477,6 +474,29 @@ type AuthenticatePayload {
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+}
+
+"""A `String` edge in the connection."""
+type AvailableItemSizeEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `String` at the end of the edge."""
+  node: String
+}
+
+"""A connection to a list of `String` values."""
+type AvailableItemSizesConnection {
+  """A list of `String` objects."""
+  nodes: [String]!
+
+  """
+  A list of edges which contains the `String` and cursor to aid in pagination.
+  """
+  edges: [AvailableItemSizeEdge!]!
+
+  """The count of *all* `String` you could get from the connection."""
+  totalCount: Int!
 }
 
 """
@@ -701,6 +721,47 @@ type CreateItemPayload {
     """The method to use when ordering `Item`."""
     orderBy: [ItemsOrderBy!] = [PRIMARY_KEY_ASC]
   ): ItemsEdge
+}
+
+"""All input for the create `ItemSize` mutation."""
+input CreateItemSizeInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `ItemSize` to be created by this mutation."""
+  itemSize: ItemSizeInput!
+}
+
+"""The output of our create `ItemSize` mutation."""
+type CreateItemSizePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `ItemSize` that was created by this mutation."""
+  itemSize: ItemSize
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Item` that is related to this `ItemSize`."""
+  item: Item
+
+  """Reads a single `Size` that is related to this `ItemSize`."""
+  size: Size
+
+  """An edge for our `ItemSize`. May be used by Relay 1."""
+  itemSizeEdge(
+    """The method to use when ordering `ItemSize`."""
+    orderBy: [ItemSizesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ItemSizesEdge
 }
 
 """All input for the create `Material` mutation."""
@@ -979,6 +1040,76 @@ type CreateRentalPayload {
     """The method to use when ordering `Rental`."""
     orderBy: [RentalsOrderBy!] = [PRIMARY_KEY_ASC]
   ): RentalsEdge
+}
+
+"""All input for the create `Size` mutation."""
+input CreateSizeInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Size` to be created by this mutation."""
+  size: SizeInput!
+}
+
+"""The output of our create `Size` mutation."""
+type CreateSizePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Size` that was created by this mutation."""
+  size: Size
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Size`. May be used by Relay 1."""
+  sizeEdge(
+    """The method to use when ordering `Size`."""
+    orderBy: [SizesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SizesEdge
+}
+
+"""All input for the create `TimeSlot` mutation."""
+input CreateTimeSlotInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `TimeSlot` to be created by this mutation."""
+  timeSlot: TimeSlotInput!
+}
+
+"""The output of our create `TimeSlot` mutation."""
+type CreateTimeSlotPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `TimeSlot` that was created by this mutation."""
+  timeSlot: TimeSlot
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `TimeSlot`. May be used by Relay 1."""
+  timeSlotEdge(
+    """The method to use when ordering `TimeSlot`."""
+    orderBy: [TimeSlotsOrderBy!] = [NATURAL]
+  ): TimeSlotsEdge
 }
 
 """All input for the create `University` mutation."""
@@ -1346,6 +1477,61 @@ type DeleteItemPayload {
     """The method to use when ordering `Item`."""
     orderBy: [ItemsOrderBy!] = [PRIMARY_KEY_ASC]
   ): ItemsEdge
+}
+
+"""All input for the `deleteItemSizeByNodeId` mutation."""
+input DeleteItemSizeByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `ItemSize` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""All input for the `deleteItemSize` mutation."""
+input DeleteItemSizeInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  itemId: UUID!
+  sizeId: UUID!
+}
+
+"""The output of our delete `ItemSize` mutation."""
+type DeleteItemSizePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `ItemSize` that was deleted by this mutation."""
+  itemSize: ItemSize
+  deletedItemSizeNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Item` that is related to this `ItemSize`."""
+  item: Item
+
+  """Reads a single `Size` that is related to this `ItemSize`."""
+  size: Size
+
+  """An edge for our `ItemSize`. May be used by Relay 1."""
+  itemSizeEdge(
+    """The method to use when ordering `ItemSize`."""
+    orderBy: [ItemSizesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ItemSizesEdge
 }
 
 """All input for the `deleteMaterialByNodeId` mutation."""
@@ -1720,6 +1906,54 @@ type DeleteRentalPayload {
   ): RentalsEdge
 }
 
+"""All input for the `deleteSizeByNodeId` mutation."""
+input DeleteSizeByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Size` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""All input for the `deleteSize` mutation."""
+input DeleteSizeInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""The output of our delete `Size` mutation."""
+type DeleteSizePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Size` that was deleted by this mutation."""
+  size: Size
+  deletedSizeNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Size`. May be used by Relay 1."""
+  sizeEdge(
+    """The method to use when ordering `Size`."""
+    orderBy: [SizesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SizesEdge
+}
+
 """All input for the `deleteUniversityByNodeId` mutation."""
 input DeleteUniversityByNodeIdInput {
   """
@@ -1895,9 +2129,7 @@ type Item implements Node {
   id: UUID!
   name: String!
   description: String!
-  available: BigFloat!
   price: BigFloat!
-  size: String
   itemImage: String
 
   """Reads and enables pagination through a set of `PurchaseItem`."""
@@ -1928,6 +2160,35 @@ type Item implements Node {
     """
     condition: PurchaseItemCondition
   ): PurchaseItemsConnection!
+
+  """Reads and enables pagination through a set of `ItemSize`."""
+  itemSizes(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `ItemSize`."""
+    orderBy: [ItemSizesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ItemSizeCondition
+  ): ItemSizesConnection!
 }
 
 """
@@ -1943,9 +2204,7 @@ input ItemInput {
   id: UUID
   name: String!
   description: String!
-  available: BigFloat!
   price: BigFloat!
-  size: String
   itemImage: Upload
 }
 
@@ -1954,9 +2213,7 @@ input ItemPatch {
   id: UUID
   name: String
   description: String
-  available: BigFloat
   price: BigFloat
-  size: String
   itemImage: Upload
 }
 
@@ -1984,6 +2241,87 @@ type ItemsEdge {
 
   """The `Item` at the end of the edge."""
   node: Item!
+}
+
+type ItemSize implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  itemId: UUID!
+  sizeId: UUID!
+  availableNo: BigFloat!
+
+  """Reads a single `Item` that is related to this `ItemSize`."""
+  item: Item
+
+  """Reads a single `Size` that is related to this `ItemSize`."""
+  size: Size
+}
+
+"""
+A condition to be used against `ItemSize` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input ItemSizeCondition {
+  """Checks for equality with the object’s `itemId` field."""
+  itemId: UUID
+
+  """Checks for equality with the object’s `sizeId` field."""
+  sizeId: UUID
+}
+
+"""An input for mutations affecting `ItemSize`"""
+input ItemSizeInput {
+  itemId: UUID!
+  sizeId: UUID!
+  availableNo: BigFloat!
+}
+
+"""
+Represents an update to a `ItemSize`. Fields that are set will be updated.
+"""
+input ItemSizePatch {
+  itemId: UUID
+  sizeId: UUID
+  availableNo: BigFloat
+}
+
+"""A connection to a list of `ItemSize` values."""
+type ItemSizesConnection {
+  """A list of `ItemSize` objects."""
+  nodes: [ItemSize!]!
+
+  """
+  A list of edges which contains the `ItemSize` and cursor to aid in pagination.
+  """
+  edges: [ItemSizesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `ItemSize` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `ItemSize` edge in the connection."""
+type ItemSizesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `ItemSize` at the end of the edge."""
+  node: ItemSize!
+}
+
+"""Methods to use when ordering `ItemSize`."""
+enum ItemSizesOrderBy {
+  NATURAL
+  ITEM_ID_ASC
+  ITEM_ID_DESC
+  SIZE_ID_ASC
+  SIZE_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 """Methods to use when ordering `Item`."""
@@ -2141,6 +2479,14 @@ type Mutation {
     input: CreateItemInput!
   ): CreateItemPayload
 
+  """Creates a single `ItemSize`."""
+  createItemSize(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateItemSizeInput!
+  ): CreateItemSizePayload
+
   """Creates a single `Material`."""
   createMaterial(
     """
@@ -2196,6 +2542,22 @@ type Mutation {
     """
     input: CreateRentalMaterialInput!
   ): CreateRentalMaterialPayload
+
+  """Creates a single `Size`."""
+  createSize(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateSizeInput!
+  ): CreateSizePayload
+
+  """Creates a single `TimeSlot`."""
+  createTimeSlot(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateTimeSlotInput!
+  ): CreateTimeSlotPayload
 
   """Creates a single `University`."""
   createUniversity(
@@ -2302,6 +2664,22 @@ type Mutation {
     """
     input: UpdateItemInput!
   ): UpdateItemPayload
+
+  """Updates a single `ItemSize` using its globally unique id and a patch."""
+  updateItemSizeByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateItemSizeByNodeIdInput!
+  ): UpdateItemSizePayload
+
+  """Updates a single `ItemSize` using a unique key and a patch."""
+  updateItemSize(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateItemSizeInput!
+  ): UpdateItemSizePayload
 
   """Updates a single `Material` using its globally unique id and a patch."""
   updateMaterialByNodeId(
@@ -2420,6 +2798,22 @@ type Mutation {
     """
     input: UpdateRentalMaterialInput!
   ): UpdateRentalMaterialPayload
+
+  """Updates a single `Size` using its globally unique id and a patch."""
+  updateSizeByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSizeByNodeIdInput!
+  ): UpdateSizePayload
+
+  """Updates a single `Size` using a unique key and a patch."""
+  updateSize(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSizeInput!
+  ): UpdateSizePayload
 
   """
   Updates a single `University` using its globally unique id and a patch.
@@ -2551,6 +2945,22 @@ type Mutation {
     input: DeleteItemInput!
   ): DeleteItemPayload
 
+  """Deletes a single `ItemSize` using its globally unique id."""
+  deleteItemSizeByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteItemSizeByNodeIdInput!
+  ): DeleteItemSizePayload
+
+  """Deletes a single `ItemSize` using a unique key."""
+  deleteItemSize(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteItemSizeInput!
+  ): DeleteItemSizePayload
+
   """Deletes a single `Material` using its globally unique id."""
   deleteMaterialByNodeId(
     """
@@ -2663,6 +3073,22 @@ type Mutation {
     input: DeleteRentalMaterialInput!
   ): DeleteRentalMaterialPayload
 
+  """Deletes a single `Size` using its globally unique id."""
+  deleteSizeByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteSizeByNodeIdInput!
+  ): DeleteSizePayload
+
+  """Deletes a single `Size` using a unique key."""
+  deleteSize(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteSizeInput!
+  ): DeleteSizePayload
+
   """Deletes a single `University` using its globally unique id."""
   deleteUniversityByNodeId(
     """
@@ -2758,7 +3184,9 @@ type Profile implements Node {
   gender: Gender!
   isVegetarian: Boolean!
   helper: UUID
-  idCard: String!
+  idNumber: String!
+  badgeFrontId: String!
+  badgeBackId: String!
   rentalId: UUID
   universityId: UUID
   accommodationId: UUID
@@ -3009,7 +3437,9 @@ input ProfileInput {
   gender: Gender!
   isVegetarian: Boolean!
   helper: UUID
-  idCard: String!
+  idNumber: String!
+  badgeFrontId: String!
+  badgeBackId: String!
   rentalId: UUID
   universityId: UUID
   accommodationId: UUID
@@ -3028,7 +3458,9 @@ input ProfilePatch {
   gender: Gender
   isVegetarian: Boolean
   helper: UUID
-  idCard: String
+  idNumber: String
+  badgeFrontId: String
+  badgeBackId: String
   rentalId: UUID
   universityId: UUID
   accommodationId: UUID
@@ -3169,7 +3601,7 @@ type PurchaseItem implements Node {
   nodeId: ID!
   purchaseId: UUID!
   itemId: UUID!
-  quantity: Int!
+  availableNo: BigFloat!
 
   """Reads a single `Purchase` that is related to this `PurchaseItem`."""
   purchase: Purchase
@@ -3194,7 +3626,7 @@ input PurchaseItemCondition {
 input PurchaseItemInput {
   purchaseId: UUID!
   itemId: UUID!
-  quantity: Int!
+  availableNo: BigFloat!
 }
 
 """
@@ -3203,7 +3635,7 @@ Represents an update to a `PurchaseItem`. Fields that are set will be updated.
 input PurchaseItemPatch {
   purchaseId: UUID
   itemId: UUID
-  quantity: Int
+  availableNo: BigFloat
 }
 
 """A connection to a list of `PurchaseItem` values."""
@@ -3450,6 +3882,35 @@ type Query implements Node {
     condition: ItemCondition
   ): ItemsConnection
 
+  """Reads and enables pagination through a set of `ItemSize`."""
+  itemSizes(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `ItemSize`."""
+    orderBy: [ItemSizesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ItemSizeCondition
+  ): ItemSizesConnection
+
   """Reads and enables pagination through a set of `Material`."""
   materials(
     """Only read the first `n` values of the set."""
@@ -3653,6 +4114,59 @@ type Query implements Node {
     condition: RentalMaterialCondition
   ): RentalMaterialsConnection
 
+  """Reads and enables pagination through a set of `Size`."""
+  sizes(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Size`."""
+    orderBy: [SizesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SizeCondition
+  ): SizesConnection
+
+  """Reads and enables pagination through a set of `TimeSlot`."""
+  timeSlots(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `TimeSlot`."""
+    orderBy: [TimeSlotsOrderBy!] = [NATURAL]
+  ): TimeSlotsConnection
+
   """Reads and enables pagination through a set of `University`."""
   universities(
     """Only read the first `n` values of the set."""
@@ -3716,6 +4230,7 @@ type Query implements Node {
   helper(id: UUID!): Helper
   helperByType(type: String!): Helper
   item(id: UUID!): Item
+  itemSize(itemId: UUID!, sizeId: UUID!): ItemSize
   material(id: UUID!): Material
   profile(id: UUID!): Profile
   profileActivity(profileId: UUID!, activityId: UUID!): ProfileActivity
@@ -3723,10 +4238,53 @@ type Query implements Node {
   purchaseItem(purchaseId: UUID!, itemId: UUID!): PurchaseItem
   rental(id: UUID!): Rental
   rentalMaterial(rentalId: UUID!, materialId: UUID!): RentalMaterial
+  size(id: UUID!): Size
   university(id: UUID!): University
   account(id: UUID!): Account
   accountByEmail(email: String!): Account
+  availableItemSizes(
+    itemId: UUID
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+  ): AvailableItemSizesConnection!
   currentProfileId: UUID
+  timeslotsByActivityType(
+    type: ActivityType
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+  ): TimeslotsByActivityTypeConnection!
   currentAccount: Account
 
   """Reads a single `Accommodation` using its globally unique `ID`."""
@@ -3760,6 +4318,12 @@ type Query implements Node {
     """The globally unique `ID` to be used in selecting a single `Item`."""
     nodeId: ID!
   ): Item
+
+  """Reads a single `ItemSize` using its globally unique `ID`."""
+  itemSizeByNodeId(
+    """The globally unique `ID` to be used in selecting a single `ItemSize`."""
+    nodeId: ID!
+  ): ItemSize
 
   """Reads a single `Material` using its globally unique `ID`."""
   materialByNodeId(
@@ -3808,6 +4372,12 @@ type Query implements Node {
     """
     nodeId: ID!
   ): RentalMaterial
+
+  """Reads a single `Size` using its globally unique `ID`."""
+  sizeByNodeId(
+    """The globally unique `ID` to be used in selecting a single `Size`."""
+    nodeId: ID!
+  ): Size
 
   """Reads a single `University` using its globally unique `ID`."""
   universityByNodeId(
@@ -4068,6 +4638,179 @@ type SignupAccountPayload {
     """The method to use when ordering `Account`."""
     orderBy: [AccountsOrderBy!] = [PRIMARY_KEY_ASC]
   ): AccountsEdge
+}
+
+type Size implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: UUID!
+  name: String!
+
+  """Reads and enables pagination through a set of `ItemSize`."""
+  itemSizes(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `ItemSize`."""
+    orderBy: [ItemSizesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ItemSizeCondition
+  ): ItemSizesConnection!
+}
+
+"""
+A condition to be used against `Size` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input SizeCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+}
+
+"""An input for mutations affecting `Size`"""
+input SizeInput {
+  id: UUID
+  name: String!
+}
+
+"""Represents an update to a `Size`. Fields that are set will be updated."""
+input SizePatch {
+  id: UUID
+  name: String
+}
+
+"""A connection to a list of `Size` values."""
+type SizesConnection {
+  """A list of `Size` objects."""
+  nodes: [Size!]!
+
+  """
+  A list of edges which contains the `Size` and cursor to aid in pagination.
+  """
+  edges: [SizesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Size` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Size` edge in the connection."""
+type SizesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Size` at the end of the edge."""
+  node: Size!
+}
+
+"""Methods to use when ordering `Size`."""
+enum SizesOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+The exact time of day, does not include the date. May or may not have a timezone offset.
+"""
+scalar Time
+
+type TimeSlot {
+  activityId: UUID
+  start: Datetime!
+  end: Datetime!
+}
+
+"""An input for mutations affecting `TimeSlot`"""
+input TimeSlotInput {
+  activityId: UUID
+  start: Datetime!
+  end: Datetime!
+}
+
+"""A connection to a list of `TimeslotsByActivityTypeRecord` values."""
+type TimeslotsByActivityTypeConnection {
+  """A list of `TimeslotsByActivityTypeRecord` objects."""
+  nodes: [TimeslotsByActivityTypeRecord!]!
+
+  """
+  A list of edges which contains the `TimeslotsByActivityTypeRecord` and cursor to aid in pagination.
+  """
+  edges: [TimeslotsByActivityTypeEdge!]!
+
+  """
+  The count of *all* `TimeslotsByActivityTypeRecord` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `TimeslotsByActivityTypeRecord` edge in the connection."""
+type TimeslotsByActivityTypeEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `TimeslotsByActivityTypeRecord` at the end of the edge."""
+  node: TimeslotsByActivityTypeRecord!
+}
+
+"""The return type of our `timeslotsByActivityType` query."""
+type TimeslotsByActivityTypeRecord {
+  start: Time
+  end: Time
+}
+
+"""A connection to a list of `TimeSlot` values."""
+type TimeSlotsConnection {
+  """A list of `TimeSlot` objects."""
+  nodes: [TimeSlot!]!
+
+  """
+  A list of edges which contains the `TimeSlot` and cursor to aid in pagination.
+  """
+  edges: [TimeSlotsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `TimeSlot` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `TimeSlot` edge in the connection."""
+type TimeSlotsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `TimeSlot` at the end of the edge."""
+  node: TimeSlot!
+}
+
+"""Methods to use when ordering `TimeSlot`."""
+enum TimeSlotsOrderBy {
+  NATURAL
 }
 
 """A connection to a list of `University` values."""
@@ -4569,6 +5312,70 @@ type UpdateItemPayload {
   ): ItemsEdge
 }
 
+"""All input for the `updateItemSizeByNodeId` mutation."""
+input UpdateItemSizeByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `ItemSize` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `ItemSize` being updated.
+  """
+  patch: ItemSizePatch!
+}
+
+"""All input for the `updateItemSize` mutation."""
+input UpdateItemSizeInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `ItemSize` being updated.
+  """
+  patch: ItemSizePatch!
+  itemId: UUID!
+  sizeId: UUID!
+}
+
+"""The output of our update `ItemSize` mutation."""
+type UpdateItemSizePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `ItemSize` that was updated by this mutation."""
+  itemSize: ItemSize
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Item` that is related to this `ItemSize`."""
+  item: Item
+
+  """Reads a single `Size` that is related to this `ItemSize`."""
+  size: Size
+
+  """An edge for our `ItemSize`. May be used by Relay 1."""
+  itemSizeEdge(
+    """The method to use when ordering `ItemSize`."""
+    orderBy: [ItemSizesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ItemSizesEdge
+}
+
 """All input for the `updateMaterialByNodeId` mutation."""
 input UpdateMaterialByNodeIdInput {
   """
@@ -5002,6 +5809,63 @@ type UpdateRentalPayload {
     """The method to use when ordering `Rental`."""
     orderBy: [RentalsOrderBy!] = [PRIMARY_KEY_ASC]
   ): RentalsEdge
+}
+
+"""All input for the `updateSizeByNodeId` mutation."""
+input UpdateSizeByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Size` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Size` being updated.
+  """
+  patch: SizePatch!
+}
+
+"""All input for the `updateSize` mutation."""
+input UpdateSizeInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Size` being updated.
+  """
+  patch: SizePatch!
+  id: UUID!
+}
+
+"""The output of our update `Size` mutation."""
+type UpdateSizePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Size` that was updated by this mutation."""
+  size: Size
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Size`. May be used by Relay 1."""
+  sizeEdge(
+    """The method to use when ordering `Size`."""
+    orderBy: [SizesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SizesEdge
 }
 
 """All input for the `updateUniversityByNodeId` mutation."""
