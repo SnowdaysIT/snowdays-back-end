@@ -254,6 +254,35 @@ type Activity implements Node {
   name: String!
   type: ActivityType!
 
+  """Reads and enables pagination through a set of `TimeSlot`."""
+  timeSlots(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `TimeSlot`."""
+    orderBy: [TimeSlotsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TimeSlotCondition
+  ): TimeSlotsConnection!
+
   """Reads and enables pagination through a set of `ProfileActivity`."""
   profileActivities(
     """Only read the first `n` values of the set."""
@@ -1104,6 +1133,9 @@ type CreateTimeSlotPayload {
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+
+  """Reads a single `Activity` that is related to this `TimeSlot`."""
+  activity: Activity
 
   """An edge for our `TimeSlot`. May be used by Relay 1."""
   timeSlotEdge(
@@ -4165,6 +4197,11 @@ type Query implements Node {
 
     """The method to use when ordering `TimeSlot`."""
     orderBy: [TimeSlotsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TimeSlotCondition
   ): TimeSlotsConnection
 
   """Reads and enables pagination through a set of `University`."""
@@ -4285,7 +4322,7 @@ type Query implements Node {
     """Read all values in the set after (below) this cursor."""
     after: Cursor
   ): TimeslotsByActivityTypeConnection!
-  currentAccount: Account
+  currentAccountId: UUID
 
   """Reads a single `Accommodation` using its globally unique `ID`."""
   accommodationByNodeId(
@@ -4623,21 +4660,11 @@ type SignupAccountPayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  account: Account
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
-
-  """Reads a single `Profile` that is related to this `Account`."""
-  profile: Profile
-
-  """An edge for our `Account`. May be used by Relay 1."""
-  accountEdge(
-    """The method to use when ordering `Account`."""
-    orderBy: [AccountsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AccountsEdge
 }
 
 type Size implements Node {
@@ -4742,6 +4769,18 @@ type TimeSlot {
   activityId: UUID
   start: Datetime!
   end: Datetime!
+
+  """Reads a single `Activity` that is related to this `TimeSlot`."""
+  activity: Activity
+}
+
+"""
+A condition to be used against `TimeSlot` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input TimeSlotCondition {
+  """Checks for equality with the object’s `activityId` field."""
+  activityId: UUID
 }
 
 """An input for mutations affecting `TimeSlot`"""
@@ -4811,6 +4850,8 @@ type TimeSlotsEdge {
 """Methods to use when ordering `TimeSlot`."""
 enum TimeSlotsOrderBy {
   NATURAL
+  ACTIVITY_ID_ASC
+  ACTIVITY_ID_DESC
 }
 
 """A connection to a list of `University` values."""

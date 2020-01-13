@@ -11,7 +11,7 @@ CREATE TYPE experience_level AS ENUM('Beginner', 'Intermediate');
 CREATE TYPE activity_type AS ENUM('Lunch', 'Dinner', 'Sport', 'Party', 'Other');
 create type public_api.jwt_token as (
   role text,
-  profile_id UUID
+  account_id UUID
 );
 CREATE TABLE public_api.activity (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -145,39 +145,35 @@ CREATE INDEX ON public_api.university(contact_person);
 CREATE INDEX ON private_api.account(profile_id);
 CREATE INDEX ON public_api.profile(helper);
 CREATE INDEX ON public_api.item_size(size_id);
+CREATE INDEX ON public_api.time_slot(activity_id);
 
 CREATE FUNCTION public_api.signup_account( 
   email text,
   password text
-) returns private_api.account AS $$ 
-DECLARE
-  person private_api.account;
-BEGIN
-  insert into private_api.account (profile_id, email, password, role_name) values
-    (person.id, email, crypt(password, gen_salt('bf')), 'participant_user');
-  return person;
-END;
-$$ LANGUAGE PLPGSQL STRICT SECURITY DEFINER;
+) returns void AS $$ 
+  insert into private_api.account (email, password, role_name) values
+    (email, crypt(password, gen_salt('bf')), 'participant_user');
+   $$ LANGUAGE SQL STRICT SECURITY DEFINER;
 
 CREATE FUNCTION public_api.authenticate(
   email text,
   password text
 ) RETURNS public_api.jwt_token AS $$
-  select (role_name, profile_id)::public_api.jwt_token
+  select (role_name, id)::public_api.jwt_token
     from private_api.account
     where 
       private_api.account.email = $1 
       and private_api.account.password = crypt($2, private_api.account.password);
 $$ LANGUAGE SQL STRICT SECURITY DEFINER;
 
-CREATE FUNCTION private_api.current_account() RETURNS private_api.account AS $$
-  select *
-  from private_api.account
-  where id = current_setting('jwt.claims.person_id', true)::uuid
+CREATE FUNCTION private_api.current_account_id() RETURNS uuid AS $$
+  select nullif(current_setting('jwt.claims.account_id', true), '')::uuid
 $$ LANGUAGE SQL STABLE;
 
 CREATE FUNCTION public_api.current_profile_id() RETURNS UUID AS $$
-  select  nullif(current_setting('jwt.claims.profile_id', true), '')::UUID
+  select profile_id
+  from private_api.account
+  where id = current_setting('jwt.claims.account_id', true)::uuid
 $$ LANGUAGE SQL STABLE;
 
 CREATE FUNCTION public_api.available_item_sizes(item_id UUID) RETURNS setof text AS $$
