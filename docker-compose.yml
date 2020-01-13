@@ -1,10 +1,8 @@
-version: '2'
+version: '2.1'
 
 services:
   db:
     image: postgres
-    networks:
-      - snowdays_default
     restart: always
     environment:
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
@@ -61,3 +59,7 @@ services:
     ports:
       - 3000:3000
     container_name: backend
+networks:
+  snowdays_default:
+    external:
+      name: snowdays_default
