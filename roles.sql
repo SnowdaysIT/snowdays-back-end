@@ -67,6 +67,7 @@ CREATE POLICY host_address ON public_api.address TO participant_user USING ( id 
 
 CREATE POLICY participant_profile ON public_api.profile TO participant_user USING ( id = public_api.current_profile_id() );
 CREATE POLICY  insert_participant_profile ON public_api.profile FOR INSERT TO participant_user with check( public_api.current_profile_id() IS NULL );
+CREATE POLICY select_participant_profile ON public_api.profile FOR SELECT TO participant_user using (public_api.current_profile_id() IS NULL);
 
 CREATE POLICY participant_profile_activity ON public_api.profile_activity TO participant_user USING ( profile_id = public_api.current_profile_id());
 
