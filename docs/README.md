@@ -1,5 +1,5 @@
 # Snowdays API
-As part of the new year revolution, the IT team went crazy and created a system to manage the event from scratch! Here you won't find free beer or anything related to the event itself really but wait, don't go away yet, we've something cool to show you anyway(or at least we nerds think so). 
+As part of the new year revolution, the IT team went crazy and created a system to manage the event from scratch! Here you won't find free beer or anything related to the event itself really but wait, don't go away yet, we've something cool to show you anyway(or at least we nerds think so).
 
 ### What's this thing?
 This service manages, process and store all the data relative to our amazing event. If you are a developer and want to run the documentation, follow these easy peasy steps:
