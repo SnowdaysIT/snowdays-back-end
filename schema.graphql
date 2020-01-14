@@ -897,9 +897,6 @@ type CreateProfilePayload {
   """
   query: Query
 
-  """Reads a single `Helper` that is related to this `Profile`."""
-  helperByHelper: Helper
-
   """Reads a single `Rental` that is related to this `Profile`."""
   rental: Rental
 
@@ -1710,9 +1707,6 @@ type DeleteProfilePayload {
   """
   query: Query
 
-  """Reads a single `Helper` that is related to this `Profile`."""
-  helperByHelper: Helper
-
   """Reads a single `Rental` that is related to this `Profile`."""
   rental: Rental
 
@@ -2058,35 +2052,6 @@ type Helper implements Node {
   id: UUID!
   type: String!
   availableNo: BigFloat!
-
-  """Reads and enables pagination through a set of `Profile`."""
-  profilesByHelper(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `Profile`."""
-    orderBy: [ProfilesOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: ProfileCondition
-  ): ProfilesConnection!
 }
 
 """
@@ -3224,9 +3189,6 @@ type Profile implements Node {
   accommodationId: UUID
   purchaseId: UUID
 
-  """Reads a single `Helper` that is related to this `Profile`."""
-  helperByHelper: Helper
-
   """Reads a single `Rental` that is related to this `Profile`."""
   rental: Rental
 
@@ -3443,9 +3405,6 @@ input ProfileCondition {
   """Checks for equality with the object’s `id` field."""
   id: UUID
 
-  """Checks for equality with the object’s `helper` field."""
-  helper: UUID
-
   """Checks for equality with the object’s `rentalId` field."""
   rentalId: UUID
 
@@ -3530,8 +3489,6 @@ enum ProfilesOrderBy {
   NATURAL
   ID_ASC
   ID_DESC
-  HELPER_ASC
-  HELPER_DESC
   RENTAL_ID_ASC
   RENTAL_ID_DESC
   UNIVERSITY_ID_ASC
@@ -5587,9 +5544,6 @@ type UpdateProfilePayload {
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
-
-  """Reads a single `Helper` that is related to this `Profile`."""
-  helperByHelper: Helper
 
   """Reads a single `Rental` that is related to this `Profile`."""
   rental: Rental

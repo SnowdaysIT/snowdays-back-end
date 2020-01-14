@@ -1,6 +1,6 @@
 BEGIN;
 
-CREATE ROLE postgraphile_api BYPASSRLS LOGIN PASSWORD 'apiConnector';
+CREATE ROLE :postgraphile_api_user BYPASSRLS LOGIN PASSWORD :postgraphile_api_pass;
 CREATE ROLE anonymous_user;
 CREATE ROLE participant_user;
 CREATE ROLE contact_person;
@@ -9,7 +9,7 @@ CREATE ROLE ca_staff;
 CREATE ROLE mainco_staff;
 CREATE ROLE it_staff BYPASSRLS;
 
-GRANT it_staff TO postgraphile_api;
+GRANT it_staff TO :postgraphile_api_user;
 
 GRANT anonymous_user TO participant_user;
 
@@ -27,7 +27,7 @@ GRANT USAGE ON SCHEMA public_api to anonymous_user;
 
 GRANT SELECT ON ALL TABLES IN SCHEMA public_api TO participant_user;
 GRANT INSERT ON public_api.accommodation, public_api.address, public_api.profile, public_api.profile_activity, public_api.purchase, public_api.purchase_item, public_api.rental, public_api.rental_material TO participant_user;
-GRANT UPDATE ON public_api.accommodation, public_api.address, public_api.profile, public_api.profile_activity, public_api.purchase, public_api.purchase_item, public_api.rental TO participant_user; 
+GRANT UPDATE ON public_api.accommodation, public_api.address, public_api.profile, public_api.profile_activity, public_api.purchase, public_api.purchase_item, public_api.rental TO participant_user;
 GRANT INSERT, UPDATE ON public_api.university TO contact_person;
 
 GRANT INSERT, UPDATE, DELETE ON public_api.material, public_api.activity TO sport_staff;
@@ -38,13 +38,13 @@ GRANT DELETE ON public_api.accommodation, public_api.address, public_api.univers
 GRANT INSERT, UPDATE, DELETE ON public_api.activity, public_api.item TO mainco_staff;
 
 GRANT ALL ON ALL TABLES IN SCHEMA private_api, public_api TO it_staff;
-GRANT ALL ON ALL TABLES IN SCHEMA private_api, public_api TO postgraphile_api;
+GRANT ALL ON ALL TABLES IN SCHEMA private_api, public_api TO :postgraphile_api_user;
 
-GRANT USAGE ON SCHEMA private_api, public_api TO postgraphile_api;
+GRANT USAGE ON SCHEMA private_api, public_api TO :postgraphile_api_user;
 GRANT USAGE ON SCHEMA private_api, public_api TO it_staff;
 GRANT USAGE ON SCHEMA public_api TO participant_user;
 
-GRANT EXECUTE on function private_api.current_account_id to postgraphile_api;
+GRANT EXECUTE on function private_api.current_account_id to :postgraphile_api_user;
 GRANT EXECUTE on function public_api.timeslots_by_activity_type, public_api.available_item_sizes, public_api.current_profile_id to participant_user;
 
 GRANT EXECUTE on function public_api.authenticate, public_api.signup_account to anonymous_user;
