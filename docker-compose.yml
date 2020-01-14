@@ -26,9 +26,10 @@ services:
       - POSTGRES_DB=$POSTGRES_DB
       - POSTGRAPHILE_API_USER=$POSTGRAPHILE_API_USER
       - POSTGRAPHILE_API_PASS=$POSTGRAPHILE_API_PASS
+      - HOST_PWD=$HOST_PWD
     command: postgres -c 'listen_addresses="*"'
     volumes:
-      - ./docker_resources/postgres_init:/docker-entrypoint-initdb.d
+      - ${HOST_PWD}docker_resources/postgres_init:/docker-entrypoint-initdb.d
     container_name: ci_db
 
   node_base:
