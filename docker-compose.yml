@@ -29,7 +29,7 @@ services:
       - HOST_PWD=$HOST_PWD
     command: postgres -c 'listen_addresses="*"'
     volumes:
-      - ${HOST_PWD}docker_resources/postgres_init:/docker-entrypoint-initdb.d
+      - ${HOST_PWD}./docker_resources/postgres_init:/docker-entrypoint-initdb.d
     container_name: ci_db
 
   node_base:
