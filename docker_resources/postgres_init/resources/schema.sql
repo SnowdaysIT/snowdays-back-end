@@ -69,9 +69,9 @@ CREATE TABLE public_api.rental_material (
 CREATE TABLE public_api.address (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   street TEXT NOT NULL CHECK (CHAR_LENGTH(street) < 80),
-  zip_code TEXT NOT NULL CHECK (CHAR_LENGTH(street) < 10),
-  city TEXT NOT NULL CHECK (CHAR_LENGTH(street) < 30),
-  country TEXT NOT NULL CHECK (CHAR_LENGTH(street) < 15)
+  zip_code TEXT NOT NULL CHECK (CHAR_LENGTH(zip_code) < 10),
+  city TEXT NOT NULL CHECK (CHAR_LENGTH(city) < 30),
+  country TEXT NOT NULL CHECK (CHAR_LENGTH(country) < 15)
 );
 CREATE TABLE public_api.university (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
