@@ -44,8 +44,8 @@ GRANT USAGE ON SCHEMA private_api, public_api TO :postgraphile_api_user;
 GRANT USAGE ON SCHEMA private_api, public_api TO it_staff;
 GRANT USAGE ON SCHEMA public_api TO participant_user;
 
-GRANT EXECUTE on function private_api.current_account_id to :postgraphile_api_user;
-GRANT EXECUTE on function public_api.timeslots_by_activity_type, public_api.available_item_sizes, public_api.current_profile_id to participant_user;
+GRANT EXECUTE on function private_api.current_account_id to :postgraphile_api_user, participant_user;
+GRANT EXECUTE on function public_api.timeslots_by_activity_type, public_api.available_item_sizes, public_api.current_profile_id, private_api.account to participant_user;
 
 GRANT EXECUTE on function public_api.authenticate, public_api.signup_account to anonymous_user;
 
@@ -58,12 +58,14 @@ ALTER TABLE public_api.purchase_item ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public_api.rental ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public_api.rental_material ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public_api.university ENABLE ROW LEVEL SECURITY;
+ALTER TABLE private_api.account ENABLE ROW LEVEL SECURITY;
 
 
 CREATE POLICY host_accommodation ON public_api.accommodation TO participant_user USING ( host_id = public_api.current_profile_id());
 
 CREATE POLICY host_address ON public_api.address TO participant_user USING ( id <= (SELECT address FROM public_api.accommodation WHERE host_id = public_api.current_profile_id()));
 
+CREATE POLICY paticipant_account ON private_api.account TO participant_user USING ( id = current_account_id());
 
 CREATE POLICY participant_profile ON public_api.profile TO participant_user USING ( id = public_api.current_profile_id() );
 CREATE POLICY  insert_participant_profile ON public_api.profile FOR INSERT TO participant_user with check( public_api.current_profile_id() IS NULL );
