@@ -42,6 +42,7 @@ CREATE TABLE public_api.profile (
   badge_back_id TEXT NOT NULL,
   rental_id UUID,
   university_id UUID,
+  needs_accommodation BOOLEAN,
   accommodation_id UUID,
   purchase_id UUID
 );

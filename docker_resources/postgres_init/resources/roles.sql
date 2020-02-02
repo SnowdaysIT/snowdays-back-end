@@ -1,6 +1,6 @@
 BEGIN;
 
-CREATE ROLE postgraphile_api BYPASSRLS LOGIN PASSWORD 'strong';
+CREATE ROLE :postgraphile_api_user BYPASSRLS LOGIN PASSWORD :postgraphile_api_pass;
 CREATE ROLE anonymous_user;
 CREATE ROLE participant_user;
 CREATE ROLE contact_person;
@@ -9,7 +9,7 @@ CREATE ROLE ca_staff;
 CREATE ROLE mainco_staff;
 CREATE ROLE it_staff BYPASSRLS;
 
-GRANT it_staff TO postgraphile_api;
+GRANT it_staff TO :postgraphile_api_user;
 
 GRANT anonymous_user TO participant_user;
 
@@ -39,9 +39,9 @@ GRANT DELETE ON public_api.accommodation, public_api.address, public_api.univers
 GRANT INSERT, UPDATE, DELETE ON public_api.activity, public_api.item TO mainco_staff;
 
 GRANT ALL ON ALL TABLES IN SCHEMA private_api, public_api TO it_staff;
-GRANT ALL ON ALL TABLES IN SCHEMA private_api, public_api TO postgraphile_api;
+GRANT ALL ON ALL TABLES IN SCHEMA private_api, public_api TO :postgraphile_api_user;
 
-GRANT USAGE ON SCHEMA private_api, public_api TO postgraphile_api;
+GRANT USAGE ON SCHEMA private_api, public_api TO :postgraphile_api_user;
 GRANT USAGE ON SCHEMA private_api, public_api TO it_staff;
 GRANT USAGE ON SCHEMA private_api, public_api TO participant_user;
 
@@ -58,7 +58,7 @@ ALTER TABLE public_api.purchase ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public_api.purchase_item ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public_api.rental ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public_api.rental_material ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public_api.university ENABLE ROW LEVEL SECURITY;
+-- ALTER TABLE public_api.university ENABLE ROW LEVEL SECURITY;
 ALTER TABLE private_api.account ENABLE ROW LEVEL SECURITY;
 
 
@@ -75,6 +75,8 @@ CREATE POLICY insert_participant_profile ON public_api.profile FOR INSERT TO par
 CREATE POLICY select_participant_profile ON public_api.profile FOR SELECT TO participant_user using (public_api.current_profile_id() IS NULL);
 
 CREATE POLICY participant_profile_activity ON public_api.profile_activity TO participant_user USING ( profile_id = public_api.current_profile_id());
+CREATE POLICY  insert_participant_profile_activity ON public_api.profile_activity FOR INSERT TO participant_user with check( public_api.current_profile_id() IS NULL );
+CREATE POLICY  select_participant_profile_activity ON public_api.profile_activity FOR SELECT TO participant_user USING( public_api.current_profile_id() IS NULL );
 
 CREATE POLICY  participant_purchase ON public_api.purchase TO participant_user USING ( id <= (SELECT purchase_id FROM public_api.profile WHERE id = public_api.current_profile_id()));
 CREATE POLICY  insert_participant_purchase ON public_api.purchase FOR INSERT TO participant_user with check(  (SELECT purchase_id FROM public_api.profile WHERE id = public_api.current_profile_id()) IS NULL);
