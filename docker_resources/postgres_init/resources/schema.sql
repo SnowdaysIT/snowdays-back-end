@@ -156,6 +156,13 @@ CREATE FUNCTION public_api.signup_account(
     (email, crypt(password, gen_salt('bf')), 'participant_user');
    $$ LANGUAGE SQL STRICT SECURITY DEFINER;
 
+CREATE FUNCTION private_api.link_profile_account( 
+  profile uuid,
+  account_id uuid
+) returns void AS $$ 
+  update private_api.account set profile_id = profile WHERE id = account_id;
+   $$ LANGUAGE SQL STRICT SECURITY DEFINER;
+
 CREATE FUNCTION public_api.authenticate(
   email text,
   password text
