@@ -82,11 +82,18 @@ CREATE POLICY  select_participant_profile_activity ON public_api.profile_activit
 CREATE POLICY  participant_purchase ON public_api.purchase TO participant_user USING ( id <= (SELECT purchase_id FROM public_api.profile WHERE id = public_api.current_profile_id()));
 CREATE POLICY  insert_participant_purchase ON public_api.purchase FOR INSERT TO participant_user with check(  (SELECT purchase_id FROM public_api.profile WHERE id = public_api.current_profile_id()) IS NULL);
 CREATE POLICY  select_participant_purchase ON public_api.purchase FOR SELECT TO participant_user using(  (SELECT purchase_id FROM public_api.profile WHERE id = public_api.current_profile_id()) IS NULL);
-CREATE POLICY participant_purchase_item ON public_api.purchase_item TO participant_user USING ( purchase_id <= (SELECT purchase_id FROM public_api.profile WHERE id = public_api.current_profile_id()));
 
+CREATE POLICY participant_purchase_item ON public_api.purchase_item TO participant_user USING ( purchase_id <= (SELECT purchase_id FROM public_api.profile WHERE id = public_api.current_profile_id()));
+CREATE POLICY  insert_participant_purchase_item ON public_api.purchase_item FOR INSERT TO participant_user with check(  (SELECT purchase_id FROM public_api.profile WHERE id = public_api.current_profile_id()) IS NULL);
+CREATE POLICY  select_participant_purchase_item ON public_api.purchase_item FOR SELECT TO participant_user using(  (SELECT purchase_id FROM public_api.profile WHERE id = public_api.current_profile_id()) IS NULL);
+
+                                                                                                                
 CREATE POLICY  participant_rental ON public_api.rental TO participant_user USING (id <= (SELECT rental_id FROM public_api.profile WHERE id = public_api.current_profile_id()));
 CREATE POLICY  insert_participant_rental ON public_api.rental FOR INSERT TO participant_user with check( (SELECT rental_id FROM public_api.profile WHERE id = public_api.current_profile_id()) IS NULL);
 CREATE POLICY  select_participant_rental ON public_api.rental FOR SELECT TO participant_user using ( (SELECT rental_id FROM public_api.profile WHERE id = public_api.current_profile_id()) IS NULL);
+
 CREATE POLICY  participant_rental_material ON public_api.rental_material TO participant_user USING (rental_id <= (SELECT rental_id FROM public_api.profile WHERE id = public_api.current_profile_id())); 
+CREATE POLICY insert_participant_rental_material ON public_api.rental_material FOR INSERT TO participant_user with check( (SELECT rental_id FROM public_api.profile WHERE id = public_api.current_profile_id()) IS NULL);
+CREATE POLICY select_participant_rental_material ON public_api.rental_material FOR SELECT TO participant_user using ( (SELECT rental_id FROM public_api.profile WHERE id = public_api.current_profile_id()) IS NULL);
 
 COMMIT;
