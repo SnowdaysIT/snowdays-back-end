@@ -38,8 +38,8 @@ CREATE TABLE public_api.profile (
   is_vegetarian BOOLEAN NOT NULL,
   helper UUID REFERENCES public_api.helper(id),
   id_number TEXT NOT NULL,
-  badge_front_id TEXT NOT NULL,
-  badge_back_id TEXT NOT NULL,
+  badge_front_id TEXT,
+  badge_back_id TEXT,
   rental_id UUID,
   university_id UUID,
   needs_accommodation BOOLEAN,
@@ -148,12 +148,17 @@ CREATE INDEX ON public_api.profile(helper);
 CREATE INDEX ON public_api.item_size(size_id);
 CREATE INDEX ON public_api.time_slot(activity_id);
 
+CREATE FUNCTION private_api.insert_dummy_profile() returns UUID as $$
+insert into public_api.profile (first_name, last_name, mobile_phone, badge_number, gender, is_vegetarian, id_number) values
+    ('dummyName','dummyLastName','123', '123', 'Female', false, '123') RETURNING id
+$$ LANGUAGE SQL STRICT SECURITY DEFINER;
+
 CREATE FUNCTION public_api.signup_account( 
   email text,
   password text
 ) returns void AS $$ 
-  insert into private_api.account (email, password, role_name) values
-    (email, crypt(password, gen_salt('bf')), 'participant_user');
+  insert into private_api.account (email, password, role_name, profile_id) values
+    (email, crypt(password, gen_salt('bf')), 'participant_user', private_api.insert_dummy_profile());
    $$ LANGUAGE SQL STRICT SECURITY DEFINER;
 
 CREATE FUNCTION private_api.link_profile_account( 
