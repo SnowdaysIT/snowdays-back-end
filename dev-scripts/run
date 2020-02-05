@@ -2,6 +2,6 @@
 
 set -e
 
-psql -f drop.sql $@
-psql -f schema.sql $@
-psql -f data.sql $@
+psql -f docker_resources/postgres_init/drop.sql $@
+psql -f docker_resources/postgres_init/schema.sql $@
+psql -f docker_resources/postgres_init/data.sql $@
