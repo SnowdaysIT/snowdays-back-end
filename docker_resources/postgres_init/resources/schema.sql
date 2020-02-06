@@ -153,6 +153,25 @@ insert into public_api.profile (first_name, last_name, mobile_phone, badge_numbe
     ('dummyName','dummyLastName','123', '123', 'Female', false, '123') RETURNING id
 $$ LANGUAGE SQL STRICT SECURITY DEFINER;
 
+CREATE FUNCTION public_api.insert_new_university(
+  university_name text,
+  street text,
+  zip_code text,
+  city text,
+  country text
+) returns void as $$
+  WITH new_address AS (
+    INSERT INTO public_api.address(street, zip_code, city, country)
+    VALUES (street, zip_code, city, country)
+    RETURNING id
+  )
+  INSERT INTO public_api.university(address, name)
+  VALUES (
+    (SELECT id FROM new_address),
+    university_name
+  );
+$$ LANGUAGE SQL STRICT SECURITY DEFINER;
+
 CREATE FUNCTION public_api.signup_account( 
   email text,
   password text
