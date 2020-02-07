@@ -8,7 +8,7 @@ services:
     command: postgres -c 'listen_addresses="*"'
     volumes:
       - /srv/docker/postgresql:/var/lib/postgresql
-      - docker_resources/postgres_init:/docker-entrypoint-initdb.d
+      - ./docker_resources/postgres_init:/docker-entrypoint-initdb.d
     container_name: db
 
   ci_db:
@@ -18,7 +18,7 @@ services:
     env_file: .env.backend
     command: postgres -c 'listen_addresses="*"'
     volumes:
-      - docker_resources/postgres_init:/docker-entrypoint-initdb.d
+      - ./docker_resources/postgres_init:/docker-entrypoint-initdb.d
     container_name: ci_db
 
   node_base:
