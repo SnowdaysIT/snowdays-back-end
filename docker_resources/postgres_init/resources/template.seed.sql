@@ -72,6 +72,7 @@ SELECT public_api.insert_new_university('Alumni Free University of Bolzano', 'Pi
 SELECT public_api.insert_new_university('Università di Cagliari', 'Via Università 40', '09124', 'Cagliari', 'Italy');
 SELECT public_api.insert_new_university('Università di Bologna', 'Via Zamboni 33', '40126', 'Bologna', 'Italy');
 SELECT public_api.insert_new_university('Università di Ferrara', 'Via Savonarola 9', '44121', 'Ferrara', 'Italy');
+SELECT public_api.insert_new_university('Università di Milano', 'Via Festa del Perdono', '20122', 'Milano', 'Italy');
 SELECT public_api.insert_new_university('Università di Trento', 'Via Calepina 14', '38122', 'Trento','Italy');
 SELECT public_api.insert_new_university('Università di Pisa', 'Lungarno Antonio Pacinotti 43', '56126', 'Pisa', 'Italy');
 SELECT public_api.insert_new_university('IUBH Bad Honnef', 'Mülheimer Str. 38', '53604', 'Bad Honnef', 'Germany');
