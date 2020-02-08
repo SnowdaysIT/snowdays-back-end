@@ -95,6 +95,6 @@ SELECT public_api.insert_new_university('Zeppelin University', 'Am Seemooser Hor
 SELECT public_api.insert_new_university('Zurigo', 'Rämistrasse 71', '8006', 'Zürich', 'Switzerland');
 SELECT public_api.insert_new_university('España', 'Spain', '28001', 'Madrid', 'Spain');
 SELECT public_api.insert_new_university('Lappeenranta University of Technology', 'Yliopistonkatu 34', '53850', 'Lappeenranta', 'Finland');
-SELECT public_api.insert_new_university('Management Center Innsbruck', 'Universitätsstraße 15', '6020', 'Innsbruck', 'Austria');
+-- SELECT public_api.insert_new_university('Management Center Innsbruck', 'Universitätsstraße 15', '6020', 'Innsbruck', 'Austria');
 
 COMMIT;
