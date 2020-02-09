@@ -31,7 +31,8 @@ values
 	('Slackline', 'Other'),
 	('Flunkyball', 'Other'),
 	('Mechanical bull', 'Other'),
-	('Sponsor activities', 'Other');
+	('Sponsor activities', 'Other'),
+	('Spirit activities', 'Other');
 
 INSERT INTO public_api.item("name", description, price, item_image)
 values
