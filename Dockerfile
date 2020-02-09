@@ -9,4 +9,4 @@ COPY . $DIR
 
 RUN /bin/sh docker_resources/docker_dev_node_install.sh
 
-CMD npm run dev
+CMD npm run prod
