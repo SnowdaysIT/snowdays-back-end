@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_item_variants_item_variants",
+  "info": {
+    "name": "Item variant",
+    "icon": "paint-brush"
+  },
+  "options": {},
+  "attributes": {
+    "size": {
+      "type": "string"
+    },
+    "total_available": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}

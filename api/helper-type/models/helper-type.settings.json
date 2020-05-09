@@ -2,7 +2,7 @@
   "kind": "collectionType",
   "collectionName": "helper_types",
   "info": {
-    "name": "Helper Type"
+    "name": "Helper type"
   },
   "options": {
     "increments": true,
@@ -10,10 +10,13 @@
   },
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "total_number_available": {
-      "type": "integer"
+      "type": "integer",
+      "required": true,
+      "private": true
     }
   }
 }
