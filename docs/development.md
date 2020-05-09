@@ -5,5 +5,3 @@
 ## Testing
 
 ## Logging
-
-## Content delivery
