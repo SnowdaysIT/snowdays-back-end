@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "accommodations",
+  "info": {
+    "name": "Accommodation"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "description": {
+      "type": "text"
+    },
+    "address": {
+      "type": "component",
+      "repeatable": true,
+      "component": "address.address",
+      "required": true
+    },
+    "is_dormroom": {
+      "type": "boolean",
+      "required": true
+    },
+    "total_places": {
+      "type": "integer",
+      "required": true
+    },
+    "user": {
+      "via": "accommodation",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

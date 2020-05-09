@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "universities",
+  "info": {
+    "name": "University"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "required": true
+    },
+    "contact_person": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "address": {
+      "type": "component",
+      "repeatable": true,
+      "component": "address.address",
+      "required": true
+    }
+  }
+}

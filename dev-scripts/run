@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-psql -f docker_resources/postgres_init/drop.sql $@
-psql -f docker_resources/postgres_init/schema.sql $@
-psql -f docker_resources/postgres_init/data.sql $@

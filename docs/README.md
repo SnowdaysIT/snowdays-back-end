@@ -1,11 +1,11 @@
-# Snowdays API
+# Snowdays CMS APIs
 
 [![Build Status](https://jenkins.tiakane.it/buildStatus/icon?job/snowdays/job/snowdays-back-end/)](https://jenkins.tiakane.it/buildStatus/icon?job/snowdays/job/snowdays-back-end/)
 
 As part of the new year revolution, the IT team went crazy and created a system to manage the event from scratch! Here you won't find free beer or anything related to the event itself really but wait, don't go away yet, we've something cool to show you anyway(or at least we nerds think so).
 
 ### What's this thing?
-This service manages, process and store all the data relative to our amazing event. If you are a developer and want to run the documentation, follow these easy peasy steps:
+This service manages, process and store all the data relative to our amazing event. If you are a developer and want to run __the documentation__, follow these easy peasy steps:
 
 Clone this repo first 😉 and then, go in the project folder and run:
 
@@ -16,4 +16,4 @@ After this command, if you'll hear the sound of thousand jet engines spinnig up 
 ```npm run docs```
 
 ### How the hell I'm not drunk yet?
-Well, that's unfortunate... but you can still try to enroll next year! See you on the slopes ;)
+Well, that's unfortunate... but you can still try to enroll for the next year! See you on the slopes ;)

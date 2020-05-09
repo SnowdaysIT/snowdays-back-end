@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "helper_types",
+  "info": {
+    "name": "Helper type"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "total_number_available": {
+      "type": "integer",
+      "required": true,
+      "private": true
+    }
+  }
+}
