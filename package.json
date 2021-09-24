@@ -1,56 +1,37 @@
 {
-  "name": "snowdays-back-end",
+  "name": "Snowdays CRM",
   "private": true,
   "version": "0.1.0",
-  "description": "Official Snowdays CMS",
-  "directories": {
-    "doc": "docs"
-  },
+  "description": "A better Snowdays CRM",
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi",
-    "test": "jest",
-    "docs": "docsify serve ./docs"
-  },
-  "devDependencies": {
-    "@types/jest": "^24.0.24",
-    "docsify-cli": "^4.4.0",
-    "jest": "^24.9.0"
+    "strapi": "strapi"
   },
   "dependencies": {
-    "knex": "<0.20.0",
-    "pg": "latest",
-    "strapi": "3.0.0-beta.20.3",
-    "strapi-admin": "3.0.0-beta.20.3",
-    "strapi-connector-bookshelf": "3.0.0-beta.20.3",
-    "strapi-plugin-content-manager": "3.0.0-beta.20.3",
-    "strapi-plugin-content-type-builder": "3.0.0-beta.20.3",
-    "strapi-plugin-email": "3.0.0-beta.20.3",
-    "strapi-plugin-graphql": "^3.0.0-beta.20.3",
-    "strapi-plugin-upload": "3.0.0-beta.20.3",
-    "strapi-plugin-users-permissions": "3.0.0-beta.20.3",
-    "strapi-utils": "3.0.0-beta.20.3"
+    "knex": "0.21.18",
+    "pg": "8.5.1",
+    "strapi": "3.6.8",
+    "strapi-admin": "3.6.8",
+    "strapi-connector-bookshelf": "3.6.8",
+    "strapi-plugin-content-manager": "3.6.8",
+    "strapi-plugin-content-type-builder": "3.6.8",
+    "strapi-plugin-email": "3.6.8",
+    "strapi-plugin-i18n": "3.6.8",
+    "strapi-plugin-upload": "3.6.8",
+    "strapi-plugin-users-permissions": "3.6.8",
+    "strapi-utils": "3.6.8"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SnowdaysIT/snowdays-back-end.git"
+  "author": {
+    "name": "Snowdays IT"
   },
-  "keywords": [
-    "graphql",
-    "serverless",
-    "postgraphile",
-    "snowdays"
-  ],
-  "author": "riccardofelluga",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/SnowdaysIT/snowdays-back-end/issues"
+  "strapi": {
+    "uuid": "8e010765-082b-45b0-a3c9-f95b83505325"
   },
-  "homepage": "https://github.com/SnowdaysIT/snowdays-back-end#readme",
   "engines": {
-    "node": ">=10.0.0",
-    "npm": ">=6.0.0"
-  }
+    "node": ">=10.16.0 <=14.x.x",
+    "npm": "^6.0.0"
+  },
+  "license": "MIT"
 }
