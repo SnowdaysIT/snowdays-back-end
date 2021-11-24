@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_rental_rentals",
+  "info": {
+    "name": "Rental",
+    "icon": "luggage-cart"
+  },
+  "options": {},
+  "attributes": {
+    "height": {
+      "type": "integer",
+      "required": true
+    },
+    "weight": {
+      "type": "integer",
+      "required": true
+    },
+    "shoe_size": {
+      "type": "integer"
+    },
+    "Experience": {
+      "type": "enumeration",
+      "enum": [
+        "Beginner",
+        "Intermediate"
+      ],
+      "required": false
+    },
+    "rental_materials": {
+      "collection": "rental-material"
+    }
+  }
+}

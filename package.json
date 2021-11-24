@@ -1,52 +1,37 @@
 {
-  "name": "snowdays-back-end",
-  "version": "1.0.0",
-  "description": "Official Snowdays API",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
+  "name": "Snowdays CRM",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A better Snowdays CRM",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
   },
   "dependencies": {
-    "@graphile-contrib/pg-simplify-inflector": "^5.0.0-beta.1",
-    "@types/express": "^4.17.2",
-    "@types/graphql-upload": "^8.0.3",
-    "express": "^4.17.1",
-    "fs": "0.0.1-security",
-    "graphql-upload": "^9.0.0",
-    "path": "^0.12.7",
-    "postgraphile": "^4.5.5",
-    "postgraphile-plugin-upload-field": "^1.0.0-alpha.9",
-    "typescript": "^3.7.4"
+    "knex": "0.21.18",
+    "pg": "8.5.1",
+    "strapi": "3.6.8",
+    "strapi-admin": "3.6.8",
+    "strapi-connector-bookshelf": "3.6.8",
+    "strapi-plugin-content-manager": "3.6.8",
+    "strapi-plugin-content-type-builder": "3.6.8",
+    "strapi-plugin-email": "3.6.8",
+    "strapi-plugin-i18n": "3.6.8",
+    "strapi-plugin-upload": "3.6.8",
+    "strapi-plugin-users-permissions": "3.6.8",
+    "strapi-utils": "3.6.8"
   },
-  "devDependencies": {
-    "@types/jest": "^24.0.24",
-    "docsify-cli": "^4.4.0",
-    "jest": "^24.9.0",
-    "ts-jest": "^24.2.0",
-    "ts-node-dev": "^1.0.0-pre.44",
-    "tslint": "^5.20.1"
+  "author": {
+    "name": "Snowdays IT"
   },
-  "scripts": {
-    "test": "jest",
-    "tsc": "tsc",
-    "dev": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
-    "prod": "tsc && node ./build/index.js",
-    "docs": "docsify serve ./docs"
+  "strapi": {
+    "uuid": "8e010765-082b-45b0-a3c9-f95b83505325"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SnowdaysIT/snowdays-back-end.git"
+  "engines": {
+    "node": ">=10.16.0 <=14.x.x",
+    "npm": "^6.0.0"
   },
-  "keywords": [
-    "graphql",
-    "serverless",
-    "postgraphile",
-    "snowdays"
-  ],
-  "author": "riccardofelluga",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/SnowdaysIT/snowdays-back-end/issues"
-  },
-  "homepage": "https://github.com/SnowdaysIT/snowdays-back-end#readme"
+  "license": "MIT"
 }

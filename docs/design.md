@@ -2,6 +2,6 @@
 
 ## Data model
 
-## Security
+## Security & Encryption 🔐
 
 ## GDPR note (DSGVO)

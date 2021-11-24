@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "purchases",
+  "info": {
+    "name": "Purchase"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Submitted",
+        "Confirmed",
+        "Delivered"
+      ],
+      "default": "Submitted",
+      "required": false
+    },
+    "items": {
+      "collection": "item",
+      "via": "purchases",
+      "dominant": true
+    },
+    "user": {
+      "via": "purchases",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

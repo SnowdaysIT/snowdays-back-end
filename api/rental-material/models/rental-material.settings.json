@@ -1,0 +1,16 @@
+{
+  "kind": "collectionType",
+  "collectionName": "rental_materials",
+  "info": {
+    "name": "Rental material"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "Name": {
+      "type": "string"
+    }
+  }
+}

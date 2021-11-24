@@ -1,0 +1,115 @@
+{
+  "kind": "collectionType",
+  "collectionName": "users-permissions_user",
+  "info": {
+    "name": "user",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "username": {
+      "type": "string",
+      "minLength": 3,
+      "unique": true,
+      "configurable": false,
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "minLength": 6,
+      "configurable": false,
+      "required": true
+    },
+    "provider": {
+      "type": "string",
+      "configurable": false
+    },
+    "password": {
+      "type": "password",
+      "minLength": 6,
+      "configurable": false,
+      "private": true
+    },
+    "resetPasswordToken": {
+      "type": "string",
+      "configurable": false,
+      "private": true
+    },
+    "confirmed": {
+      "type": "boolean",
+      "default": false,
+      "configurable": false
+    },
+    "blocked": {
+      "type": "boolean",
+      "default": false,
+      "configurable": false
+    },
+    "role": {
+      "model": "role",
+      "via": "users",
+      "plugin": "users-permissions",
+      "configurable": false
+    },
+    "first_name": {
+      "type": "string",
+      "required": true
+    },
+    "last_name": {
+      "type": "string",
+      "required": true
+    },
+    "mobile_phone": {
+      "type": "string",
+      "required": true
+    },
+    "badge_number": {
+      "type": "string",
+      "required": true
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "Male",
+        "Female"
+      ],
+      "required": true
+    },
+    "is_vegetarian": {
+      "type": "boolean",
+      "required": true
+    },
+    "helper_type": {
+      "model": "helper-type"
+    },
+    "id_number": {
+      "type": "string",
+      "required": true
+    },
+    "badge_front_id": {
+      "type": "string"
+    },
+    "badge_back_id": {
+      "type": "string"
+    },
+    "accommodation": {
+      "model": "accommodation",
+      "via": "user"
+    },
+    "university": {
+      "model": "university"
+    },
+    "purchases": {
+      "collection": "purchase",
+      "via": "user"
+    },
+    "Rental": {
+      "type": "component",
+      "repeatable": false,
+      "component": "rental.rental",
+      "required": true
+    }
+  }
+}

@@ -2,20 +2,16 @@
 
 Hoi there! I see you’re taking this really seriously. Let’s talk serious then.
 
-Starting the service is made easy with the help of two scripts, one for development and one for production. Please make sure you have [Node.js and npm](https://nodejs.org/en/download/) installed. Also don't forget [Typescript](https://www.typescriptlang.org/#download-links) since it's all written with that.
+Starting the service is made easy with the help of one simple script. Please make sure you have [Node.js and npm](https://nodejs.org/en/download/) installed.
 
-Before we begin, load both `schema.sql` and `roles.sql` onto your database. This way you'll have a fresh db, almost brand new!
+Before we begin, spin up your database. Oh wait, you know how to do that, right?
 
-First of all what you have to do is install all the packages, to do so we run the install with:
+First of all what you have to do is install and build all the packages, to do so we run the install with:
 
-```npm install```
+```npm install && npm run build```
 
-Then, you want to start the service for developers as simple as that:
+Then, you want to start the service as simple as that:
 
-```npm run dev```
+```npm run start```
 
-In case you’re wondering “Ok, boomer. And now, how do I run production?", don’t worry, we got you covered!😎 Just run this:
-
-```npm run prod```
-
-Pretty simple, innit? 😏
+Pretty easy, innit? 😏
